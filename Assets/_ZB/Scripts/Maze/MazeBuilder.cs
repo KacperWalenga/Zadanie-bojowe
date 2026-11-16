@@ -20,6 +20,7 @@ namespace ZB.Maze
         [SerializeField] private Transform root;
 
         private MazeData maze;
+        public MazeData Maze => maze;
         
         private void Start()
         {
@@ -36,6 +37,8 @@ namespace ZB.Maze
                 step.Apply(maze);
 
             BuildMaze();
+            
+            EventManager.Trigger(Consts.Events.MAZE_GENERATED);
         }
         
         private void BuildMaze()
