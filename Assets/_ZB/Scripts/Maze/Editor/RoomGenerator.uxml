@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="container">
+        <ui:Label text="Room Generator" class="title" />
+
+        <ui:TextField name="room-name" label="Room name" value="NewRoom" />
+
+        <ui:VisualElement class="dimensions">
+            <ui:IntegerField name="size" label="Size" value="9" />
+        </ui:VisualElement>
+
+        <ui:VisualElement class="footer">
+            <ui:Button name="generate-button" text="Generate Room" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
