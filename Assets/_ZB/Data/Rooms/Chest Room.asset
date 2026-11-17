@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chest Room
   m_EditorClassIdentifier: Assembly-CSharp::ZB.Maze.MazeRoom
   Size: 3
-  Prefab: {fileID: 6046833195072084399, guid: 26019f0e6161f1c4d98b5be5c8994181, type: 3}
+  Prefab: {fileID: 5645626596686056512, guid: 26019f0e6161f1c4d98b5be5c8994181, type: 3}
   Doors:
   - {x: 1, y: 3}
   - {x: 3, y: 1}

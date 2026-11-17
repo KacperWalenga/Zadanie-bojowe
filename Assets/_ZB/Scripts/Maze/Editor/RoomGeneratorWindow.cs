@@ -12,7 +12,9 @@ namespace ZB.Maze.Editor
         private const float CellSize = 1f;
 
         private const string FloorPath = "Assets/_ZB/Prefabs/Floor.prefab";
-        private const string WallPath = "Assets/_ZB/Prefabs/Wall.prefab";
+        private const string RoofPath = "Assets/_ZB/Prefabs/Top C.prefab";
+        private const string WallPath = "Assets/_ZB/Prefabs/Room Wall.prefab";
+        private const string DoorPath = "Assets/_ZB/Prefabs/Room Door.prefab";
         private const string PrefabFolder = "Assets/_ZB/Prefabs/Rooms";
         private const string DataFolder = "Assets/_ZB/Data/Rooms";
         
@@ -74,11 +76,11 @@ namespace ZB.Maze.Editor
         {
             var roomObject = new GameObject(roomNameField.value.Trim());
             var floorPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(FloorPath);
-            var wallPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(WallPath);
+            var roofPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(RoofPath);
             var doors = GetDefaultDoors(sizeField.value);
 
-            BuildFloor(roomObject.transform, floorPrefab, sizeField.value);
-            BuildWalls(roomObject.transform, wallPrefab, sizeField.value, doors);
+            BuildFloorAndRoof(roomObject.transform, floorPrefab, roofPrefab, sizeField.value);
+            BuildWalls(roomObject.transform, sizeField.value, doors);
 
             return roomObject;
         }
@@ -122,7 +124,7 @@ namespace ZB.Maze.Editor
             AssetDatabase.Refresh();
         }
         
-        private void BuildFloor(Transform parent, GameObject floorPrefab, int size)
+        private void BuildFloorAndRoof(Transform parent, GameObject floorPrefab, GameObject roofPrefab, int size)
         {
             for (var x = 0; x < size; x++)
             {
@@ -131,52 +133,37 @@ namespace ZB.Maze.Editor
                     var position = new Vector3((x + 0.5f) * CellSize, 0f, (z + 0.5f) * CellSize);
                     
                     CreatePart(floorPrefab, parent, position, Quaternion.identity);
+                    CreatePart(roofPrefab, parent, position, Quaternion.identity);
                 }
             }
         }
         
-        private void BuildWalls(Transform parent, GameObject wallPrefab, int size, List<Vector2Int> doors)
+        private void BuildWalls(Transform parent, int size, List<Vector2Int> doors)
         {
-            BuildHorizontalWall(parent, wallPrefab, size, 0, doors);
-            BuildHorizontalWall(parent, wallPrefab, size, size, doors);
+            var wallPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(WallPath);
+            var doorPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(DoorPath);
+            var farEdge = size * CellSize;
 
-            BuildVerticalWall(parent, wallPrefab, size, 0, doors);
-            BuildVerticalWall(parent, wallPrefab, size, size, doors);
-        }
+            var southRotation = Quaternion.identity;
+            var northRotation = Quaternion.Euler(0f, 180f, 0f);
+            var westRotation = Quaternion.Euler(0f, 90f, 0f);
+            var eastRotation = Quaternion.Euler(0f, -90f, 0f);
 
-        private void BuildHorizontalWall(Transform parent, GameObject wallPrefab, int size, int z, List<Vector2Int> doors)
-        {
-            for (var x = 0; x < size; x++)
+            for (var index = 0; index < size; index++)
             {
-                if (doors.Contains(new Vector2Int(x, z == 0 ? -1 : size)))
-                    continue;
+                var center = (index + 0.5f) * CellSize;
 
-                CreateWall(wallPrefab, parent, x, z, false);
+                PlaceSection(new Vector2Int(index, -1), new Vector3(center, 0f, 0f), southRotation);
+                PlaceSection(new Vector2Int(index, size), new Vector3(center, 0f, farEdge), northRotation);
+                PlaceSection(new Vector2Int(-1, index), new Vector3(0f, 0f, center), westRotation);
+                PlaceSection(new Vector2Int(size, index), new Vector3(farEdge, 0f, center), eastRotation);
             }
-        }
 
-        private void BuildVerticalWall(Transform parent, GameObject wallPrefab, int size, int x, List<Vector2Int> doors)
-        {
-            for (var z = 0; z < size; z++)
+            void PlaceSection(Vector2Int outsideCell, Vector3 position, Quaternion rotation)
             {
-                if (doors.Contains(new Vector2Int(x == 0 ? -1 : size, z)))
-                    continue;
-
-                CreateWall(wallPrefab, parent, x, z, true);
+                var prefab = doors.Contains(outsideCell) ? doorPrefab : wallPrefab;
+                CreatePart(prefab, parent, position, rotation);
             }
-        }
-
-        private void CreateWall(GameObject wallPrefab, Transform parent, int x, int z, bool rotated)
-        {
-            var position = rotated
-                ? new Vector3(x * CellSize, 0f, (z + 0.5f) * CellSize)
-                : new Vector3((x + 0.5f) * CellSize, 0f, z * CellSize);
-
-            var rotation = rotated
-                ? Quaternion.Euler(0f, 90f, 0f)
-                : Quaternion.identity;
-
-            CreatePart(wallPrefab, parent, position, rotation);
         }
 
         private void CreatePart(GameObject prefab, Transform parent, Vector3 position, Quaternion rotation)

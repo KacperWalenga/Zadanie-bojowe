@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boss Room
   m_EditorClassIdentifier: Assembly-CSharp::ZB.Maze.MazeRoom
   Size: 9
-  Prefab: {fileID: 7625357081430047602, guid: 7655a18b7ddafef4d914982d794b3f83, type: 3}
+  Prefab: {fileID: 3897532038208793799, guid: 7655a18b7ddafef4d914982d794b3f83, type: 3}
   Doors:
   - {x: 4, y: 9}
   - {x: 9, y: 4}

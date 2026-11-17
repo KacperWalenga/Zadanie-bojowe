@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb5608b791c94f928bbedad71e7e7839, type: 3}
-  m_Name: Spawn
+  m_Name: Spawn Room
   m_EditorClassIdentifier: Assembly-CSharp::ZB.Maze.MazeRoom
   Size: 5
-  Prefab: {fileID: 1469497040957482985, guid: b476c3509bb781446bacd4bfcb44b89d, type: 3}
+  Prefab: {fileID: 812928167598278265, guid: 34d13de1c37674540a1d2bff2a1e9a41, type: 3}
   Doors:
   - {x: 2, y: 5}
   - {x: 5, y: 2}

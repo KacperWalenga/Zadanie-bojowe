@@ -48,7 +48,7 @@ public class Movement : MonoBehaviour
         return new Vector2Int(
             Mathf.FloorToInt(localPosition.x / cellSize),
             Mathf.FloorToInt(localPosition.z / cellSize)
-            );
+        );
     }
 
     private void Move(Vector2Int direction)

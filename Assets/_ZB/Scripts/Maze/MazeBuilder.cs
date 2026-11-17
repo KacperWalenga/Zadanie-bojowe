@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ZB.Maze
 {
@@ -15,6 +17,8 @@ namespace ZB.Maze
         [Header("Prefabs")]
         [SerializeField] private GameObject floorPrefab;
         [SerializeField] private GameObject wallPrefab;
+        [SerializeField] private RoofPattern[] roofs;
+        [SerializeField] private GameObject torchPrefab;
 
         [Header("Generation")]
         [SerializeField] private Transform root;
@@ -72,13 +76,14 @@ namespace ZB.Maze
         {
             var worldPosition = GridToWorld(position);
 
-            if (floorPrefab != null)
-                Instantiate(floorPrefab, worldPosition, Quaternion.identity, root);
+            Instantiate(floorPrefab, worldPosition, Quaternion.identity, root);
             
             BuildWall(position, Vector2Int.up);
             BuildWall(position, Vector2Int.right);
             BuildWall(position, Vector2Int.down);
             BuildWall(position, Vector2Int.left);
+
+            BuildRoof(position);
         }
 
         private void BuildWall(Vector2Int position, Vector2Int direction)
@@ -89,6 +94,9 @@ namespace ZB.Maze
                 return;
             
             Instantiate(wallPrefab, GetWallPosition(position, direction), GetWallRotation(direction), root);
+            
+            if (Random.Range(0f, 1f) <= 0.3f)
+                Instantiate(torchPrefab, GetWallPosition(position, direction), GetWallRotation(direction), root);
         }
         
         private Vector3 GetWallPosition(Vector2Int cellPosition, Vector2Int direction)
@@ -99,16 +107,76 @@ namespace ZB.Maze
             return position + new Vector3(direction.x * wallOffset, 0f, direction.y * wallOffset);
         }
 
-        private Quaternion GetWallRotation(Vector2Int direction)
+        private Quaternion GetWallRotation(Vector2Int outward)
         {
-            return direction.x != 0
-                ? Quaternion.Euler(0f, 90f, 0f)
-                : Quaternion.identity;
+            var inward = new Vector3(-outward.x, 0f, -outward.y);
+            return Quaternion.LookRotation(inward);
         }
 
         private Vector3 GridToWorld(Vector2Int position)
         {
             return new Vector3((position.x + 0.5f) * cellSize, 0f, (position.y + 0.5f) * cellSize);
+        }
+        
+        private bool MatchesPattern(Vector2Int position, string pattern, out Quaternion rotation)
+        {
+            var rows = pattern.Split('\n');
+
+            for (var i = 0; i < 4; i++)
+            {
+                if (MatchesRotation(position, rows, i))
+                {
+                    rotation = Quaternion.Euler(0f, -i * 90f, 0f);
+                    return true;
+                }
+            }
+
+            rotation = Quaternion.identity;
+            return false;
+        }
+
+        private bool MatchesRotation(Vector2Int position, string[] rows, int rotation)
+        {
+            for (var y = 0; y < 3; y++)
+            {
+                for (var x = 0; x < 3; x++)
+                {
+                    var symbol = rows[y][x];
+
+                    if (symbol == 'X' || symbol == '?')
+                        continue;
+
+                    var offset = new Vector2Int(x - 1, 1 - y);
+
+                    for (var i = 0; i < rotation; i++)
+                        offset = new Vector2Int(-offset.y, offset.x);
+
+                    var isAir = maze.GetCellType(position + offset) == WallType.AIR;
+
+                    if (symbol == '#' && !isAir || symbol == '.' && isAir)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void BuildRoof(Vector2Int position)
+        {
+            foreach (var pattern in roofs)
+            {
+                if (!MatchesPattern(position, pattern.pattern, out var rotation))
+                    continue;
+
+                Instantiate(
+                    pattern.prefab,
+                    GridToWorld(position),
+                    rotation,
+                    root
+                );
+
+                return;
+            }
         }
     }
 }
