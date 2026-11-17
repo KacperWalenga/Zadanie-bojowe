@@ -16,6 +16,7 @@ namespace ZB
         private double levelStartedAt;
         private bool gameStarted;
         private bool uiLoaded;
+        private int uiVersion = -1;
         
         private void OnEnable()
         {
@@ -32,8 +33,13 @@ namespace ZB
             EventManager.AddListener(Consts.Events.MAZE_GENERATED, StartLevelTimer);
         }
 
-        private void OnUIReload(PanelRenderer renderer, VisualElement rootElement)
-        {
+        private void OnUIReload(PanelRenderer renderer, VisualElement rootElement, int version)
+        {    
+            if (uiVersion == version)
+                return;
+
+            uiVersion = version;
+            
             rootElement.Q<Image>("game-view").image = gameRenderTexture;
             
             levelTimeLabel = rootElement.Q<Label>("level-time-label");

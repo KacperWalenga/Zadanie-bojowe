@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ZB.Maze
 {
@@ -45,9 +47,19 @@ namespace ZB.Maze
             if (!IsInsideGrid(position))
                 return WallType.AIR;
 
-            var index = position.y * Size + position.x;
+            var index = GetCellIndex(position);
             
             return cells[index];
+        }
+
+        public int GetCellIndex(Vector2Int position)
+        {
+            return position.y * Size + position.x;
+        }
+        
+        public Vector2Int GetCellPosition(int index)
+        {
+            return new Vector2Int(index % Size, index / Size);
         }
         
         public bool HasCorridors() => Array.IndexOf(cells, WallType.CORRIDOR) >= 0;
@@ -113,6 +125,17 @@ namespace ZB.Maze
 
                 reservedEntrances.Add(doorPosition);
             }
+        }
+
+        public int GetRandomCorridorIndex()
+        {
+            var corridorIndices = Enumerable.Range(0, cells.Length)
+                .Where(i => cells[i] == WallType.CORRIDOR)
+                .ToArray();
+
+            return corridorIndices.Length > 0
+                ? corridorIndices[Random.Range(0, corridorIndices.Length)]
+                : -1;
         }
     }
 }
