@@ -10,6 +10,7 @@ namespace ZB.Maze
         [SerializeField] private int size = 51;
         [SerializeField] private float cellSize = 1f;
         [SerializeField] private int roomPadding = 1;
+        [SerializeField] private float torchSpawnRate = 0.3f;
 
         [Header("Rooms")]
         [SerializeField] private MazeRoom[] rooms;
@@ -95,7 +96,7 @@ namespace ZB.Maze
             
             Instantiate(wallPrefab, GetWallPosition(position, direction), GetWallRotation(direction), root);
             
-            if (Random.Range(0f, 1f) <= 0.3f)
+            if (Random.Range(0f, 1f) <= torchSpawnRate)
                 Instantiate(torchPrefab, GetWallPosition(position, direction), GetWallRotation(direction), root);
         }
         
