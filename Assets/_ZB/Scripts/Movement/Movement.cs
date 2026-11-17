@@ -10,11 +10,14 @@ public class Movement : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform player;
     [SerializeField] private Transform gridOrigin;
-
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip moveSound;
+    [SerializeField] private AudioClip turnSound;
+    
     [Header("Movement")]
     [SerializeField, Min(0.01f)] private float cellSize = 1f;
-    [SerializeField, Min(0.01f)] private float moveDuration = 0.2f;
-    [SerializeField, Min(0.01f)] private float turnDuration = 0.15f;
+    [SerializeField, Min(0.01f)] private float moveDuration = 0.5f;
+    [SerializeField, Min(0.01f)] private float turnDuration = 0.25f;
 
     private MazeData maze;
     private Vector2Int gridPosition;
@@ -67,6 +70,8 @@ public class Movement : MonoBehaviour
             .WithEase(Ease.InOutSine)
             .BindToPosition(player)
             .AddTo(this);
+        
+        audioSource.PlayOneShot(moveSound);
     }
 
     private void Turn(int quarterTurns)
@@ -83,6 +88,8 @@ public class Movement : MonoBehaviour
             .WithEase(Ease.InOutSine)
             .Bind(t => player.rotation = Quaternion.Slerp(start, target, t))
             .AddTo(this);
+        
+        //audioSource.PlayOneShot(turnSound);
     }
 
     private bool CanAct() => maze != null && !motion.IsActive();
