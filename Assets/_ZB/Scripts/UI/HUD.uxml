@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="HUD.uss" />
+
+    <ui:VisualElement class="container">
+        <ui:Image name="game-view" class="game" />
+
+        <ui:VisualElement class="hud">
+            <ui:Label name="level-label" text="Poziom 1" class="hud-bar" />
+
+            <ui:VisualElement class="timers">
+                <ui:VisualElement class="timer timer--level">
+                    <ui:Label text="Czas poziomu" />
+                    <ui:Label name="level-time-label" text="00:00" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="timer">
+                    <ui:Label text="Czas łącznie" />
+                    <ui:Label name="total-time-label" text="00:00" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:Label name="health-label" text="Życie 100%" class="hud-bar" />
+
+            <ui:VisualElement name="book-panel" class="book">
+                <ui:Label text="Książka" />
+                <ui:Label name="book-text" class="book-text" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,6 +1,7 @@
 using LitMotion;
 using LitMotion.Extensions;
 using UnityEngine;
+using ZB;
 using ZB.Maze;
 
 public class Movement : MonoBehaviour
@@ -72,6 +73,7 @@ public class Movement : MonoBehaviour
             .AddTo(this);
         
         audioSource.PlayOneShot(moveSound);
+        EventManager.Trigger(Consts.Events.PLAYER_MOVED);
     }
 
     private void Turn(int quarterTurns)
@@ -88,8 +90,6 @@ public class Movement : MonoBehaviour
             .WithEase(Ease.InOutSine)
             .Bind(t => player.rotation = Quaternion.Slerp(start, target, t))
             .AddTo(this);
-        
-        //audioSource.PlayOneShot(turnSound);
     }
 
     private bool CanAct() => maze != null && !motion.IsActive();

@@ -1,0 +1,62 @@
+﻿.container {
+    flex-grow: 1;
+    flex-direction: row;
+    padding: 12px;
+    background-color: #000000;
+    color: #222222;
+}
+
+.game {
+    flex-grow: 2;
+    flex-basis: 0px;
+    min-width: 0;
+    margin-right: 12px;
+    background-color: #000000;
+}
+
+.hud {
+    flex-grow: 1;
+    flex-basis: 0px;
+    min-width: 0;
+}
+
+.hud-bar,
+.timer,
+.book {
+    background-color: #dddddd;
+}
+
+.hud-bar {
+    height: 36px;
+    flex-shrink: 0;
+    margin: 0 0 12px 0;
+    -unity-text-align: middle-center;
+}
+
+.timers {
+    flex-direction: row;
+    height: 76px;
+    flex-shrink: 0;
+    margin-bottom: 12px;
+}
+
+.timer {
+    flex-grow: 1;
+    flex-basis: 0px;
+    min-width: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer--level {
+    margin-right: 12px;
+}
+
+.book {
+    flex-grow: 1;
+    padding: 12px;
+}
+
+.book-text {
+    white-space: normal;
+}
