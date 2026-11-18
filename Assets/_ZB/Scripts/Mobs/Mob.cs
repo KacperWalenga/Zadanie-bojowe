@@ -73,19 +73,21 @@ namespace ZB.Mobs
 
         private void ShowMob()
         {
-            var position = cameraTransform.TransformPoint(new Vector3(0, 0, 0.3f));
+            var targetPosition = cameraTransform.TransformPoint(new Vector3(0f, 0f, 0.3f));
             
-            model.transform.localPosition = position + new Vector3(0, mobData.HiddenOffset.y, 0);
+            var startPosition = targetPosition + new Vector3(0f, mobData.HiddenOffset.y, 0f);
+            
+            model.transform.position = startPosition;
             model.transform.LookAt(cameraTransform);
-
+            
             var rot = model.transform.eulerAngles;
             model.transform.rotation = Quaternion.Euler(0f, rot.y, 0f);
             
-            motion = LMotion.Create(model.transform.localPosition, position, showAnimationDuration)
+            motion = LMotion.Create(startPosition, targetPosition, showAnimationDuration)
                 .WithEase(Ease.InOutSine)
                 .BindToPosition(model.transform)
                 .AddTo(this);
-
+            
             animationCoroutine = StartCoroutine(AnimationCoroutine());
         }
 
