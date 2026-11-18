@@ -22,7 +22,6 @@ namespace ZB.Mobs
         {
             var mob = Instantiate(MobTemplate);
             mob.Init(this, position);
-
         }
     }
 }
