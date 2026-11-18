@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <Style src="HUD.uss" />
+    <ui:Template name="GameViewport" src="project://database/Assets/_ZB/Scripts/UI/Components/GameViewport.uxml" />
+    <ui:Template name="TimerPanel" src="project://database/Assets/_ZB/Scripts/UI/Components/TimerPanel.uxml" />
+    <ui:Template name="HealthBar" src="project://database/Assets/_ZB/Scripts/UI/Components/HealthBar.uxml" />
+    <ui:Template name="BookPanel" src="project://database/Assets/_ZB/Scripts/UI/Components/BookPanel.uxml" />
+    <Style src="project://database/Assets/_ZB/Scripts/UI/Theme/StoneTheme.uss" />
+    <Style src="project://database/Assets/_ZB/Scripts/UI/HUD.uss" />
 
-    <ui:VisualElement class="container">
-        <ui:Image name="game-view" class="game" />
+    <ui:VisualElement class="hud stone-surface">
+        <ui:Instance template="GameViewport" name="viewport" class="hud__viewport" />
 
-        <ui:VisualElement class="hud">
-            <ui:Label name="level-label" text="Poziom 1" class="hud-bar" />
-
-            <ui:VisualElement class="timers">
-                <ui:VisualElement class="timer timer--level">
-                    <ui:Label text="Czas poziomu" />
-                    <ui:Label name="level-time-label" text="00:00" />
-                </ui:VisualElement>
-
-                <ui:VisualElement class="timer">
-                    <ui:Label text="Czas łącznie" />
-                    <ui:Label name="total-time-label" text="00:00" />
-                </ui:VisualElement>
+        <ui:VisualElement class="hud__sidebar">
+            <ui:VisualElement class="hud__level stone-frame">
+                <ui:Label name="level-label" text="Piwnica 1" class="hud__level-title stone-recess stone-text" />
             </ui:VisualElement>
 
-            <ui:Label name="health-label" text="Życie 100%" class="hud-bar" />
-
-            <ui:VisualElement name="book-panel" class="book">
-                <ui:Label text="Książka" />
-                <ui:Label name="book-text" class="book-text" />
+            <ui:VisualElement class="hud__timers">
+                <ui:Instance template="TimerPanel" name="level-timer" class="hud__timer hud__timer--level">
+                    <ui:AttributeOverrides element-name="timer-caption" text="czas w poziomie:" />
+                </ui:Instance>
+                <ui:Instance template="TimerPanel" name="total-timer" class="hud__timer">
+                    <ui:AttributeOverrides element-name="timer-caption" text="czas w grze:" />
+                </ui:Instance>
             </ui:VisualElement>
+
+            <ui:Instance template="HealthBar" name="health-bar" class="hud__health" />
+            <ui:Instance template="BookPanel" name="book-panel" class="hud__book" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

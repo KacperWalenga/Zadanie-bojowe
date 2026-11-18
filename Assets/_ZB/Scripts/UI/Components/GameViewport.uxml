@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="project://database/Assets/_ZB/Scripts/UI/Theme/StoneTheme.uss" />
+    <Style src="project://database/Assets/_ZB/Scripts/UI/Components/HudWidgets.uss" />
+    <ui:VisualElement class="hud-widget stone-frame">
+        <ui:Image name="game-view" class="game-viewport" scale-mode="ScaleToFit" picking-mode="Ignore" />
+    </ui:VisualElement>
+</ui:UXML>

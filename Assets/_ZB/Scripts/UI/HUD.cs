@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -7,7 +6,7 @@ namespace ZB
     [RequireComponent(typeof(PanelRenderer))]
     public class HUD : MonoBehaviour
     {
-        [SerializeField] private RenderTexture gameRenderTexture;
+        private PanelRenderer panelRenderer;
 
         private Label levelTimeLabel;
         private Label totalTimeLabel;
@@ -19,25 +18,25 @@ namespace ZB
         
         private void OnEnable()
         {
-            GetComponent<PanelRenderer>().RegisterUIReloadCallback(OnUIReload);
+            panelRenderer.RegisterUIReloadCallback(OnUIReload);
         }
         
         private void OnDisable()
         {
-            GetComponent<PanelRenderer>().UnregisterUIReloadCallback(OnUIReload);
+            panelRenderer.UnregisterUIReloadCallback(OnUIReload);
+            uiLoaded = false;
         }
 
         private void Awake()
         {
+            panelRenderer = GetComponent<PanelRenderer>();
             EventManager.AddListener(Consts.Events.MAZE_GENERATED, StartLevelTimer);
         }
 
-        private void OnUIReload(PanelRenderer renderer, VisualElement rootElement)
+        private void OnUIReload(PanelRenderer renderer, VisualElement rootElement, int version)
         {
-            rootElement.Q<Image>("game-view").image = gameRenderTexture;
-            
-            levelTimeLabel = rootElement.Q<Label>("level-time-label");
-            totalTimeLabel = rootElement.Q<Label>("total-time-label");
+            levelTimeLabel = rootElement.Q("level-timer")?.Q<Label>("timer-value");
+            totalTimeLabel = rootElement.Q("total-timer")?.Q<Label>("timer-value");
 
             uiLoaded = true;
         }
@@ -54,8 +53,11 @@ namespace ZB
 
             var now = Time.timeAsDouble;
 
-            levelTimeLabel.text = FormatTime(now - levelStartedAt);
-            totalTimeLabel.text = FormatTime(now - gameStartedAt);
+            if (levelTimeLabel != null)
+                levelTimeLabel.text = FormatTime(now - levelStartedAt);
+
+            if (totalTimeLabel != null)
+                totalTimeLabel.text = FormatTime(now - gameStartedAt);
         }
 
         private void StartLevelTimer()

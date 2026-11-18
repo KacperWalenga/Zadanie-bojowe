@@ -1,0 +1,44 @@
+.stone-surface {
+    background-color: #514b40;
+    background-image: url("project://database/Assets/_ZB/Scripts/UI/Theme/Textures/Stone.png");
+    background-size: cover;
+}
+
+.stone-frame {
+    background-image: url("project://database/Assets/_ZB/Scripts/UI/Theme/Textures/StoneInset.png");
+    -unity-slice-left: 7;
+    -unity-slice-right: 7;
+    -unity-slice-top: 7;
+    -unity-slice-bottom: 7;
+    padding: 6.5px;
+}
+
+.stone-recess {
+    flex-grow: 1;
+    min-height: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.stone-text {
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    -unity-font-definition: initial;
+   
+    -unity-font: url("project://database/Assets/_ZB/Scripts/UI/Theme/Fonts/Firlest-Regular.otf");
+    -unity-font-style: normal;
+}
+/*-unity-font: url("project://database/Assets/_ZB/Scripts/UI/Theme/Fonts/beachday.ttf");*/
+/*-unity-font: url("project://database/Assets/_ZB/Scripts/UI/Theme/Fonts/Forgore.otf");*/
+/*-unity-font: url("project://database/Assets/_ZB/Scripts/UI/Theme/Fonts/Ithaca.ttf");*/
+/*-unity-font: url("project://database/Assets/_ZB/Scripts/UI/Theme/Fonts/PixeloidSans.ttf");*/
+/*-unity-font: url("project://database/Assets/_ZB/Scripts/UI/Theme/Fonts/PixelPurl.ttf");*/
+/*-unity-font: url("project://database/Assets/_ZB/Scripts/UI/Theme/Fonts/ScienceGothic-Regular.ttf");*/
+
+/* 
+Forgore
+ScienceGothic-Regular.ttf
+Ithaca
+
+
+*/

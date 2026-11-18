@@ -1,62 +1,59 @@
-﻿.container {
+.hud {
     flex-grow: 1;
     flex-direction: row;
-    padding: 12px;
-    background-color: #000000;
-    color: #222222;
+    padding: 26.5px;
 }
 
-.game {
+.hud__viewport {
     flex-grow: 2;
     flex-basis: 0px;
     min-width: 0;
-    margin-right: 12px;
-    background-color: #000000;
+    margin-right: 26.5px;
 }
 
-.hud {
+#viewport .game-viewport {
+    background-image: url("project://database/Assets/_ZB/Shaders/Pixelation/Pixelate%20Texture.renderTexture");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hud__sidebar {
     flex-grow: 1;
     flex-basis: 0px;
     min-width: 0;
 }
 
-.hud-bar,
-.timer,
-.book {
-    background-color: #dddddd;
+.hud__level,
+.hud__health {
+    height: 66.5px;
+    flex-shrink: 0;
+    margin-bottom: 26.5px;
 }
 
-.hud-bar {
-    height: 36px;
-    flex-shrink: 0;
-    margin: 0 0 12px 0;
+.hud__level-title {
+    font-size: 42.5px;
     -unity-text-align: middle-center;
 }
 
-.timers {
+.hud__timers {
     flex-direction: row;
-    height: 76px;
+    height: 166.5px;
     flex-shrink: 0;
-    margin-bottom: 12px;
+    margin-bottom: 26.5px;
 }
 
-.timer {
+.hud__timer {
     flex-grow: 1;
     flex-basis: 0px;
     min-width: 0;
-    justify-content: center;
-    align-items: center;
 }
 
-.timer--level {
-    margin-right: 12px;
+.hud__timer--level {
+    margin-right: 26.5px;
 }
 
-.book {
+.hud__book {
     flex-grow: 1;
-    padding: 12px;
-}
-
-.book-text {
-    white-space: normal;
+    min-height: 0;
 }

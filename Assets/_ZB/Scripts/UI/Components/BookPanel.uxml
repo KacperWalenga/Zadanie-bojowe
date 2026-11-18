@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="project://database/Assets/_ZB/Scripts/UI/Theme/StoneTheme.uss" />
+    <Style src="project://database/Assets/_ZB/Scripts/UI/Components/HudWidgets.uss" />
+    <ui:VisualElement class="hud-widget stone-frame">
+        <ui:VisualElement class="stone-recess">
+            <ui:VisualElement class="book-pages">
+                <ui:Label name="book-text" class="book-text stone-text" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

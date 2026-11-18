@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="project://database/Assets/_ZB/Scripts/UI/Theme/StoneTheme.uss" />
+    <Style src="project://database/Assets/_ZB/Scripts/UI/Components/HudWidgets.uss" />
+    <ui:VisualElement class="hud-widget stone-frame">
+        <ui:VisualElement class="health-content stone-recess">
+            <ui:VisualElement name="health-fill" class="health-fill">
+                <ui:VisualElement class="health-highlight" picking-mode="Ignore" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="project://database/Assets/_ZB/Scripts/UI/Theme/StoneTheme.uss" />
+    <Style src="project://database/Assets/_ZB/Scripts/UI/Components/HudWidgets.uss" />
+    <ui:VisualElement class="hud-widget stone-frame">
+        <ui:VisualElement class="timer-content stone-recess">
+            <ui:Label name="timer-caption" text="czas" class="timer-caption stone-text" />
+            <ui:Label name="timer-value" text="00:00:00" class="timer-value stone-text" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
