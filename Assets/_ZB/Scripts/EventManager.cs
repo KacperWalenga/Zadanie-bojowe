@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
 namespace ZB
 {
-    public static class EventManager
+    [AutoStaticsCleanup]
+    public static partial class EventManager
     {
         private static readonly Dictionary<string, Action> events = new();
 

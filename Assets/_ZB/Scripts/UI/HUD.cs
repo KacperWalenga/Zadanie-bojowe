@@ -53,11 +53,8 @@ namespace ZB
 
             var now = Time.timeAsDouble;
 
-            if (levelTimeLabel != null)
-                levelTimeLabel.text = FormatTime(now - levelStartedAt);
-
-            if (totalTimeLabel != null)
-                totalTimeLabel.text = FormatTime(now - gameStartedAt);
+            levelTimeLabel.text = FormatTime(now - levelStartedAt);
+            totalTimeLabel.text = FormatTime(now - gameStartedAt);
         }
 
         private void StartLevelTimer()

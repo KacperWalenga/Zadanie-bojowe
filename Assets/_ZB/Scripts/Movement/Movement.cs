@@ -1,3 +1,4 @@
+using System;
 using LitMotion;
 using LitMotion.Extensions;
 using UnityEngine;
@@ -26,6 +27,20 @@ public class Movement : MonoBehaviour
     private MotionHandle motion;
 
     public Vector2Int GridPosition => gridPosition;
+
+    private bool canMove = true;
+
+    private void Awake()
+    {
+        EventManager.AddListener(Consts.Events.Combat.COMBAT_STARTED, DisableMovement);
+        EventManager.AddListener(Consts.Events.Combat.COMBAT_ENDED, EnableMovement);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.RemoveListener(Consts.Events.Combat.COMBAT_STARTED, DisableMovement);
+        EventManager.RemoveListener(Consts.Events.Combat.COMBAT_ENDED, EnableMovement);
+    }
 
     public void Initialize(MazeData mazeData, Vector2Int startPosition)
     {
@@ -69,11 +84,11 @@ public class Movement : MonoBehaviour
         gridPosition = targetPosition;
         motion = LMotion.Create(player.position, GetCellCenter(targetPosition), moveDuration)
             .WithEase(Ease.InOutSine)
+            .WithOnComplete(() => EventManager.Trigger(Consts.Events.PLAYER_MOVED))
             .BindToPosition(player)
             .AddTo(this);
         
         audioSource.PlayOneShot(moveSound);
-        EventManager.Trigger(Consts.Events.PLAYER_MOVED);
     }
 
     private void Turn(int quarterTurns)
@@ -92,7 +107,7 @@ public class Movement : MonoBehaviour
             .AddTo(this);
     }
 
-    private bool CanAct() => maze != null && !motion.IsActive();
+    private bool CanAct() => maze != null && !motion.IsActive() && canMove;
 
     private Vector3 GetCellCenter(Vector2Int position)
     {
@@ -124,6 +139,9 @@ public class Movement : MonoBehaviour
             _ => Vector2Int.up
         };
     }
+
+    private void DisableMovement() => canMove = false;
+    private void EnableMovement() => canMove = true;
 
     private enum Direction
     {
