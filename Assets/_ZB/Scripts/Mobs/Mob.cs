@@ -9,7 +9,7 @@ namespace ZB.Mobs
     [RequireComponent(typeof(Collider))]
     public class Mob : MonoBehaviour
     {
-        [SerializeField] private float showAnimationDuration = 0.5f;
+        [SerializeField] private float showAnimationDuration = 0.2f;
         private const string PLAYER_TAG = "Player";
         
         private MobData mobData;
@@ -23,7 +23,6 @@ namespace ZB.Mobs
         private void Awake()
         {
             EventManager.AddListener(Consts.Events.PLAYER_MOVED, PlayerMoved);
-            EventManager.AddListener(Consts.Events.Combat.COMBAT_ENDED, CombatEnded);
 
             combatSystem = FindAnyObjectByType<CombatSystem>();
         }
@@ -31,7 +30,6 @@ namespace ZB.Mobs
         private void OnDestroy()
         {
             EventManager.RemoveListener(Consts.Events.PLAYER_MOVED, PlayerMoved);
-            EventManager.RemoveListener(Consts.Events.Combat.COMBAT_ENDED, CombatEnded);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -39,7 +37,7 @@ namespace ZB.Mobs
             if (!other.CompareTag(PLAYER_TAG))
                 return;
             
-            combatSystem.StartCombat(mobData);
+            combatSystem.StartCombat(mobData, CombatEnded);
             isInCombat = true;
             
             cameraTransform = other.transform.GetComponentInChildren<Camera>().transform;
@@ -55,7 +53,7 @@ namespace ZB.Mobs
 
         private void CombatEnded()
         {
-            throw new NotImplementedException();
+            HideMob();
         }
 
         public void Init(MobData data, Vector2Int position)
@@ -95,10 +93,15 @@ namespace ZB.Mobs
         {
             motion = LMotion.Create(model.transform.localPosition, mobData.HiddenOffset, showAnimationDuration)
                 .WithEase(Ease.InOutSine)
+                .WithOnComplete(() =>
+                {
+                    if (animationCoroutine != null)
+                        StopCoroutine(animationCoroutine);
+
+                    Destroy(gameObject);
+                })
                 .BindToLocalPosition(model.transform)
-                .AddTo(this);
-            
-            StopCoroutine(animationCoroutine);
+                .AddTo(gameObject);
         }
 
         private IEnumerator AnimationCoroutine()

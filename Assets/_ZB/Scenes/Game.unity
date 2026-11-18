@@ -1010,6 +1010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935c3b5f23f6af4489cc5455e8a3aa04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatSystem
+  numberAction: {fileID: -35833196386415216, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!4 &1925114608
 Transform:
   m_ObjectHideFlags: 0
