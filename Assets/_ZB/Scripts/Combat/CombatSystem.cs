@@ -1,13 +1,108 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using ZB;
 using ZB.Mobs;
 
 public class CombatSystem : MonoBehaviour
 {
+    [SerializeField] private InputActionReference numberAction;
 
-    public void StartCombat(MobData mobData)
+    private int currentNumberIndex = -1;
+    private string combatNumber;
+    private bool isCombatInProgress => combatNumber != null;
+
+    private Action CombatFinished;
+
+    private void Awake()
+    {
+        numberAction.action.performed += OnNumberPressed;
+    }
+
+    private void OnDestroy()
+    {
+        numberAction.action.performed -= OnNumberPressed;
+    }
+    
+    private int? GetExpectedNumber()
+    {
+        if (currentNumberIndex < 0)
+            return null;
+
+        if (combatNumber.Length < currentNumberIndex + 1)
+            return null;
+
+        return int.TryParse(combatNumber[currentNumberIndex].ToString(), out var number)
+            ? number
+            : null;
+    }
+
+    private void OnNumberPressed(InputAction.CallbackContext context)
+    {
+        if (!isCombatInProgress)
+            return;
+        
+        if (!context.ReadValueAsButton())
+            return;
+
+        if (context.control is not KeyControl key)
+            return;
+
+        var number = key.keyCode switch
+        {
+            Key.Digit0 => 0,
+            >= Key.Digit1 and <= Key.Digit9 => (int)key.keyCode - (int)Key.Digit1 + 1,
+            >= Key.Numpad0 and <= Key.Numpad9 => (int)key.keyCode - (int)Key.Numpad0,
+            _ => -1
+        };
+
+        if (number == -1)
+            return;
+
+        var expectedNumber = GetExpectedNumber();
+
+        if (expectedNumber == null)
+            return;
+        
+        if(expectedNumber == number)
+            CorrectNumberPressed();
+        else
+            IncorrectNumberPressed();
+    }
+
+    public void StartCombat(MobData mobData, Action combatFinished)
     {
         EventManager.Trigger(Consts.Events.Combat.COMBAT_STARTED);
+        combatNumber = mobData.CombatNumber;
+        currentNumberIndex = 0;
+
+        CombatFinished = combatFinished;
+    }
+
+    private void CorrectNumberPressed()
+    {
+        Debug.Log("Correct number pressed - next");
+        currentNumberIndex++;
         
+        if(combatNumber.Length < currentNumberIndex + 1)
+            FinishCombat();
+    }
+
+    private void IncorrectNumberPressed()
+    {
+        Debug.Log("Incorrect number pressed - reset");
+        currentNumberIndex = 0;
+    }
+
+    private void FinishCombat()
+    {
+        Debug.Log("Combat finished");
+        
+        EventManager.Trigger(Consts.Events.Combat.COMBAT_ENDED);
+        combatNumber = null;
+        
+        CombatFinished?.Invoke();
+        CombatFinished = null;
     }
 }

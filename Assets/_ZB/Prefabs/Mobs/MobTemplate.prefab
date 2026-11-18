@@ -66,4 +66,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffae76dfe8e040febc189c7384c02461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZB.Mobs.Mob
-  showAnimationDuration: 0.5
+  showAnimationDuration: 0.2
