@@ -78,8 +78,8 @@ namespace ZB.Mobs
             model.transform.localPosition = position + new Vector3(0, mobData.HiddenOffset.y, 0);
             model.transform.LookAt(cameraTransform);
 
-            var rot = model.transform.rotation;
-            model.transform.rotation = Quaternion.Euler(0f, rot.y, rot.z);
+            var rot = model.transform.eulerAngles;
+            model.transform.rotation = Quaternion.Euler(0f, rot.y, 0f);
             
             motion = LMotion.Create(model.transform.localPosition, position, showAnimationDuration)
                 .WithEase(Ease.InOutSine)
