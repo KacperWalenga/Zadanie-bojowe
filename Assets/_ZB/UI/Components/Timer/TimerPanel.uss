@@ -1,0 +1,18 @@
+.timer-content {
+    justify-content: space-between;
+}
+
+.timer-caption,
+.timer-value {
+    font-size: 35px;
+    -unity-text-align: middle-center;
+    padding: 10px;
+}
+
+.timer-caption {
+    white-space: pre-wrap;
+}
+
+.timer-value {
+    white-space: nowrap;
+}

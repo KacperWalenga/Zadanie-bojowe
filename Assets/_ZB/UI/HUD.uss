@@ -54,6 +54,7 @@
 }
 
 .hud__book {
-    flex-grow: 1;
+    margin-top: auto;
+    flex-grow: 0;
     min-height: 0;
 }

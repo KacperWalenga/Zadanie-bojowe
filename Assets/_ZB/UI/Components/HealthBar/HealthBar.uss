@@ -1,0 +1,16 @@
+.health-content {
+    padding: 10px;
+}
+
+.health-fill {
+    flex-grow: 1;
+    width: 100%;
+    background-image: url("project://database/Assets/_ZB/UI/Textures/Health.png");
+    background-size: 100% 100%;
+}
+
+.health-highlight {
+    flex-grow: 1;
+    background-image: url("project://database/Assets/_ZB/UI/Textures/HealthHighlight.png");
+    background-size: 100% 100%;
+}

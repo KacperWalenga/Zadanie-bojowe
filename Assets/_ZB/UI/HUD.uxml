@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <ui:Template name="GameViewport" src="project://database/Assets/_ZB/Scripts/UI/Components/GameViewport.uxml" />
-    <ui:Template name="TimerPanel" src="project://database/Assets/_ZB/Scripts/UI/Components/TimerPanel.uxml" />
-    <ui:Template name="HealthBar" src="project://database/Assets/_ZB/Scripts/UI/Components/HealthBar.uxml" />
-    <ui:Template name="BookPanel" src="project://database/Assets/_ZB/Scripts/UI/Components/BookPanel.uxml" />
-    <Style src="project://database/Assets/_ZB/Scripts/UI/Theme/StoneTheme.uss" />
-    <Style src="project://database/Assets/_ZB/Scripts/UI/HUD.uss" />
+    <ui:Template name="GameViewport" src="project://database/Assets/_ZB/UI/Components/Viewport/GameViewport.uxml" />
+    <ui:Template name="TimerPanel" src="project://database/Assets/_ZB/UI/Components/Timer/TimerPanel.uxml" />
+    <ui:Template name="HealthBar" src="project://database/Assets/_ZB/UI/Components/HealthBar/HealthBar.uxml" />
+    <ui:Template name="BookPanel" src="project://database/Assets/_ZB/UI/Components/Book/BookPanel.uxml" />
+    <Style src="project://database/Assets/_ZB/UI/StoneTheme.uss" />
+    <Style src="project://database/Assets/_ZB/UI/Components/Viewport/GameViewport.uss" />
+    <Style src="project://database/Assets/_ZB/UI/Components/Timer/TimerPanel.uss" />
+    <Style src="project://database/Assets/_ZB/UI/Components/HealthBar/HealthBar.uss" />
+    <Style src="project://database/Assets/_ZB/UI/Components/Book/BookPanel.uss" />
+    <Style src="project://database/Assets/_ZB/UI/HUD.uss" />
 
     <ui:VisualElement class="hud stone-surface">
         <ui:Instance template="GameViewport" name="viewport" class="hud__viewport" />
