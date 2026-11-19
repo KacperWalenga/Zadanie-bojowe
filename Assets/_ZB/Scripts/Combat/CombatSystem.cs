@@ -12,12 +12,16 @@ public class CombatSystem : MonoBehaviour
     private int currentNumberIndex = -1;
     private string combatNumber;
     private bool isCombatInProgress => combatNumber != null;
+    private CombatUI combatUI;
+
+    private bool isInputPaused;
 
     private Action CombatFinished;
 
     private void Awake()
     {
         numberAction.action.performed += OnNumberPressed;
+        combatUI = FindAnyObjectByType<CombatUI>();
     }
 
     private void OnDestroy()
@@ -42,6 +46,9 @@ public class CombatSystem : MonoBehaviour
     {
         if (!isCombatInProgress)
             return;
+
+        if (isInputPaused)
+            return;
         
         if (!context.ReadValueAsButton())
             return;
@@ -65,6 +72,8 @@ public class CombatSystem : MonoBehaviour
         if (expectedNumber == null)
             return;
         
+        combatUI.SetCombatNumber(currentNumberIndex, number);
+        
         if(expectedNumber == number)
             CorrectNumberPressed();
         else
@@ -74,30 +83,35 @@ public class CombatSystem : MonoBehaviour
     public void StartCombat(MobData mobData, Action combatFinished)
     {
         EventManager.Trigger(Consts.Events.Combat.COMBAT_STARTED);
+        
         combatNumber = mobData.CombatNumber;
         currentNumberIndex = 0;
+        
+        combatUI.StartCombat(combatNumber.Length);
 
         CombatFinished = combatFinished;
     }
 
     private void CorrectNumberPressed()
     {
-        Debug.Log("Correct number pressed - next");
         currentNumberIndex++;
         
         if(combatNumber.Length < currentNumberIndex + 1)
             FinishCombat();
     }
 
-    private void IncorrectNumberPressed()
+    private async void IncorrectNumberPressed()
     {
-        Debug.Log("Incorrect number pressed - reset");
         currentNumberIndex = 0;
+
+        isInputPaused = true;
+        await combatUI.ResetCombatNumber();
+        isInputPaused = false;
     }
 
-    private void FinishCombat()
+    private async void FinishCombat()
     {
-        Debug.Log("Combat finished");
+        await combatUI.StopCombat();
         
         EventManager.Trigger(Consts.Events.Combat.COMBAT_ENDED);
         combatNumber = null;

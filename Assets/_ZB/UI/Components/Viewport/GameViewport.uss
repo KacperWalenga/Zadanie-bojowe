@@ -1,6 +1,22 @@
+.game-viewport-container{
+    position: relative;
+}
+
 .game-viewport {
     flex-grow: 1;
     flex-basis: 0;
     min-height: 0;
     min-width: 0;
+}
+
+.combat-fields{
+    position: absolute;
+    font-size: 48px;
+    bottom: 2%;
+    color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2%;
 }
