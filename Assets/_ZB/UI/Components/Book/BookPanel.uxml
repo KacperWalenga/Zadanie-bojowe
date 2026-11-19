@@ -3,7 +3,7 @@
         <ui:VisualElement class="stone-recess">
             <ui:VisualElement class="book">
                 <ui:VisualElement class="book__image">
-                    <ui:Image name="page-image" class="book__page" source="project://database/Assets/_ZB/UI/Textures/Book/Pages/0.png" />
+                    <ui:Image name="book-image" class="book__page" source="project://database/Assets/_ZB/UI/Textures/Book/Pages/0.png" />
                     
                     <ui:VisualElement class="book__navigation">
                         <ui:Button name="book-btn-left" class="book__button" />
