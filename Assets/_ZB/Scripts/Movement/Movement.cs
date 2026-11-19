@@ -29,7 +29,8 @@ public class Movement : MonoBehaviour
     public Vector2Int GridPosition => gridPosition;
 
     private bool canMove = true;
-
+    private Vector2Int? moveQueue;
+    
     private void Awake()
     {
         EventManager.AddListener(Consts.Events.Combat.COMBAT_STARTED, DisableMovement);
@@ -72,9 +73,15 @@ public class Movement : MonoBehaviour
 
     private void Move(Vector2Int direction)
     {
+        if (motion.IsActive() && motion.Time / motion.Duration > 0.5f)
+        {
+            moveQueue = direction;
+            return;
+        }
+        
         if (!CanAct())
             return;
-
+        
         var targetPosition = gridPosition + direction;
         var cellType = maze.GetCellType(targetPosition);
 
@@ -84,7 +91,16 @@ public class Movement : MonoBehaviour
         gridPosition = targetPosition;
         motion = LMotion.Create(player.position, GetCellCenter(targetPosition), moveDuration)
             .WithEase(Ease.InOutSine)
-            .WithOnComplete(() => EventManager.Trigger(Consts.Events.PLAYER_MOVED))
+            .WithOnComplete(() =>
+            {
+                EventManager.Trigger(Consts.Events.PLAYER_MOVED);
+
+                if (moveQueue != null)
+                {
+                    Move(moveQueue.Value);
+                    moveQueue = null;
+                }
+            })
             .BindToPosition(player)
             .AddTo(this);
         
@@ -105,6 +121,8 @@ public class Movement : MonoBehaviour
             .WithEase(Ease.InOutSine)
             .Bind(t => player.rotation = Quaternion.Slerp(start, target, t))
             .AddTo(this);
+        
+        moveQueue = null;
     }
 
     private bool CanAct() => maze != null && !motion.IsActive() && canMove;
