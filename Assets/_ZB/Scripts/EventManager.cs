@@ -29,6 +29,14 @@ namespace ZB
                 listeners?.Invoke();
         }
 
+        public static void Trigger<T>(string name, T argument)
+        {
+            Trigger(name);
+            
+            if (typedEvents.TryGetValue((name, typeof(T)), out var listeners))
+                ((Action<T>)listeners)?.Invoke(argument);
+        }
+        
         public static void AddListener<T>(string name, Action<T> callback)
         {
             var key = (name, typeof(T));
@@ -43,12 +51,6 @@ namespace ZB
 
             if (typedEvents.TryGetValue(key, out var listeners))
                 typedEvents[key] = (Action<T>)listeners - callback;
-        }
-
-        public static void Trigger<T>(string name, T argument)
-        {
-            if (typedEvents.TryGetValue((name, typeof(T)), out var listeners))
-                ((Action<T>)listeners)?.Invoke(argument);
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]

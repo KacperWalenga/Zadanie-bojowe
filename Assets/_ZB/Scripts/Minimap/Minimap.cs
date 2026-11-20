@@ -11,28 +11,32 @@ public class Minimap : MonoBehaviour
     [SerializeField] private LayerMask MazePointLayer;
     [SerializeField] private GameObject playerIndicator;
 
+    private MazeData maze;
     private Player player;
     
     private void Awake()
     {
-        EventManager.AddListener(Consts.Events.PLAYER_MOVED, PlayerMoved);
+        EventManager.AddListener<Vector2Int>(Consts.Events.PLAYER_MOVED, PlayerMoved);
         EventManager.AddListener(Consts.Events.PLAYER_ROTATED, PlayerRotated);
-        
+        EventManager.AddListener(Consts.Events.MAZE_GENERATED, SetupMaze);
+    }
+
+    private void SetupMaze()
+    {
         var mazeBuilder = FindAnyObjectByType<MazeBuilder>();
+        
+        maze = mazeBuilder.Maze;
         player = FindAnyObjectByType<Player>();
         
         SetupCamera(mazeBuilder.Size);
-    }
-
-    private void Start()
-    {
+        
         PlayerRotated();
-        PlayerMoved();
+        PlayerMoved(new Vector2Int((int)player.PlayerPosition.x, (int)player.PlayerPosition.z));
     }
-
+    
     private void OnDestroy()
     {
-        EventManager.RemoveListener(Consts.Events.PLAYER_MOVED, PlayerMoved);
+        EventManager.RemoveListener<Vector2Int>(Consts.Events.PLAYER_MOVED, PlayerMoved);
         EventManager.RemoveListener(Consts.Events.PLAYER_ROTATED, PlayerRotated);
     }
 
@@ -41,7 +45,7 @@ public class Minimap : MonoBehaviour
         playerIndicator.transform.rotation = player.PlayerRotation;
     }
 
-    private void PlayerMoved()
+    private void PlayerMoved(Vector2Int position)
     {
         var playerPosition = player.PlayerPosition;
         var minimapPointPosition = new Vector3(playerPosition.x, 19, playerPosition.z);
@@ -51,7 +55,10 @@ public class Minimap : MonoBehaviour
         if (IsAlreadyMarked(minimapPointPosition))
             return;
         
-        Instantiate(minimapPointPrefab, minimapPointPosition, Quaternion.identity, transform);
+        var point = Instantiate(minimapPointPrefab, minimapPointPosition, Quaternion.identity, transform);
+
+        if (maze.IsIntersection(position))
+            point.GetComponent<Renderer>().material.color = Color.white;
     }
 
     private void SetupCamera(int mapSize)

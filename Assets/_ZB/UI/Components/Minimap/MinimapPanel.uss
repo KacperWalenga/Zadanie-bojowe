@@ -6,5 +6,8 @@
 }
 
 .minimap__content {
-    overflow: hidden;
+    background-image: url("project://database/Assets/_ZB/Shaders/Minimap/Minimap%20Texture.renderTexture");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }

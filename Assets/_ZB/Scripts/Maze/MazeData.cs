@@ -137,5 +137,24 @@ namespace ZB.Maze
                 ? corridorIndices[Random.Range(0, corridorIndices.Length)]
                 : -1;
         }
+
+        public bool IsIntersection(Vector2Int position)
+        {
+            var neighbors = 0;
+
+            if (!IsCellFree(Vector2Int.up + position))
+                neighbors += 1;
+            
+            if (!IsCellFree(Vector2Int.down + position))
+                neighbors += 1;
+            
+            if (!IsCellFree(Vector2Int.left + position))
+                neighbors += 1;
+            
+            if (!IsCellFree(Vector2Int.right + position))
+                neighbors += 1;
+
+            return neighbors >= 3;
+        }
     }
 }

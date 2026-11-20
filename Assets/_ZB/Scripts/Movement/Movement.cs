@@ -93,7 +93,7 @@ public class Movement : MonoBehaviour
             .WithEase(Ease.InOutSine)
             .WithOnComplete(() =>
             {
-                EventManager.Trigger(Consts.Events.PLAYER_MOVED);
+                EventManager.Trigger(Consts.Events.PLAYER_MOVED, targetPosition);
 
                 if (moveQueue != null)
                 {
