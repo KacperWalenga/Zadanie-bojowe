@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8c13c8b666a42d0917e922fe3612f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZB.Mobs.MobsSpawner
-  mobsCount: 100
+  mobsCount: 40
   mobDatas:
   - {fileID: 11400000, guid: d0f4b9867f1ba4940839a73de024a65f, type: 2}
   - {fileID: 11400000, guid: 8b682332ad8e8b548acff50ab13f0fa1, type: 2}

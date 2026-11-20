@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95742fc2bf9041468e31c39b45d9241e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZB.Maze.MazeBuilder
-  size: 51
+  size: 25
   cellSize: 1
   floors:
   - floorPrefab: {fileID: 1632473124045396041, guid: ac9fa0cd9f07a9d4ebea7968f0ff0337, type: 3}
@@ -58,22 +58,16 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f1766aed559be644fb3c186768b19e4c, type: 2}
     torchPrefab: {fileID: 3877062737534208295, guid: ea36eff736b125244936a3c901fba1ed, type: 3}
     torchSpawnRate: 0.3
-    blockMaterial: {fileID: 0}
     torchColor: {r: 1, g: 0.6544963, b: 0, a: 1}
-  - floorPrefab: {fileID: 1632473124045396041, guid: ac9fa0cd9f07a9d4ebea7968f0ff0337, type: 3}
-    wallPrefab: {fileID: 9008515397581000635, guid: 61674241001541f4ea7e7d3e475f595e, type: 3}
+  - floorPrefab: {fileID: 1632473124045396041, guid: e2e74a5ce9b3c924d90a4c110daaf0f8, type: 3}
+    wallPrefab: {fileID: 9008515397581000635, guid: 5ab8962bde804dd4cae3d9a9dc2788ae, type: 3}
     roofs:
-    - {fileID: 11400000, guid: a9c0757425fae604f9da938f7fd3d53d, type: 2}
-    - {fileID: 11400000, guid: eae5086f3244ce241946d44691d608de, type: 2}
-    - {fileID: 11400000, guid: 1e3cbce9f62f8884ea74d0bd5e127aea, type: 2}
-    - {fileID: 11400000, guid: ec1aa1cc2c59c6f45b93633880c0dda7, type: 2}
-    - {fileID: 11400000, guid: f1766aed559be644fb3c186768b19e4c, type: 2}
-    torchPrefab: {fileID: 3877062737534208295, guid: ea36eff736b125244936a3c901fba1ed, type: 3}
+    - {fileID: 11400000, guid: 77344620bbc49c44799c72323e022850, type: 2}
+    torchPrefab: {fileID: 3877062737534208295, guid: 41ec5b9f369d7234a9b5ec792413183f, type: 3}
     torchSpawnRate: 0.2
-    blockMaterial: {fileID: 2100000, guid: d06dde825b414f44c8937ba09deb24f7, type: 2}
-    torchColor: {r: 0.46, g: 0.72, b: 1, a: 1}
+    torchColor: {r: 1, g: 0.654902, b: 0, a: 1}
   transitionFloorPrefab: {fileID: 585089452736041166, guid: 17444852937c3644181b7ec0e33c24df, type: 3}
-  root: {fileID: 6490307616278347483}
+  root: {fileID: 0}
 --- !u!114 &1244774390439671037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +78,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d3df24d40d18d4408daf2ebaca3610f, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZB.Maze.MazeObjectives
   exitDoorPrefab: {fileID: 8815451192213786885, guid: 6de64b8fae8242041a65fcea1e3a2f31, type: 3}
   beerCratePrefab: {fileID: 7977457757159932218, guid: 50c4ca3f326cbe44aaed1afe0176e1e4, type: 3}
