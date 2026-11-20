@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95742fc2bf9041468e31c39b45d9241e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZB.Maze.MazeBuilder
-  size: 25
+  size: 20
   cellSize: 1
   floors:
   - floorPrefab: {fileID: 1632473124045396041, guid: ac9fa0cd9f07a9d4ebea7968f0ff0337, type: 3}
