@@ -923,6 +923,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 784993775502430043, guid: 35e194bd728c61442973031d9226ebf8, type: 3}
+      propertyPath: m_RenderShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 816717509806323316, guid: 35e194bd728c61442973031d9226ebf8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -966,6 +970,10 @@ PrefabInstance:
     - target: {fileID: 1908587066089505463, guid: 35e194bd728c61442973031d9226ebf8, type: 3}
       propertyPath: m_Name
       value: Minimap
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028703590435762102, guid: 35e194bd728c61442973031d9226ebf8, type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
