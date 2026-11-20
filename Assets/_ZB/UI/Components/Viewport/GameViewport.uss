@@ -1,6 +1,5 @@
 .game-viewport,
 .game-viewport__image {
-.game-viewport-container{
     position: relative;
 }
 
