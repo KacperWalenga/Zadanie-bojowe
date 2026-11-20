@@ -32,7 +32,7 @@ namespace ZB.Maze
 
         private void Awake()
         {
-            EventManager.AddListener<Vector2Int>(Consts.Events.PLAYER_MOVED, CheckFloorTransition);
+            EventManager.AddListener<Vector2Int>(Consts.Events.Player.PLAYER_MOVED, CheckFloorTransition);
         }
 
         private void Start()
@@ -57,7 +57,7 @@ namespace ZB.Maze
 
         private void OnDestroy()
         {
-            EventManager.RemoveListener<Vector2Int>(Consts.Events.PLAYER_MOVED, CheckFloorTransition);
+            EventManager.RemoveListener<Vector2Int>(Consts.Events.Player.PLAYER_MOVED, CheckFloorTransition);
         }
 
         private void CheckFloorTransition(Vector2Int position)
@@ -87,9 +87,9 @@ namespace ZB.Maze
             movement.Initialize(maze, ArrivalPosition);
 
             if (isNew)
-                EventManager.Trigger(Consts.Events.MAZE_GENERATED);
+                EventManager.Trigger(Consts.Events.Maze.MAZE_GENERATED);
 
-            EventManager.Trigger(Consts.Events.FLOOR_CHANGED, floor + 1);
+            EventManager.Trigger(Consts.Events.Maze.FLOOR_CHANGED, floor + 1);
         }
 
         private void GenerateFloor(int floor)

@@ -100,7 +100,7 @@ public class CombatSystem : MonoBehaviour
             return;
 
         PlayerHP = Mathf.Max(0, PlayerHP - damage);
-        EventManager.Trigger(Consts.Events.PLAYER_HEALTH_LOST, (Health: PlayerHP, MaxHealth: playerMaxHP));
+        EventManager.Trigger(Consts.Events.Player.PLAYER_HEALTH_LOST, (Health: PlayerHP, MaxHealth: playerMaxHP));
     }
 
     private void CorrectNumberPressed()

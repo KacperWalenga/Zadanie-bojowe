@@ -27,12 +27,12 @@ namespace ZB.Mobs
 
         private void OnEnable()
         {
-            EventManager.AddListener(Consts.Events.PLAYER_MOVED, PlayerMoved);
+            EventManager.AddListener(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
         }
 
         private void OnDisable()
         {
-            EventManager.RemoveListener(Consts.Events.PLAYER_MOVED, PlayerMoved);
+            EventManager.RemoveListener(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
         }
 
         private void OnTriggerEnter(Collider other)

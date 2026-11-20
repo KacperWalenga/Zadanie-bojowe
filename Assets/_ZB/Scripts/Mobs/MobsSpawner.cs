@@ -11,12 +11,12 @@ namespace ZB.Mobs
 
         private void Awake()
         {
-            EventManager.AddListener(Consts.Events.MAZE_GENERATED, MazeGenerated);
+            EventManager.AddListener(Consts.Events.Maze.MAZE_GENERATED, MazeGenerated);
         }
 
         private void OnDestroy()
         {
-            EventManager.RemoveListener(Consts.Events.MAZE_GENERATED, MazeGenerated);
+            EventManager.RemoveListener(Consts.Events.Maze.MAZE_GENERATED, MazeGenerated);
         }
 
         private void MazeGenerated()

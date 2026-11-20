@@ -29,7 +29,7 @@ namespace ZB
         private void Awake()
         {
             panelRenderer = GetComponent<PanelRenderer>();
-            EventManager.AddListener<int>(Consts.Events.FLOOR_CHANGED, StartLevel);
+            EventManager.AddListener<int>(Consts.Events.Maze.FLOOR_CHANGED, StartLevel);
         }
 
         private void OnEnable()
@@ -46,7 +46,7 @@ namespace ZB
 
         private void OnDestroy()
         {
-            EventManager.RemoveListener<int>(Consts.Events.FLOOR_CHANGED, StartLevel);
+            EventManager.RemoveListener<int>(Consts.Events.Maze.FLOOR_CHANGED, StartLevel);
         }
 
         private void Update()

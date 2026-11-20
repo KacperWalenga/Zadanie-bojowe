@@ -17,14 +17,14 @@ namespace ZB.Maze
         {
             builder = GetComponent<MazeBuilder>();
             
-            EventManager.AddListener(Consts.Events.MAZE_GENERATED, MazeGenerated);
-            EventManager.AddListener<Vector2Int>(Consts.Events.PLAYER_MOVED, PlayerMoved);
+            EventManager.AddListener(Consts.Events.Maze.MAZE_GENERATED, MazeGenerated);
+            EventManager.AddListener<Vector2Int>(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
         }
 
         private void OnDestroy()
         {
-            EventManager.RemoveListener(Consts.Events.MAZE_GENERATED, MazeGenerated);
-            EventManager.RemoveListener<Vector2Int>(Consts.Events.PLAYER_MOVED, PlayerMoved);
+            EventManager.RemoveListener(Consts.Events.Maze.MAZE_GENERATED, MazeGenerated);
+            EventManager.RemoveListener<Vector2Int>(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
         }
 
         private void MazeGenerated()
@@ -62,14 +62,14 @@ namespace ZB.Maze
             beerCollected = true;
             beerCrate.SetActive(false);
             
-            EventManager.Trigger(Consts.Events.BEER_COLLECTED);
+            EventManager.Trigger(Consts.Events.Objectives.BEER_COLLECTED);
         }
 
         private void ReachExitDoor()
         {
             if (!beerCollected)
             {
-                EventManager.Trigger(Consts.Events.EXIT_DOOR_LOCKED);
+                EventManager.Trigger(Consts.Events.Objectives.EXIT_DOOR_LOCKED);
                 return;
             }
 
@@ -78,7 +78,7 @@ namespace ZB.Maze
 
             fatherFightRequested = true;
             
-            EventManager.Trigger(Consts.Events.FATHER_FIGHT_REQUESTED);
+            EventManager.Trigger(Consts.Events.Objectives.FATHER_FIGHT_REQUESTED);
         }
     }
 }
