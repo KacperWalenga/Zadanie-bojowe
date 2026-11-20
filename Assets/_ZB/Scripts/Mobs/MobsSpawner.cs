@@ -1,5 +1,4 @@
-﻿using System;
-using Unity.Mathematics;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using ZB.Maze;
 using Random = System.Random;
@@ -12,14 +11,11 @@ namespace ZB.Mobs
         [SerializeField] private MobData[] mobDatas;
         
         private MazeData mazeData;
+        private List<Vector2Int> occupiedPositions = new();
 
         private void Awake()
         {
             EventManager.AddListener(Consts.Events.MAZE_GENERATED, MazeGenerated);
-        }
-
-        private void Start()
-        {
         }
 
         private void MazeGenerated()
@@ -30,14 +26,21 @@ namespace ZB.Mobs
             SpawnMobs();
         }
 
-        public void SpawnMobs()
+        private void SpawnMobs()
         {
             for (var i = 0; i < mobsCount; i++)
             {
                 var mob = GetRandomMob();
                 var position = GetRandomCorridorPosition();
+
+                if (occupiedPositions.Contains(position))
+                {
+                    i--;
+                    continue;
+                }
                 
                 mob.Spawn(position);
+                occupiedPositions.Add(position);
             }
         }
 

@@ -53,6 +53,7 @@ namespace ZB.Mobs
 
         private void CombatEnded()
         {
+            
             HideMob();
         }
 
@@ -89,8 +90,11 @@ namespace ZB.Mobs
             animationCoroutine = StartCoroutine(AnimationCoroutine());
         }
 
-        private void HideMob()
+        private void HideMob(bool applyColor = true)
         {
+            if(applyColor)
+                model.SetColor(Color.red);
+            
             motion = LMotion.Create(model.transform.localPosition, mobData.HiddenOffset, showAnimationDuration)
                 .WithEase(Ease.InOutSine)
                 .WithOnComplete(() =>

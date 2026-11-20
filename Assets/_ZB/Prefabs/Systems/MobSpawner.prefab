@@ -47,3 +47,6 @@ MonoBehaviour:
   mobsCount: 100
   mobDatas:
   - {fileID: 11400000, guid: d0f4b9867f1ba4940839a73de024a65f, type: 2}
+  - {fileID: 11400000, guid: 8b682332ad8e8b548acff50ab13f0fa1, type: 2}
+  - {fileID: 11400000, guid: cbeff6556b158e04eb72ec2e354530c8, type: 2}
+  - {fileID: 11400000, guid: d0f4b9867f1ba4940839a73de024a65f, type: 2}

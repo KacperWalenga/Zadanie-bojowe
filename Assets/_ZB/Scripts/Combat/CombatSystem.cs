@@ -9,18 +9,20 @@ public class CombatSystem : MonoBehaviour
 {
     [SerializeField] private InputActionReference numberAction;
     [SerializeField] public int playerMaxHP = 100;
+    [field: SerializeField] public int PlayerHP { get; private set; }
 
     private int currentNumberIndex = -1;
     private string combatNumber;
     private bool isCombatInProgress => combatNumber != null;
-
+    private bool isInputPaused;
+    private CombatUI combatUI;
+    
     private Action CombatFinished;
-
-    [field: SerializeField] public int PlayerHP { get; private set; }
-
+    
     private void Awake()
     {
         numberAction.action.performed += OnNumberPressed;
+        combatUI = FindAnyObjectByType<CombatUI>();
         PlayerHP = playerMaxHP;
     }
 
@@ -46,6 +48,9 @@ public class CombatSystem : MonoBehaviour
     {
         if (!isCombatInProgress)
             return;
+
+        if (isInputPaused)
+            return;
         
         if (!context.ReadValueAsButton())
             return;
@@ -69,6 +74,8 @@ public class CombatSystem : MonoBehaviour
         if (expectedNumber == null)
             return;
         
+        combatUI.SetCombatNumber(currentNumberIndex, number);
+        
         if(expectedNumber == number)
             CorrectNumberPressed();
         else
@@ -78,8 +85,11 @@ public class CombatSystem : MonoBehaviour
     public void StartCombat(MobData mobData, Action combatFinished)
     {
         EventManager.Trigger(Consts.Events.Combat.COMBAT_STARTED);
+        
         combatNumber = mobData.CombatNumber;
         currentNumberIndex = 0;
+        
+        combatUI.StartCombat(combatNumber.Length);
 
         CombatFinished = combatFinished;
     }
@@ -101,13 +111,21 @@ public class CombatSystem : MonoBehaviour
             FinishCombat();
     }
 
-    private void IncorrectNumberPressed()
+    private async void IncorrectNumberPressed()
     {
         currentNumberIndex = 0;
+
+        isInputPaused = true;
+        
+        await combatUI.ResetCombatNumber();
+        
+        isInputPaused = false;
     }
 
-    private void FinishCombat()
+    private async void FinishCombat()
     {
+        await combatUI.StopCombat();
+        
         EventManager.Trigger(Consts.Events.Combat.COMBAT_ENDED);
         combatNumber = null;
         

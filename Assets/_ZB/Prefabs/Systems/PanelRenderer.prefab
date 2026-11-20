@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3711657249572222365}
   - component: {fileID: 1867825840267006943}
   - component: {fileID: 4571015138151851489}
+  - component: {fileID: 1708850667171582493}
   - component: {fileID: 4820593080850989052}
   m_Layer: 5
   m_Name: PanelRenderer
@@ -139,6 +140,18 @@ MonoBehaviour:
   - {fileID: 2800000, guid: dc5c01571d1ebac40ad5f9269cadb65e, type: 3}
   nextPage: {fileID: 3094367633883863139, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   prevPage: {fileID: 8656072433201437681, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+--- !u!114 &1708850667171582493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8824933734576549335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8feb8dea90f84b00ae4c9a18e6831a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZB.CombatUI
 --- !u!114 &4820593080850989052
 MonoBehaviour:
   m_ObjectHideFlags: 0

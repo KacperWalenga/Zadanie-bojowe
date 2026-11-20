@@ -26,6 +26,7 @@ namespace ZB.Maze
 
         private MazeData maze;
         public MazeData Maze => maze;
+        public int Size => size;
         
         private void Start()
         {
