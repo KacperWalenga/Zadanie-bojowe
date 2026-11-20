@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="stats stone stone--frame">
+        <ui:VisualElement class="stats__body stone__recess">
+            <ui:VisualElement class="stats__row">
+                <ui:Label text="CZAS W POZIOMIE" class="stats__label stone__text" />
+                <ui:Label name="level-time" text="00:00" class="stats__value stone__text" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="stats__row stats__row--divided">
+                <ui:Label text="CZAS W GRZE" class="stats__label stone__text" />
+                <ui:Label name="total-time" text="00:00" class="stats__value stone__text" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="stats__row stats__row--divided">
+                <ui:Label text="PUNKTY" class="stats__label stone__text" />
+                <ui:Label name="points-value" text="0" class="stats__value stone__text" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

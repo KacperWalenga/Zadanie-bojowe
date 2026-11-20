@@ -1,0 +1,30 @@
+.stats__body {
+    padding: 4px 12px;
+}
+
+.stats__row {
+    min-height: 32px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 0;
+}
+
+.stats__row--divided {
+    border-top-width: 1px;
+    border-top-color: rgba(255, 255, 255, 0.15);
+}
+
+.stats__label {
+    font-size: 15px;
+    white-space: normal;
+    -unity-text-align: middle-left;
+}
+
+.stats__value {
+    flex-shrink: 0;
+    margin-left: 8px;
+    font-size: 23px;
+    white-space: nowrap;
+    -unity-text-align: middle-right;
+}

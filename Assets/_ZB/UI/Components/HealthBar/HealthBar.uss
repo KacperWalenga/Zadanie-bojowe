@@ -1,16 +1,36 @@
-.health-content {
-    padding: 10px;
+.health-bar {
+    flex-grow: 1;
+    min-height: 0;
 }
 
-.health-fill {
-    flex-grow: 1;
-    width: 100%;
-    background-image: url("project://database/Assets/_ZB/UI/Textures/Health.png");
-    background-size: 100% 100%;
+.health-bar__body {
+    padding: 8px 4px;
 }
 
-.health-highlight {
+.health-bar__tube {
     flex-grow: 1;
-    background-image: url("project://database/Assets/_ZB/UI/Textures/HealthHighlight.png");
+    flex-basis: 0;
+    min-height: 0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.health-bar__fill,
+.health-bar__glass {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.health-bar__fill {
+    background-color: white;
+    -unity-material: url("project://database/Assets/_ZB/UI/Textures/BeerMat.mat");
+}
+
+.health-bar__glass {
+    background-image: url("project://database/Assets/_ZB/UI/Textures/HealthReflex.png");
     background-size: 100% 100%;
+    background-repeat: no-repeat;
 }

@@ -1,8 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <ui:VisualElement class="hud-widget stone-frame">
-        <ui:VisualElement class="health-content stone-recess">
-            <ui:VisualElement name="health-fill" class="health-fill">
-                <ui:VisualElement class="health-highlight" picking-mode="Ignore" />
+    <ui:VisualElement class="health-bar stone stone--frame">
+        <ui:VisualElement class="health-bar__body stone__recess">
+            <ui:VisualElement class="health-bar__tube">
+                <ui:VisualElement class="health-bar__fill" picking-mode="Ignore" />
+                <ui:VisualElement class="health-bar__glass" picking-mode="Ignore" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

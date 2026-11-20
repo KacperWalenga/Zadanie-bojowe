@@ -1,60 +1,106 @@
 .hud {
     flex-grow: 1;
     flex-direction: row;
-    padding: 26.5px;
+    padding: 24px;
 }
 
 .hud__viewport {
     flex-grow: 2;
-    flex-basis: 0px;
+    flex-basis: 0;
     min-width: 0;
-    margin-right: 26.5px;
-}
-
-#viewport .game-viewport {
-    background-image: url("project://database/Assets/_ZB/Shaders/Pixelation/Pixelate%20Texture.renderTexture");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+    margin-right: 24px;
 }
 
 .hud__sidebar {
     flex-grow: 1;
-    flex-basis: 0px;
+    flex-basis: 0;
     min-width: 0;
+    flex-direction: row;
 }
 
-.hud__level,
 .hud__health {
-    height: 66.5px;
+    width: 50px;
     flex-shrink: 0;
-    margin-bottom: 26.5px;
+    margin-right: 12px;
+}
+
+.hud__content {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 0;
+    min-height: 0;
+}
+
+.hud__level {
+    flex-shrink: 0;
+    margin-bottom: 12px;
 }
 
 .hud__level-title {
-    font-size: 42.5px;
+    font-size: 40px;
     -unity-text-align: middle-center;
+    padding: 2px 8px;
 }
 
-.hud__timers {
-    flex-direction: row;
-    height: 166.5px;
+.hud__stats {
     flex-shrink: 0;
-    margin-bottom: 26.5px;
+    margin-bottom: 12px;
 }
 
-.hud__timer {
+.hud__panel {
     flex-grow: 1;
-    flex-basis: 0px;
-    min-width: 0;
-}
-
-.hud__timer--level {
-    margin-right: 26.5px;
-}
-
-.hud__book {
-    margin-top: auto;
-    flex-grow: 0;
+    flex-basis: 0;
     min-height: 0;
+}
+
+.hud__panel--hidden {
+    display: none;
+}
+
+.hud__tabs {
+    flex-direction: row;
+    flex-shrink: 0;
+    margin-top: 12px;
+}
+
+.hud__tab {
+    background-image: none;
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 0;
+    min-height: 42px;
+    font-size: 17px;
+    -unity-text-align: middle-center;
+    background-color: #514e48;
+    transition-property: color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
+    border-width: 0;
+    border-radius: 0;
+    padding: 6px 4px;
+}
+
+.hud__tab--journal {
+    margin-left: 12px;
+}
+
+.hud__tab-frame {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url("project://database/Assets/_ZB/UI/Textures/StoneInset2.png");
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
+}
+
+.hud__tab--active {
+    color: rgba(255, 255, 255, 0.1);
+}
+
+.hud__tab--active > .hud__tab-frame {
+    opacity: 0.1;
 }

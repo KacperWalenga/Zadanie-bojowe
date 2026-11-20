@@ -1,72 +1,65 @@
 .book {
     flex-grow: 1;
-    display: flex;
+    min-height: 0;
+    min-width: 0;
+}
+
+.book__body {
     justify-content: center;
     align-items: center;
     padding: 10px;
 }
 
 .book__image {
-    position: relative;
-    flex-grow: 0;
-    flex-shrink: 1;
     width: 100%;
+    max-width: 500px;
     max-height: 100%;
-    aspect-ratio: 993 / 717;
+    aspect-ratio: 1.384937;
     background-image: url("project://database/Assets/_ZB/UI/Textures/Book/Book.png");
-    background-size: contain;
-    background-position: center;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
-    display: flex;
-    flex-direction: row;
 }
 
 .book__page {
     position: absolute;
     top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    max-height: 100%;
-    aspect-ratio: 993 / 717;
 }
 
 .book__navigation {
     position: absolute;
-    width: 100%;
-    bottom: 40;
+    right: 0;
+    bottom: 16%;
     left: 0;
-    height: 20%;
-    display: flex;
+    height: 18%;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 0 18%;
+    padding: 0 19%;
 }
 
 .book__button {
-    transition-property: scale;
-    transition-duration: 150ms;
-    transition-timing-function: ease-out;
-    scale: 1.0 1.0;
-
+    height: 100%;
+    aspect-ratio: 1.048951;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    border-radius: 0;
     -unity-background-image-tint-color: white;
     background-color: transparent;
     background-image: url("project://database/Assets/_ZB/UI/Textures/Book/button-left.png");
     background-size: contain;
     background-position: center;
-    background-repeat: no-repeat;    
-    
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
-    border-radius: 0;
-
-    aspect-ratio: 150 / 123;
-    height: 100%;
+    background-repeat: no-repeat;
+    transition-property: scale;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
 }
 
 .book__button--right {
+    aspect-ratio: 1.019108;
     background-image: url("project://database/Assets/_ZB/UI/Textures/Book/button-right.png");
 }
 

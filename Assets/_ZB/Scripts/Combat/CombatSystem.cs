@@ -8,6 +8,7 @@ using ZB.Mobs;
 public class CombatSystem : MonoBehaviour
 {
     [SerializeField] private InputActionReference numberAction;
+    [SerializeField] public int playerMaxHP = 100;
 
     private int currentNumberIndex = -1;
     private string combatNumber;
@@ -15,9 +16,12 @@ public class CombatSystem : MonoBehaviour
 
     private Action CombatFinished;
 
+    [field: SerializeField] public int PlayerHP { get; private set; }
+
     private void Awake()
     {
         numberAction.action.performed += OnNumberPressed;
+        PlayerHP = playerMaxHP;
     }
 
     private void OnDestroy()
@@ -80,9 +84,17 @@ public class CombatSystem : MonoBehaviour
         CombatFinished = combatFinished;
     }
 
+    public void TakeDamage(int damage)
+    {
+        if (damage <= 0 || PlayerHP <= 0)
+            return;
+
+        PlayerHP = Mathf.Max(0, PlayerHP - damage);
+        EventManager.Trigger(Consts.Events.PLAYER_HEALTH_LOST, (Health: PlayerHP, MaxHealth: playerMaxHP));
+    }
+
     private void CorrectNumberPressed()
     {
-        Debug.Log("Correct number pressed - next");
         currentNumberIndex++;
         
         if(combatNumber.Length < currentNumberIndex + 1)
@@ -91,14 +103,11 @@ public class CombatSystem : MonoBehaviour
 
     private void IncorrectNumberPressed()
     {
-        Debug.Log("Incorrect number pressed - reset");
         currentNumberIndex = 0;
     }
 
     private void FinishCombat()
     {
-        Debug.Log("Combat finished");
-        
         EventManager.Trigger(Consts.Events.Combat.COMBAT_ENDED);
         combatNumber = null;
         

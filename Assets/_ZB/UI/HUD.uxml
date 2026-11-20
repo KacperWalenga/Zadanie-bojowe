@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:Template name="GameViewport" src="project://database/Assets/_ZB/UI/Components/Viewport/GameViewport.uxml" />
-    <ui:Template name="TimerPanel" src="project://database/Assets/_ZB/UI/Components/Timer/TimerPanel.uxml" />
     <ui:Template name="HealthBar" src="project://database/Assets/_ZB/UI/Components/HealthBar/HealthBar.uxml" />
+    <ui:Template name="StatsPanel" src="project://database/Assets/_ZB/UI/Components/Stats/StatsPanel.uxml" />
     <ui:Template name="BookPanel" src="project://database/Assets/_ZB/UI/Components/Book/BookPanel.uxml" />
+    <ui:Template name="MinimapPanel" src="project://database/Assets/_ZB/UI/Components/Minimap/MinimapPanel.uxml" />
     <Style src="project://database/Assets/_ZB/UI/StoneTheme.uss" />
     <Style src="project://database/Assets/_ZB/UI/Components/Viewport/GameViewport.uss" />
-    <Style src="project://database/Assets/_ZB/UI/Components/Timer/TimerPanel.uss" />
     <Style src="project://database/Assets/_ZB/UI/Components/HealthBar/HealthBar.uss" />
+    <Style src="project://database/Assets/_ZB/UI/Components/Stats/StatsPanel.uss" />
     <Style src="project://database/Assets/_ZB/UI/Components/Book/BookPanel.uss" />
+    <Style src="project://database/Assets/_ZB/UI/Components/Minimap/MinimapPanel.uss" />
     <Style src="project://database/Assets/_ZB/UI/HUD.uss" />
 
-    <ui:VisualElement class="hud stone-surface">
+    <ui:VisualElement class="hud stone stone--surface">
         <ui:Instance template="GameViewport" name="viewport" class="hud__viewport" />
 
         <ui:VisualElement class="hud__sidebar">
-            <ui:VisualElement class="hud__level stone-frame">
-                <ui:Label name="level-label" text="Piwnica 1" class="hud__level-title stone-recess stone-text" />
-            </ui:VisualElement>
-
-            <ui:VisualElement class="hud__timers">
-                <ui:Instance template="TimerPanel" name="level-timer" class="hud__timer hud__timer--level">
-                    <ui:AttributeOverrides element-name="timer-caption" text="czas w poziomie:" />
-                </ui:Instance>
-                <ui:Instance template="TimerPanel" name="total-timer" class="hud__timer">
-                    <ui:AttributeOverrides element-name="timer-caption" text="czas w grze:" />
-                </ui:Instance>
-            </ui:VisualElement>
-
             <ui:Instance template="HealthBar" name="health-bar" class="hud__health" />
-            <ui:Instance template="BookPanel" name="book-panel" class="hud__book" />
+
+            <ui:VisualElement class="hud__content">
+                <ui:VisualElement class="hud__level stone stone--frame">
+                    <ui:Label name="level-label" text="PIWNICA 1" class="hud__level-title stone__recess stone__text" />
+                </ui:VisualElement>
+
+                <ui:Instance template="StatsPanel" class="hud__stats" />
+
+                <ui:Instance template="BookPanel" name="journal-panel" class="hud__panel" />
+                <ui:Instance template="MinimapPanel" name="minimap-panel" class="hud__panel hud__panel--hidden" />
+
+                <ui:VisualElement class="hud__tabs">
+                    <ui:Button name="minimap-tab" text="MINIMAPA" class="hud__tab stone__text">
+                        <ui:VisualElement class="hud__tab-frame stone stone--frame" picking-mode="Ignore" />
+                    </ui:Button>
+                    <ui:Button name="journal-tab" text="DZIENNIK" class="hud__tab hud__tab--journal hud__tab--active stone__text">
+                        <ui:VisualElement class="hud__tab-frame stone stone--frame" picking-mode="Ignore" />
+                    </ui:Button>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

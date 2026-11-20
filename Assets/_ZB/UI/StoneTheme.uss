@@ -1,10 +1,10 @@
-.stone-surface {
+.stone--surface {
     background-color: #514b40;
     background-image: url("project://database/Assets/_ZB/UI/Textures/Stone.png");
     background-size: cover;
 }
 
-.stone-frame {
+.stone--frame {
     background-image: url("project://database/Assets/_ZB/UI/Textures/StoneInset.png");
     -unity-slice-left: 7;
     -unity-slice-right: 7;
@@ -13,24 +13,17 @@
     padding: 6.5px;
 }
 
-.stone-recess {
+.stone__recess {
     flex-grow: 1;
     min-height: 0;
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-.stone-text {
+.stone__text {
     margin: 0;
     padding: 0;
     color: #ffffff;
     -unity-font-definition: initial;
-   
     -unity-font: url("project://database/Assets/_ZB/UI/Fonts/Firlest-Regular.otf");
     -unity-font-style: normal;
-}
-
-.hud-widget {
-    flex-grow: 1;
-    min-height: 0;
-    min-width: 0;
 }

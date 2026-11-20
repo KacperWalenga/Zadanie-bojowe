@@ -1,6 +1,14 @@
-.game-viewport {
+.game-viewport,
+.game-viewport__image {
     flex-grow: 1;
     flex-basis: 0;
     min-height: 0;
     min-width: 0;
+}
+
+.game-viewport__image {
+    background-image: url("project://database/Assets/_ZB/Shaders/Pixelation/Pixelate%20Texture.renderTexture");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }

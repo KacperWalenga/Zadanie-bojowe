@@ -104,6 +104,7 @@ public class Movement : MonoBehaviour
             .BindToPosition(player)
             .AddTo(this);
         
+        EventManager.Trigger(Consts.Events.PLAYER_MOVE_STARTED, moveDuration);
         audioSource.PlayOneShot(moveSound);
     }
 
@@ -121,6 +122,8 @@ public class Movement : MonoBehaviour
             .WithEase(Ease.InOutSine)
             .Bind(t => player.rotation = Quaternion.Slerp(start, target, t))
             .AddTo(this);
+
+        EventManager.Trigger(Consts.Events.PLAYER_TURN_STARTED, turnDuration);
         
         moveQueue = null;
     }

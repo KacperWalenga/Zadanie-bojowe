@@ -9,6 +9,7 @@ namespace ZB
     public static partial class EventManager
     {
         private static readonly Dictionary<string, Action> events = new();
+        private static readonly Dictionary<(string Name, Type ArgumentType), Delegate> typedEvents = new();
 
         public static void AddListener(string name, Action callback)
         {
@@ -28,7 +29,33 @@ namespace ZB
                 listeners?.Invoke();
         }
 
+        public static void AddListener<T>(string name, Action<T> callback)
+        {
+            var key = (name, typeof(T));
+
+            typedEvents.TryGetValue(key, out var listeners);
+            typedEvents[key] = (Action<T>)listeners + callback;
+        }
+
+        public static void RemoveListener<T>(string name, Action<T> callback)
+        {
+            var key = (name, typeof(T));
+
+            if (typedEvents.TryGetValue(key, out var listeners))
+                typedEvents[key] = (Action<T>)listeners - callback;
+        }
+
+        public static void Trigger<T>(string name, T argument)
+        {
+            if (typedEvents.TryGetValue((name, typeof(T)), out var listeners))
+                ((Action<T>)listeners)?.Invoke(argument);
+        }
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void Reset() => events.Clear();
+        private static void Reset()
+        {
+            events.Clear();
+            typedEvents.Clear();
+        }
     }
 }

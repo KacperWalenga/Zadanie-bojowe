@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <ui:VisualElement class="hud-widget stone-frame">
-        <ui:Image name="game-view" class="game-viewport" scale-mode="ScaleToFit" picking-mode="Ignore" />
+    <ui:VisualElement class="game-viewport stone stone--frame">
+        <ui:Image name="game-view" class="game-viewport__image" scale-mode="ScaleToFit" picking-mode="Ignore" />
     </ui:VisualElement>
 </ui:UXML>
