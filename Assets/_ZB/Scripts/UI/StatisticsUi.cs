@@ -29,7 +29,7 @@ namespace ZB
         private void Awake()
         {
             panelRenderer = GetComponent<PanelRenderer>();
-            EventManager.AddListener(Consts.Events.MAZE_GENERATED, StartLevel);
+            EventManager.AddListener<int>(Consts.Events.FLOOR_CHANGED, StartLevel);
         }
 
         private void OnEnable()
@@ -46,7 +46,7 @@ namespace ZB
 
         private void OnDestroy()
         {
-            EventManager.RemoveListener(Consts.Events.MAZE_GENERATED, StartLevel);
+            EventManager.RemoveListener<int>(Consts.Events.FLOOR_CHANGED, StartLevel);
         }
 
         private void Update()
@@ -71,7 +71,7 @@ namespace ZB
                 RefreshLevel(Time.timeAsDouble);
         }
 
-        private void StartLevel()
+        private void StartLevel(int floor)
         {
             var now = Time.timeAsDouble;
 
@@ -80,7 +80,7 @@ namespace ZB
             else
                 pointsFromPreviousLevels += CalculateLevelPoints(GetLevelSeconds(now));
 
-            level++;
+            level = floor;
             levelStartedAt = now;
 
             if (uiLoaded)

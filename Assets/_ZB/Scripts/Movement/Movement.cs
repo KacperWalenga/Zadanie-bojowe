@@ -46,10 +46,19 @@ public class Movement : MonoBehaviour
     public void Initialize(MazeData mazeData, Vector2Int startPosition)
     {
         motion.TryCancel();
+        moveQueue = null;
 
         maze = mazeData;
         gridPosition = startPosition;
         facing = Direction.West;
+
+        for (var i = 0; i < DirectionCount; i++)
+        {
+            if (maze.GetCellType(gridPosition + GetDirectionVector(facing)) != WallType.AIR)
+                break;
+
+            facing = GetDirectionAfterTurn(1);
+        }
 
         player.SetPositionAndRotation(GetCellCenter(gridPosition), GetWorldRotation());
     }
@@ -85,7 +94,7 @@ public class Movement : MonoBehaviour
         var targetPosition = gridPosition + direction;
         var cellType = maze.GetCellType(targetPosition);
 
-        if (cellType != WallType.ROOM && cellType != WallType.CORRIDOR)
+        if (cellType == WallType.AIR)
             return;
 
         gridPosition = targetPosition;
@@ -93,6 +102,9 @@ public class Movement : MonoBehaviour
             .WithEase(Ease.InOutSine)
             .WithOnComplete(() =>
             {
+                if (cellType == WallType.FLOOR_TRANSITION)
+                    moveQueue = null;
+
                 EventManager.Trigger(Consts.Events.PLAYER_MOVED, targetPosition);
 
                 if (moveQueue != null)

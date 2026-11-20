@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using ZB.Maze;
-using Random = System.Random;
 
 namespace ZB.Mobs
 {
@@ -9,52 +8,45 @@ namespace ZB.Mobs
     {
         [SerializeField] private int mobsCount;
         [SerializeField] private MobData[] mobDatas;
-        
-        private MazeData mazeData;
-        private List<Vector2Int> occupiedPositions = new();
 
         private void Awake()
         {
             EventManager.AddListener(Consts.Events.MAZE_GENERATED, MazeGenerated);
         }
 
+        private void OnDestroy()
+        {
+            EventManager.RemoveListener(Consts.Events.MAZE_GENERATED, MazeGenerated);
+        }
+
         private void MazeGenerated()
         {
             var mazeBuilder = FindAnyObjectByType<MazeBuilder>();
-            mazeData = mazeBuilder.Maze;
-            
-            SpawnMobs();
-        }
+            var positions = GetSpawnPositions(mazeBuilder.Maze, mazeBuilder.ArrivalPosition);
 
-        private void SpawnMobs()
-        {
-            for (var i = 0; i < mobsCount; i++)
+            for (var i = 0; i < mobsCount && positions.Count > 0; i++)
             {
-                var mob = GetRandomMob();
-                var position = GetRandomCorridorPosition();
-
-                if (occupiedPositions.Contains(position))
-                {
-                    i--;
-                    continue;
-                }
+                var index = Random.Range(0, positions.Count);
+                var mob = mobDatas[Random.Range(0, mobDatas.Length)];
                 
-                mob.Spawn(position);
-                occupiedPositions.Add(position);
+                mob.Spawn(positions[index], mazeBuilder.FloorRoot);
+                positions.RemoveAt(index);
             }
         }
 
-        private Vector2Int GetRandomCorridorPosition()
+        private List<Vector2Int> GetSpawnPositions(MazeData maze, Vector2Int arrival)
         {
-            var randomCorridorIndex = mazeData.GetRandomCorridorIndex();
-            return mazeData.GetCellPosition(randomCorridorIndex);
-        }
-        
-        private MobData GetRandomMob()
-        {
-            var randomIndex = new Random().Next(mobDatas.Length);
+            var positions = new List<Vector2Int>();
 
-            return mobDatas[randomIndex];
+            for (var index = 0; index < maze.Size * maze.Size; index++)
+            {
+                var position = maze.GetCellPosition(index);
+
+                if (position != arrival && maze.GetCellType(position) == WallType.CORRIDOR)
+                    positions.Add(position);
+            }
+
+            return positions;
         }
     }
 }

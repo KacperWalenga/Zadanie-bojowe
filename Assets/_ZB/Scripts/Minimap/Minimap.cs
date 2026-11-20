@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using ZB;
 using ZB.Maze;
@@ -11,33 +11,50 @@ public class Minimap : MonoBehaviour
     [SerializeField] private LayerMask MazePointLayer;
     [SerializeField] private GameObject playerIndicator;
 
+    private readonly Dictionary<int, (GameObject Root, HashSet<Vector2Int> Positions)> floors = new();
+
     private MazeData maze;
     private Player player;
+    private (GameObject Root, HashSet<Vector2Int> Positions) currentFloor;
     
     private void Awake()
     {
         EventManager.AddListener<Vector2Int>(Consts.Events.PLAYER_MOVED, PlayerMoved);
         EventManager.AddListener(Consts.Events.PLAYER_ROTATED, PlayerRotated);
-        EventManager.AddListener(Consts.Events.MAZE_GENERATED, SetupMaze);
+        EventManager.AddListener<int>(Consts.Events.FLOOR_CHANGED, SetupMaze);
     }
 
-    private void SetupMaze()
+    private void SetupMaze(int floor)
     {
         var mazeBuilder = FindAnyObjectByType<MazeBuilder>();
         
         maze = mazeBuilder.Maze;
         player = FindAnyObjectByType<Player>();
         
+        if (currentFloor.Root != null)
+            currentFloor.Root.SetActive(false);
+
+        if (!floors.TryGetValue(floor, out currentFloor))
+        {
+            var points = new GameObject($"Floor {floor}");
+            
+            points.transform.SetParent(transform, false);
+            currentFloor = (points, new HashSet<Vector2Int>());
+            floors.Add(floor, currentFloor);
+        }
+
+        currentFloor.Root.SetActive(true);
         SetupCamera(mazeBuilder.Size);
         
         PlayerRotated();
-        PlayerMoved(new Vector2Int((int)player.PlayerPosition.x, (int)player.PlayerPosition.z));
+        PlayerMoved(mazeBuilder.ArrivalPosition);
     }
     
     private void OnDestroy()
     {
         EventManager.RemoveListener<Vector2Int>(Consts.Events.PLAYER_MOVED, PlayerMoved);
         EventManager.RemoveListener(Consts.Events.PLAYER_ROTATED, PlayerRotated);
+        EventManager.RemoveListener<int>(Consts.Events.FLOOR_CHANGED, SetupMaze);
     }
 
     private void PlayerRotated()
@@ -52,13 +69,23 @@ public class Minimap : MonoBehaviour
 
         playerIndicator.transform.position = new Vector3(playerPosition.x, 20, playerPosition.z);
 
-        if (IsAlreadyMarked(minimapPointPosition))
+        if (!currentFloor.Positions.Add(position))
             return;
         
-        var point = Instantiate(minimapPointPrefab, minimapPointPosition, Quaternion.identity, transform);
+        var point = Instantiate(minimapPointPrefab, minimapPointPosition, Quaternion.identity, currentFloor.Root.transform);
+        var renderer = point.GetComponent<Renderer>();
+        var cellType = maze.GetCellType(position);
 
-        if (maze.IsIntersection(position))
-            point.GetComponent<Renderer>().material.color = Color.white;
+        if (cellType == WallType.EXIT_DOOR)
+            renderer.material.color = Color.cyan;
+        else if (cellType == WallType.BEER_CRATE)
+            renderer.material.color = new Color(0.75f, 0.35f, 1f);
+        else if (position == maze.NextFloorPosition)
+            renderer.material.color = new Color(1f, 0.75f, 0f);
+        else if (maze.IsDeadEnd(position))
+            renderer.material.color = Color.red;
+        else if (maze.IsIntersection(position))
+            renderer.material.color = Color.white;
     }
 
     private void SetupCamera(int mapSize)
@@ -75,6 +102,4 @@ public class Minimap : MonoBehaviour
         camera.transform.position = new Vector3(halfMapSize, 21, halfMapSize);
     }
 
-    private bool IsAlreadyMarked(Vector3 position) => 
-        Physics.CheckBox(position, new Vector3(0.4f, 0.4f, 0.4f));
 }

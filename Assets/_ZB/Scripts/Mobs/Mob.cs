@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using LitMotion;
 using LitMotion.Extensions;
@@ -22,12 +22,15 @@ namespace ZB.Mobs
 
         private void Awake()
         {
-            EventManager.AddListener(Consts.Events.PLAYER_MOVED, PlayerMoved);
-
             combatSystem = FindAnyObjectByType<CombatSystem>();
         }
 
-        private void OnDestroy()
+        private void OnEnable()
+        {
+            EventManager.AddListener(Consts.Events.PLAYER_MOVED, PlayerMoved);
+        }
+
+        private void OnDisable()
         {
             EventManager.RemoveListener(Consts.Events.PLAYER_MOVED, PlayerMoved);
         }
@@ -63,7 +66,7 @@ namespace ZB.Mobs
             
             mobData = data;
             var newPosition = mobData.Offset + new Vector3(position.x, 0, position.y);
-            transform.position = newPosition;
+            transform.localPosition = newPosition;
 
             model = Instantiate(mobData.Model, transform);
             model.ShowModel1();
@@ -117,6 +120,7 @@ namespace ZB.Mobs
                 yield return new WaitForSeconds(0.3f);
                 
                 model.ShowModel2();
+                
                 yield return new WaitForSeconds(0.3f);
             }
         }

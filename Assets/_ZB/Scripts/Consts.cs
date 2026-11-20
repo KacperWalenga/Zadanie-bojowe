@@ -1,10 +1,14 @@
-﻿namespace ZB
+namespace ZB
 {
     public static partial class Consts
     {
         public static partial class Events
         {
             public const string MAZE_GENERATED = "MAZE_GENERATED";
+            public const string FLOOR_CHANGED = "FLOOR_CHANGED";
+            public const string EXIT_DOOR_LOCKED = "EXIT_DOOR_LOCKED";
+            public const string BEER_COLLECTED = "BEER_COLLECTED";
+            public const string FATHER_FIGHT_REQUESTED = "FATHER_FIGHT_REQUESTED";
             public const string GAME_STARTED = "GAME_STARTED";
             public const string PLAYER_MOVED =  "PLAYER_MOVED";
             public const string PLAYER_ROTATED =  "PLAYER_ROTATED";

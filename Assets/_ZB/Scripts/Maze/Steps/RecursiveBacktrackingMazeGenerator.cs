@@ -16,37 +16,7 @@ namespace ZB.Maze
 
         public void Apply(MazeData maze)
         {
-            var start = FindStart(maze);
-
-            if (start.HasValue)
-                CarveCorridors(maze, start.Value);
-        }
-
-        private Vector2Int? FindStart(MazeData maze)
-        {
-            Vector2Int? fallback = null;
-
-            for (var index = 0; index < maze.Size * maze.Size; index++)
-            {
-                var position = new Vector2Int(index % maze.Size, index / maze.Size);
-
-                if (maze.GetCellType(position) == WallType.ROOM)
-                    continue;
-
-                fallback ??= position;
-
-                if (IsInteriorNode(maze, position) && maze.CanGenerateCorridor(position))
-                    return position;
-            }
-
-            return fallback;
-        }
-
-        private bool IsInteriorNode(MazeData maze, Vector2Int position)
-        {
-            var isOdd = position.x % 2 == 1 && position.y % 2 == 1;
-
-            return isOdd && position.x < maze.Size - 1 && position.y < maze.Size - 1;
+            CarveCorridors(maze, maze.StartPosition);
         }
 
         private void CarveCorridors(MazeData maze, Vector2Int start)

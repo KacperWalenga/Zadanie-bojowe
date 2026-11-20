@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace ZB.Mobs
 {
@@ -20,9 +20,9 @@ namespace ZB.Mobs
         [field: SerializeField] public Vector3 Offset { get; private set; } = new (-0.5f, 0.5f, 0.5f);
         [field: SerializeField] public Vector3 HiddenOffset { get; private set; } = new (0f, 1f, 0f);
         
-        public void Spawn(Vector2Int position)
+        public void Spawn(Vector2Int position, Transform floorRoot)
         {
-            var mob = Instantiate(MobTemplate);
+            var mob = Instantiate(MobTemplate, floorRoot);
             mob.Init(this, position);
         }
     }

@@ -1,47 +1,49 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace ZB.Maze
 {
-    public struct PlacedRoom
-    {
-        public Vector2Int Position;
-        public MazeRoom Room;
-    }
-    
     public enum WallType
     {
         AIR = 0,
         CORRIDOR = 1,
-        ROOM = 2
+        FLOOR_TRANSITION = 2,
+        EXIT_DOOR = 3,
+        BEER_CRATE = 4
     }
-    
+
     public class MazeData
     {
-        private readonly HashSet<Vector2Int> reservedEntrances = new();
+        private readonly WallType[] cells;
 
-        private WallType[] cells;
         public int Size { get; private set; }
-        public int RoomPadding { get; private set; }
+        public Vector2Int StartPosition => Vector2Int.one;
+        public Vector2Int? PreviousFloorPosition { get; private set; }
+        public Vector2Int? NextFloorPosition { get; private set; }
+        public Vector2Int? BeerCratePosition { get; private set; }
 
-        private List<PlacedRoom> placedRooms;
-        public IReadOnlyList<PlacedRoom> Rooms => placedRooms.AsReadOnly();
-
-        public MazeData(int size = 51, int roomPadding = 1)
+        public MazeData(int size = 51)
         {
             Size = size;
-            RoomPadding = roomPadding;
             cells = new WallType[size * size];
-            
-            for (var i = 0; i < cells.Length; i++)
-                cells[i] = WallType.AIR;
-
-            placedRooms = new();
         }
-        
+
+        public void SetSpecialCells(bool hasPreviousFloor, bool hasNextFloor)
+        {
+            var farthest = GetFarthestCell(StartPosition);
+
+            if (hasNextFloor)
+                NextFloorPosition = farthest;
+            else
+                BeerCratePosition = farthest;
+
+            if (hasPreviousFloor)
+                PreviousFloorPosition = StartPosition;
+
+            SetCellType(StartPosition, hasPreviousFloor ? WallType.FLOOR_TRANSITION : WallType.EXIT_DOOR);
+            SetCellType(farthest, hasNextFloor ? WallType.FLOOR_TRANSITION : WallType.BEER_CRATE);
+        }
+
         public WallType GetCellType(Vector2Int position)
         {
             if (!IsInsideGrid(position))
@@ -56,105 +58,90 @@ namespace ZB.Maze
         {
             return position.y * Size + position.x;
         }
-        
+
         public Vector2Int GetCellPosition(int index)
         {
             return new Vector2Int(index % Size, index / Size);
         }
-        
-        public bool HasCorridors() => Array.IndexOf(cells, WallType.CORRIDOR) >= 0;
 
         public bool IsInsideGrid(Vector2Int position)
         {
-            return position.x >= 0 &&
-                   position.y >= 0 &&
-                   position.x < Size &&
-                   position.y < Size;
+            return position.x >= 0 && position.y >= 0 && position.x < Size && position.y < Size;
         }
-        
+
         public bool IsCellFree(Vector2Int position)
         {
-            return GetCellType(position) == WallType.AIR && !reservedEntrances.Contains(position);
+            return GetCellType(position) == WallType.AIR;
         }
-        
+
         public bool CanGenerateCorridor(Vector2Int position)
         {
             return IsInsideGrid(position) && IsCellFree(position);
         }
-        
+
         public void SetCellType(Vector2Int position, WallType type)
         {
             if (!IsInsideGrid(position))
                 return;
 
-            var index = position.y * Size + position.x;
-            
+            var index = GetCellIndex(position);
             cells[index] = type;
-        }
-        
-        public bool IsZoneFree(Vector2Int bottomLeftCorner, int size)
-        {
-            var min = bottomLeftCorner - Vector2Int.one * RoomPadding;
-            var max = bottomLeftCorner + Vector2Int.one * (size + RoomPadding - 1);
-
-            if (!IsInsideGrid(min) || !IsInsideGrid(max))
-                return false;
-
-            for (var y = min.y; y <= max.y; y++)
-                for (var x = min.x; x <= max.x; x++)
-                    if (!IsCellFree(new Vector2Int(x, y)))
-                        return false;
-
-            return true;
-        }
-        
-        public void PlaceRoom(Vector2Int position, MazeRoom room)
-        {
-            for (var y = 0; y < room.Size; y++)
-                for (var x = 0; x < room.Size; x++)
-                    SetCellType(position + new Vector2Int(x, y), WallType.ROOM);
-
-            placedRooms.Add(new PlacedRoom { Position = position, Room = room });
-
-            foreach (var door in room.Doors)
-            {
-                var doorPosition = position + door;
-
-                if (!IsInsideGrid(doorPosition))
-                    continue;
-
-                reservedEntrances.Add(doorPosition);
-            }
-        }
-
-        public int GetRandomCorridorIndex()
-        {
-            var corridorIndices = Enumerable.Range(0, cells.Length)
-                .Where(i => cells[i] == WallType.CORRIDOR)
-                .ToArray();
-
-            return corridorIndices.Length > 0
-                ? corridorIndices[Random.Range(0, corridorIndices.Length)]
-                : -1;
         }
 
         public bool IsIntersection(Vector2Int position)
+        {
+            return CountNeighbors(position) >= 3;
+        }
+
+        public bool IsDeadEnd(Vector2Int position)
+        {
+            return CountNeighbors(position) == 1;
+        }
+
+        private int CountNeighbors(Vector2Int position)
         {
             var neighbors = 0;
 
             if (!IsCellFree(Vector2Int.up + position))
                 neighbors += 1;
-            
+
             if (!IsCellFree(Vector2Int.down + position))
                 neighbors += 1;
-            
+
             if (!IsCellFree(Vector2Int.left + position))
                 neighbors += 1;
-            
+
             if (!IsCellFree(Vector2Int.right + position))
                 neighbors += 1;
 
-            return neighbors >= 3;
+            return neighbors;
+        }
+
+        private Vector2Int GetFarthestCell(Vector2Int start)
+        {
+            var directions = new[] { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
+            var visited = new HashSet<Vector2Int> { start };
+            var queue = new Queue<Vector2Int>();
+            var farthest = start;
+
+            queue.Enqueue(start);
+
+            while (queue.Count > 0)
+            {
+                farthest = queue.Dequeue();
+
+                foreach (var direction in directions)
+                {
+                    var position = farthest + direction;
+
+                    if (IsCellFree(position) || !visited.Add(position))
+                        continue;
+
+                    queue.Enqueue(position);
+                }
+            }
+
+            return farthest;
         }
     }
 }
