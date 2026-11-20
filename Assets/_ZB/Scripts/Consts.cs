@@ -7,6 +7,7 @@
             public const string MAZE_GENERATED = "MAZE_GENERATED";
             public const string GAME_STARTED = "GAME_STARTED";
             public const string PLAYER_MOVED =  "PLAYER_MOVED";
+            public const string PLAYER_ROTATED =  "PLAYER_ROTATED";
 
             public static partial class Combat
             {

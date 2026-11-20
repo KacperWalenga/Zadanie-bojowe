@@ -119,6 +119,10 @@ public class Movement : MonoBehaviour
 
         motion = LMotion.Create(0f, 1f, turnDuration)
             .WithEase(Ease.InOutSine)
+            .WithOnComplete(() =>
+            {
+                EventManager.Trigger(Consts.Events.PLAYER_ROTATED);
+            })
             .Bind(t => player.rotation = Quaternion.Slerp(start, target, t))
             .AddTo(this);
         
