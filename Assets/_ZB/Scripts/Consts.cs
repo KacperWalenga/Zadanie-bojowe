@@ -6,7 +6,6 @@ namespace ZB
         {
             public static partial class Game
             {
-                public const string STARTED = "GAME_STARTED";
                 public const string LOST = "GAME_LOST";
             }
 
@@ -18,7 +17,6 @@ namespace ZB
 
             public static partial class Objectives
             {
-                public const string EXIT_DOOR_LOCKED = "EXIT_DOOR_LOCKED";
                 public const string BEER_COLLECTED = "BEER_COLLECTED";
                 public const string FATHER_FIGHT_REQUESTED = "FATHER_FIGHT_REQUESTED";
             }

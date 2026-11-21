@@ -16,7 +16,9 @@ namespace ZB.Maze
         public GameObject floorPrefab;
         public GameObject wallPrefab;
         public RoofPattern[] roofs;
-        public GameObject torchPrefab;
+        public GameObject torchPrefab; 
+        public GameObject transitionFloorPrefab;
+        public GameObject transitionFloorBackPrefab;
         public float torchSpawnRate = 0.3f;
         public Color torchColor = new(1f, 0.6544963f, 0f);
         public MazeAlgoritm algoritm = MazeAlgoritm.RB;

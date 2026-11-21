@@ -6,11 +6,8 @@ namespace ZB.Maze
     public class MazeObjectives : MonoBehaviour
     {
         [SerializeField] private GameObject exitDoorPrefab;
-        [SerializeField] private GameObject beerCratePrefab;
 
         private MazeBuilder builder;
-        private GameObject beerCrate;
-        private bool beerCollected;
         private bool fatherFightRequested;
 
         private void Awake()
@@ -33,9 +30,6 @@ namespace ZB.Maze
 
             if (maze.GetCellType(maze.StartPosition) == WallType.EXIT_DOOR)
                 Spawn(exitDoorPrefab, maze.StartPosition);
-
-            if (maze.BeerCratePosition is Vector2Int position)
-                beerCrate = Spawn(beerCratePrefab, position);
         }
 
         private GameObject Spawn(GameObject prefab, Vector2Int position)
@@ -48,31 +42,20 @@ namespace ZB.Maze
         {
             var cellType = builder.Maze.GetCellType(position);
 
-            if (cellType == WallType.BEER_CRATE)
-                CollectBeer();
-            else if (cellType == WallType.EXIT_DOOR)
+            if (cellType == WallType.EXIT_DOOR)
                 ReachExitDoor();
-        }
 
-        private void CollectBeer()
-        {
-            if (beerCollected)
-                return;
-
-            beerCollected = true;
-            beerCrate.SetActive(false);
-            
-            EventManager.Trigger(Consts.Events.Objectives.BEER_COLLECTED);
+            if (cellType == WallType.FLOOR_TRANSITION)
+            {
+                if (builder.IsFirstRealFloor)
+                    EventManager.Trigger(Consts.Events.Objectives.BEER_COLLECTED);
+                    
+                builder.LoadNextFloor(position);
+            }
         }
 
         private void ReachExitDoor()
         {
-            if (!beerCollected)
-            {
-                EventManager.Trigger(Consts.Events.Objectives.EXIT_DOOR_LOCKED);
-                return;
-            }
-
             if (fatherFightRequested)
                 return;
 

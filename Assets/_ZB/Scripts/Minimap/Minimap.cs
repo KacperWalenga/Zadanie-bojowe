@@ -78,8 +78,6 @@ public class Minimap : MonoBehaviour
 
         if (cellType == WallType.EXIT_DOOR)
             renderer.material.color = Color.cyan;
-        else if (cellType == WallType.BEER_CRATE)
-            renderer.material.color = new Color(0.75f, 0.35f, 1f);
         else if (position == maze.NextFloorPosition)
             renderer.material.color = new Color(1f, 0.75f, 0f);
         else if (maze.IsDeadEnd(position))

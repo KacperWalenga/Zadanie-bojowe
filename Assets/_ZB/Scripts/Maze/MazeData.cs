@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace ZB.Maze
@@ -9,7 +10,6 @@ namespace ZB.Maze
         CORRIDOR = 1,
         FLOOR_TRANSITION = 2,
         EXIT_DOOR = 3,
-        BEER_CRATE = 4
     }
 
     public class MazeData
@@ -40,10 +40,10 @@ namespace ZB.Maze
             if (hasPreviousFloor)
                 PreviousFloorPosition = StartPosition;
 
-            SetCellType(StartPosition, hasPreviousFloor ? WallType.FLOOR_TRANSITION : WallType.EXIT_DOOR);
-            SetCellType(farthest, hasNextFloor ? WallType.FLOOR_TRANSITION : WallType.CORRIDOR);
+            SetCellType(StartPosition, hasPreviousFloor ? WallType.FLOOR_TRANSITION : WallType.CORRIDOR);
+            SetCellType(farthest, hasNextFloor ? WallType.FLOOR_TRANSITION : WallType.EXIT_DOOR);
         }
-
+        
         public WallType GetCellType(Vector2Int position)
         {
             if (!IsInsideGrid(position))
@@ -140,7 +140,7 @@ namespace ZB.Maze
                     queue.Enqueue(position);
                 }
             }
-
+            
             return farthest;
         }
     }

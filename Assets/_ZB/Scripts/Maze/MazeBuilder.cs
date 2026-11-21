@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,7 +12,6 @@ namespace ZB.Maze
 
         [Header("Floors")]
         [SerializeField] private MazeFloor[] floors;
-        [SerializeField] private GameObject transitionFloorPrefab;
 
         [Header("Generation")]
         [SerializeField] private Transform root;
@@ -29,12 +29,9 @@ namespace ZB.Maze
         public Vector2Int ArrivalPosition { get; private set; }
 
         private MazeFloor Floor => floors[currentFloor];
-
-        private void Awake()
-        {
-            EventManager.AddListener<Vector2Int>(Consts.Events.Player.MOVED, CheckFloorTransition);
-        }
-
+        
+        public bool IsFirstRealFloor => currentFloor == 1;
+        
         private void Start()
         {
             movement = FindAnyObjectByType<Movement>();
@@ -55,12 +52,7 @@ namespace ZB.Maze
             LoadFloor(nextFloor);
         }
 
-        private void OnDestroy()
-        {
-            EventManager.RemoveListener<Vector2Int>(Consts.Events.Player.MOVED, CheckFloorTransition);
-        }
-
-        private void CheckFloorTransition(Vector2Int position)
+        public void LoadNextFloor(Vector2Int position)
         {
             if (position == maze.NextFloorPosition)
                 pendingFloor = currentFloor + 1;
@@ -138,11 +130,8 @@ namespace ZB.Maze
         private void BuildCorridorCell(Vector2Int position)
         {
             var worldPosition = GridToWorld(position);
-
-            var cellType = maze.GetCellType(position);
-            var floorPrefab = cellType == WallType.FLOOR_TRANSITION ? transitionFloorPrefab : Floor.floorPrefab;
-
-            Instantiate(floorPrefab, worldPosition, FloorRoot.rotation, FloorRoot);
+            
+            Instantiate(SelectFloorType(position), worldPosition, FloorRoot.rotation, FloorRoot);
             
             BuildWall(position, Vector2Int.up);
             BuildWall(position, Vector2Int.right);
@@ -150,6 +139,17 @@ namespace ZB.Maze
             BuildWall(position, Vector2Int.left);
 
             BuildRoof(position);
+        }
+
+        private GameObject SelectFloorType(Vector2Int position)
+        {
+            if (position == maze.NextFloorPosition)
+                return Floor.transitionFloorPrefab;
+            
+            else if (position == maze.PreviousFloorPosition)
+                return Floor.transitionFloorBackPrefab;
+
+            return Floor.floorPrefab;
         }
 
         private void BuildWall(Vector2Int position, Vector2Int direction)

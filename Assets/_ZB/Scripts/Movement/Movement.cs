@@ -96,26 +96,34 @@ public class Movement : MonoBehaviour
 
         if (cellType == WallType.AIR)
             return;
-
-        gridPosition = targetPosition;
-        motion = LMotion.Create(player.position, GetCellCenter(targetPosition), moveDuration)
-            .WithEase(Ease.InOutSine)
-            .WithOnComplete(() =>
-            {
-                if (cellType == WallType.FLOOR_TRANSITION)
-                    moveQueue = null;
-
-                EventManager.Trigger(Consts.Events.Player.MOVED, targetPosition);
-
-                if (moveQueue != null)
-                {
-                    Move(moveQueue.Value);
-                    moveQueue = null;
-                }
-            })
-            .BindToPosition(player)
-            .AddTo(this);
         
+        gridPosition = targetPosition;
+
+        if (cellType != WallType.FLOOR_TRANSITION)
+        {
+            motion = LMotion.Create(player.position, GetCellCenter(targetPosition), moveDuration)
+                .WithEase(Ease.InOutSine)
+                .WithOnComplete(() =>
+                {
+                    if (cellType is WallType.FLOOR_TRANSITION)
+                        moveQueue = null;
+
+                    EventManager.Trigger(Consts.Events.Player.MOVED, targetPosition);
+
+                    if (moveQueue != null)
+                    {
+                        Move(moveQueue.Value);
+                        moveQueue = null;
+                    }
+                })
+                .BindToPosition(player)
+                .AddTo(this);
+        }
+        else
+        {
+            EventManager.Trigger(Consts.Events.Player.MOVED, targetPosition);
+        }
+
         EventManager.Trigger(Consts.Events.Player.MOVE_STARTED, moveDuration);
         audioSource.PlayOneShot(moveSound);
     }

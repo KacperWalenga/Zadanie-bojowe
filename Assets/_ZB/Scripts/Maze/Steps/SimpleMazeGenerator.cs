@@ -16,11 +16,8 @@ namespace ZB.Maze
             for (var i = 0; i < length; i++)
             {
                 var pos = start + (i * Vector2Int.up);
-
-                if (i == length / 2)
-                    maze.SetCellType(pos, WallType.BEER_CRATE);
-                else
-                    maze.SetCellType(pos, WallType.CORRIDOR);
+                
+                maze.SetCellType(pos, WallType.CORRIDOR);
             }
         }
     }
