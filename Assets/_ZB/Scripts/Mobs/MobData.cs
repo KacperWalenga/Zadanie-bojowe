@@ -13,6 +13,7 @@ namespace ZB.Mobs
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string CombatNumber { get; private set; }
         [field: SerializeField] public int DamagePerSecond { get; private set; }
+        [field: SerializeField] public int Health { get; private set; }
         
         [field: Header("Offset")]
         [field: SerializeField] public Vector3 Offset { get; private set; } = new (-0.5f, 0.5f, 0.5f);

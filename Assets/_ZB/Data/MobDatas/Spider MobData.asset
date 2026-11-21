@@ -17,5 +17,6 @@ MonoBehaviour:
   <Name>k__BackingField: Spider
   <CombatNumber>k__BackingField: 67
   <DamagePerSecond>k__BackingField: 1
+  <Health>k__BackingField: 1
   <Offset>k__BackingField: {x: 0.5, y: 0.5, z: 0.5}
   <HiddenOffset>k__BackingField: {x: 0, y: 1, z: 0}

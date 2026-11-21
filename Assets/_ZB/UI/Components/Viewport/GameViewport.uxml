@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:VisualElement class="game-viewport stone stone--frame">
         <ui:Image name="game-view" class="game-viewport__image" scale-mode="ScaleToFit" picking-mode="Ignore" />
+        <ui:VisualElement name="mob-hearts" class="mob-hearts" />
         <ui:VisualElement name="combat-fields" class="combat-fields" />
     </ui:VisualElement>
 </ui:UXML>

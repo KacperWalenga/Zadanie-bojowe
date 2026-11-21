@@ -14,6 +14,8 @@ public class CombatSystem : MonoBehaviour
     private bool isCombatInProgress => combatNumber != null;
     private bool isInputPaused;
     private CombatUI combatUI;
+    private int currentHearts;
+    
     
     private Action CombatFinished;
     
@@ -88,17 +90,30 @@ public class CombatSystem : MonoBehaviour
         combatNumber = mobData.CombatNumber;
         currentNumberIndex = 0;
         
-        combatUI.StartCombat(combatNumber.Length);
+        combatUI.StartCombat(combatNumber.Length, mobData.Health);
 
         CombatFinished = combatFinished;
+        currentHearts = mobData.Health;
     }
 
     private void CorrectNumberPressed()
     {
         currentNumberIndex++;
         
-        if(combatNumber.Length < currentNumberIndex + 1)
-            FinishCombat();
+        if (combatNumber.Length >= currentNumberIndex + 1) 
+            return;
+
+        currentHearts--;
+        
+        if (currentHearts > 0)
+        {
+            combatUI.DamageMob(currentHearts);
+            currentNumberIndex = 0;
+            
+            return;
+        }
+            
+        FinishCombat();
     }
 
     private async void IncorrectNumberPressed()

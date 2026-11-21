@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using LitMotion;
 using LitMotion.Extensions;
@@ -20,6 +19,7 @@ namespace ZB.Mobs
         private bool isInCombat;
         private Transform cameraTransform;
         private Coroutine animationCoroutine;
+        private int mobHealth;
 
         private void Awake()
         {
@@ -74,6 +74,8 @@ namespace ZB.Mobs
             model = Instantiate(mobData.Model, transform);
             model.ShowModel1();
             model.transform.localPosition = mobData.HiddenOffset;
+
+            mobHealth = mobData.Health;
         }
 
         private void ShowMob()
