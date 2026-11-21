@@ -116,7 +116,7 @@ MonoBehaviour:
       type: {class: URPLightFalloffSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
         m_Version: 1
-        m_LightFalloffMode: 0
+        m_LightFalloffMode: 1
     - rid: 2095413333346746370
       type: {class: UpscalerReactiveMaskResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
       data:
