@@ -15,7 +15,7 @@ MonoBehaviour:
   <Model>k__BackingField: {fileID: 2100068212251703073, guid: 25348143bbe02a44bbf8f36e1cd1d99d, type: 3}
   <MobTemplate>k__BackingField: {fileID: 1504424528247521604, guid: fabac1f3d56327c41a73aa3d5785dc26, type: 3}
   <Name>k__BackingField: Spider
-  <CombatNumber>k__BackingField: 69
+  <CombatNumber>k__BackingField: 67
   <DamagePerSecond>k__BackingField: 1
   <Health>k__BackingField: 1
   <Points>k__BackingField: 3
