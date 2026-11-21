@@ -21,7 +21,7 @@ namespace ZB.Maze
         public Vector2Int StartPosition => Vector2Int.one;
         public Vector2Int? PreviousFloorPosition { get; private set; }
         public Vector2Int? NextFloorPosition { get; private set; }
-        public Vector2Int? BeerCratePosition { get; private set; }
+        public Vector2Int? ExitDoorPosition { get; private set; }
 
         public MazeData(int size = 51)
         {
@@ -36,7 +36,7 @@ namespace ZB.Maze
             if (hasNextFloor)
                 NextFloorPosition = farthest;
             else
-                BeerCratePosition = farthest;
+                ExitDoorPosition = farthest;
 
             if (hasPreviousFloor)
                 PreviousFloorPosition = StartPosition;
