@@ -41,7 +41,7 @@ namespace ZB.Maze
                 PreviousFloorPosition = StartPosition;
 
             SetCellType(StartPosition, hasPreviousFloor ? WallType.FLOOR_TRANSITION : WallType.EXIT_DOOR);
-            SetCellType(farthest, hasNextFloor ? WallType.FLOOR_TRANSITION : WallType.BEER_CRATE);
+            SetCellType(farthest, hasNextFloor ? WallType.FLOOR_TRANSITION : WallType.CORRIDOR);
         }
 
         public WallType GetCellType(Vector2Int position)

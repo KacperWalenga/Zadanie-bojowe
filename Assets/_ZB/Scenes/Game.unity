@@ -718,6 +718,50 @@ PrefabInstance:
       propertyPath: root
       value: 
       objectReference: {fileID: 664091922}
+    - target: {fileID: 9057582167623513009, guid: 554d6fc6a076bf242afcb2815ab06b51, type: 3}
+      propertyPath: floors.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057582167623513009, guid: 554d6fc6a076bf242afcb2815ab06b51, type: 3}
+      propertyPath: floors.Array.data[0].algoritm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057582167623513009, guid: 554d6fc6a076bf242afcb2815ab06b51, type: 3}
+      propertyPath: floors.Array.data[2].wallPrefab
+      value: 
+      objectReference: {fileID: 9008515397581000635, guid: 5ab8962bde804dd4cae3d9a9dc2788ae, type: 3}
+    - target: {fileID: 9057582167623513009, guid: 554d6fc6a076bf242afcb2815ab06b51, type: 3}
+      propertyPath: floors.Array.data[2].floorPrefab
+      value: 
+      objectReference: {fileID: 1632473124045396041, guid: e2e74a5ce9b3c924d90a4c110daaf0f8, type: 3}
+    - target: {fileID: 9057582167623513009, guid: 554d6fc6a076bf242afcb2815ab06b51, type: 3}
+      propertyPath: floors.Array.data[2].torchPrefab
+      value: 
+      objectReference: {fileID: 3877062737534208295, guid: 41ec5b9f369d7234a9b5ec792413183f, type: 3}
+    - target: {fileID: 9057582167623513009, guid: 554d6fc6a076bf242afcb2815ab06b51, type: 3}
+      propertyPath: floors.Array.data[2].torchColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057582167623513009, guid: 554d6fc6a076bf242afcb2815ab06b51, type: 3}
+      propertyPath: floors.Array.data[2].torchColor.g
+      value: 0.654902
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057582167623513009, guid: 554d6fc6a076bf242afcb2815ab06b51, type: 3}
+      propertyPath: floors.Array.data[2].torchColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057582167623513009, guid: 554d6fc6a076bf242afcb2815ab06b51, type: 3}
+      propertyPath: floors.Array.data[2].torchSpawnRate
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057582167623513009, guid: 554d6fc6a076bf242afcb2815ab06b51, type: 3}
+      propertyPath: floors.Array.data[2].roofs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057582167623513009, guid: 554d6fc6a076bf242afcb2815ab06b51, type: 3}
+      propertyPath: 'floors.Array.data[2].roofs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 77344620bbc49c44799c72323e022850, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

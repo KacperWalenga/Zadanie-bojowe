@@ -9,9 +9,18 @@ namespace ZB.Mobs
         [SerializeField] private int mobsCount;
         [SerializeField] private MobData[] mobDatas;
 
+        bool beerColected = false;
+
         private void Awake()
         {
+            EventManager.AddListener(Consts.Events.Objectives.BEER_COLLECTED, BeerColected);
             EventManager.AddListener(Consts.Events.Maze.MAZE_GENERATED, MazeGenerated);
+        }
+
+        private void BeerColected()
+        {
+            beerColected = true;
+            EventManager.AddListener(Consts.Events.Objectives.BEER_COLLECTED, BeerColected);
         }
 
         private void OnDestroy()
@@ -21,6 +30,9 @@ namespace ZB.Mobs
 
         private void MazeGenerated()
         {
+            if (!beerColected)
+                return;
+                
             var mazeBuilder = FindAnyObjectByType<MazeBuilder>();
             var positions = GetSpawnPositions(mazeBuilder.Maze, mazeBuilder.ArrivalPosition);
 

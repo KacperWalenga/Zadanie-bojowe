@@ -95,7 +95,13 @@ namespace ZB.Maze
         private void GenerateFloor(int floor)
         {
             maze = new MazeData(size);
-            new RecursiveBacktrackingMazeGenerator().Apply(maze);
+
+            if (floors[floor].algoritm == MazeAlgoritm.RB)
+                new RecursiveBacktrackingMazeGenerator().Apply(maze);
+
+            if (floors[floor].algoritm == MazeAlgoritm.Line)
+                new SimpleMazeGenerator().Apply(maze);
+    
             maze.SetSpecialCells(floor > 0, floor < floors.Length - 1);
 
             floorObjects[floor] = new GameObject($"Floor {floor + 1}");
@@ -135,8 +141,8 @@ namespace ZB.Maze
 
             var cellType = maze.GetCellType(position);
             var floorPrefab = cellType == WallType.FLOOR_TRANSITION ? transitionFloorPrefab : Floor.floorPrefab;
-            Instantiate(floorPrefab, worldPosition, FloorRoot.rotation, FloorRoot);
 
+            Instantiate(floorPrefab, worldPosition, FloorRoot.rotation, FloorRoot);
             
             BuildWall(position, Vector2Int.up);
             BuildWall(position, Vector2Int.right);
