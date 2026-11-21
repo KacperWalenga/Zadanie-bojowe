@@ -29,7 +29,7 @@ namespace ZB.Maze
             var maze = builder.Maze;
 
             if (maze.ExitDoorPosition != null && maze.GetCellType(maze.ExitDoorPosition.Value) == WallType.EXIT_DOOR)
-                Spawn(exitDoorPrefab, maze.StartPosition);
+                Spawn(exitDoorPrefab, maze.ExitDoorPosition.Value);
         }
 
         private GameObject Spawn(GameObject prefab, Vector2Int position)
