@@ -16,6 +16,7 @@ namespace ZB.Mobs
         private MobModel model;
         private MotionHandle motion;
         private CombatSystem combatSystem;
+        private Health health;
         private bool isInCombat;
         private Transform cameraTransform;
         private Coroutine animationCoroutine;
@@ -23,16 +24,17 @@ namespace ZB.Mobs
         private void Awake()
         {
             combatSystem = FindAnyObjectByType<CombatSystem>();
+            health = FindAnyObjectByType<Health>();
         }
 
         private void OnEnable()
         {
-            EventManager.AddListener(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
+            EventManager.AddListener(Consts.Events.Player.MOVED, PlayerMoved);
         }
 
         private void OnDisable()
         {
-            EventManager.RemoveListener(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
+            EventManager.RemoveListener(Consts.Events.Player.MOVED, PlayerMoved);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -52,11 +54,12 @@ namespace ZB.Mobs
                 return;
             
             ShowMob();
+            health.StartDealingDamage(mobData.DamagePerSecond);
         }
 
         private void CombatEnded()
         {
-            
+            health.StopDealingDamage();
             HideMob();
         }
 

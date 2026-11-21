@@ -19,8 +19,8 @@ public class Minimap : MonoBehaviour
     
     private void Awake()
     {
-        EventManager.AddListener<Vector2Int>(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
-        EventManager.AddListener(Consts.Events.Player.PLAYER_ROTATED, PlayerRotated);
+        EventManager.AddListener<Vector2Int>(Consts.Events.Player.MOVED, PlayerMoved);
+        EventManager.AddListener(Consts.Events.Player.ROTATED, PlayerRotated);
         EventManager.AddListener<int>(Consts.Events.Maze.FLOOR_CHANGED, SetupMaze);
     }
 
@@ -52,8 +52,8 @@ public class Minimap : MonoBehaviour
     
     private void OnDestroy()
     {
-        EventManager.RemoveListener<Vector2Int>(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
-        EventManager.RemoveListener(Consts.Events.Player.PLAYER_ROTATED, PlayerRotated);
+        EventManager.RemoveListener<Vector2Int>(Consts.Events.Player.MOVED, PlayerMoved);
+        EventManager.RemoveListener(Consts.Events.Player.ROTATED, PlayerRotated);
         EventManager.RemoveListener<int>(Consts.Events.Maze.FLOOR_CHANGED, SetupMaze);
     }
 

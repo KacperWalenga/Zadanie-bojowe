@@ -17,14 +17,14 @@ namespace ZB.Maze
         {
             builder = GetComponent<MazeBuilder>();
             
-            EventManager.AddListener(Consts.Events.Maze.MAZE_GENERATED, MazeGenerated);
-            EventManager.AddListener<Vector2Int>(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
+            EventManager.AddListener(Consts.Events.Maze.GENERATED, MazeGenerated);
+            EventManager.AddListener<Vector2Int>(Consts.Events.Player.MOVED, PlayerMoved);
         }
 
         private void OnDestroy()
         {
-            EventManager.RemoveListener(Consts.Events.Maze.MAZE_GENERATED, MazeGenerated);
-            EventManager.RemoveListener<Vector2Int>(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
+            EventManager.RemoveListener(Consts.Events.Maze.GENERATED, MazeGenerated);
+            EventManager.RemoveListener<Vector2Int>(Consts.Events.Player.MOVED, PlayerMoved);
         }
 
         private void MazeGenerated()

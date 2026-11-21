@@ -347,6 +347,7 @@ GameObject:
   - component: {fileID: 1881570578077802153}
   - component: {fileID: 7811240218667509510}
   - component: {fileID: 2507770386987254748}
+  - component: {fileID: 8199951986993138665}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -468,3 +469,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   <Camera>k__BackingField: {fileID: 1902437656323871939}
+--- !u!114 &8199951986993138665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8314540447902630414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc11a26bef150e40878aa6625d783c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100

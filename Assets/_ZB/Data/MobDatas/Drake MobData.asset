@@ -16,8 +16,6 @@ MonoBehaviour:
   <MobTemplate>k__BackingField: {fileID: 1504424528247521604, guid: fabac1f3d56327c41a73aa3d5785dc26, type: 3}
   <Name>k__BackingField: Dragon
   <CombatNumber>k__BackingField: 420
-  <Damage>k__BackingField: 25
-  <MinAttackCooldown>k__BackingField: 5
-  <MaxAttackCooldown>k__BackingField: 10
+  <DamagePerSecond>k__BackingField: 3
   <Offset>k__BackingField: {x: 0.5, y: 0.5, z: 0.5}
   <HiddenOffset>k__BackingField: {x: 0, y: 1, z: 0}
