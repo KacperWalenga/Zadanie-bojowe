@@ -28,7 +28,7 @@ namespace ZB.Maze
         {
             var maze = builder.Maze;
 
-            if (maze.GetCellType(maze.StartPosition) == WallType.EXIT_DOOR)
+            if (maze.ExitDoorPosition != null && maze.GetCellType(maze.ExitDoorPosition.Value) == WallType.EXIT_DOOR)
                 Spawn(exitDoorPrefab, maze.StartPosition);
         }
 
