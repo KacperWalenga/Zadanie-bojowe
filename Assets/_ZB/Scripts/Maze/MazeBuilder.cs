@@ -56,8 +56,8 @@ namespace ZB.Maze
         {
             if (position == maze.NextFloorPosition)
                 pendingFloor = currentFloor + 1;
-            else if (position == maze.PreviousFloorPosition)
-                pendingFloor = currentFloor - 1;
+            // else if (position == maze.PreviousFloorPosition)
+            //     pendingFloor = currentFloor - 1;
         }
 
         private void LoadFloor(int floor)
@@ -146,9 +146,6 @@ namespace ZB.Maze
             if (position == maze.NextFloorPosition)
                 return Floor.transitionFloorPrefab;
             
-            else if (position == maze.PreviousFloorPosition)
-                return Floor.transitionFloorBackPrefab;
-
             return Floor.floorPrefab;
         }
 
