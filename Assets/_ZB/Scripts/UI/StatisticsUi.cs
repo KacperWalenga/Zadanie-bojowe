@@ -1,5 +1,8 @@
+
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using ZB.Mobs;
 
 namespace ZB
 {
@@ -29,7 +32,9 @@ namespace ZB
         private void Awake()
         {
             panelRenderer = GetComponent<PanelRenderer>();
+
             EventManager.AddListener<int>(Consts.Events.Maze.FLOOR_CHANGED, StartLevel);
+            EventManager.AddListener<MobData>(Consts.Events.Combat.COMBAT_WIN, FightEnded);
         }
 
         private void OnEnable()
@@ -47,6 +52,7 @@ namespace ZB
         private void OnDestroy()
         {
             EventManager.RemoveListener<int>(Consts.Events.Maze.FLOOR_CHANGED, StartLevel);
+            EventManager.RemoveListener<MobData>(Consts.Events.Combat.COMBAT_WIN, FightEnded);
         }
 
         private void Update()
@@ -63,6 +69,7 @@ namespace ZB
             levelTimeLabel = root.Q<Label>("level-time");
             totalTimeLabel = root.Q<Label>("total-time");
             pointsLabel = root.Q<Label>("points-value");
+
             tabs.Bind(root);
             uiLoaded = true;
             displayedGameSeconds = -1;
@@ -78,13 +85,18 @@ namespace ZB
             if (level == 0)
                 gameStartedAt = now;
             else
-                pointsFromPreviousLevels += CalculateLevelPoints(GetLevelSeconds(now));
+                pointsFromPreviousLevels = Math.Max(0, pointsFromPreviousLevels - CalculateLevelPoints(GetLevelSeconds(now)));
 
             level = floor;
             levelStartedAt = now;
 
             if (uiLoaded)
                 RefreshLevel(now);
+        }
+
+        private void FightEnded(MobData mob)
+        {
+            pointsFromPreviousLevels += mob.Points;
         }
 
         private void RefreshLevel(double now)
@@ -101,8 +113,12 @@ namespace ZB
             if (levelSeconds != displayedLevelSeconds)
             {
                 displayedLevelSeconds = levelSeconds;
+
                 levelTimeLabel.text = FormatTime(levelSeconds);
-                pointsLabel.text = (pointsFromPreviousLevels + CalculateLevelPoints(levelSeconds)).ToString();
+
+                var totalPoints = pointsFromPreviousLevels - CalculateLevelPoints(levelSeconds);
+
+                pointsLabel.text = Math.Max(0, totalPoints).ToString();
             }
 
             var gameSeconds = (int)(now - gameStartedAt);
@@ -116,6 +132,16 @@ namespace ZB
 
         private int GetLevelSeconds(double now) => (int)(now - levelStartedAt);
 
-        private int CalculateLevelPoints(int levelSeconds) => levelSeconds / SecondsPerPointAward * level;
+        private int CalculateLevelPoints(int levelSeconds)
+        {
+            return levelSeconds / SecondsPerPointAward * GetLevelPointPenalty();
+        }
+
+        private int GetLevelPointPenalty() => level switch
+        {
+            0 or 1 => 0,
+            2 => 2,
+            _ => 1
+        };
     }
 }

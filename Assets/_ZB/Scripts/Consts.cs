@@ -34,6 +34,7 @@ namespace ZB
             {
                 public const string COMBAT_STARTED = "COMBAT_STARTED";
                 public const string COMBAT_ENDED = "COMBAT_ENDED";
+                public const string COMBAT_WIN = "COMBAT_WIN";
             }
         }
     }

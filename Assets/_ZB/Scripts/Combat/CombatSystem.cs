@@ -15,6 +15,7 @@ public class CombatSystem : MonoBehaviour
     private bool isInputPaused;
     private CombatUI combatUI;
     private int currentHearts;
+    private MobData mobData;
     
     
     private Action CombatFinished;
@@ -86,6 +87,8 @@ public class CombatSystem : MonoBehaviour
     public void StartCombat(MobData mobData, Action combatFinished)
     {
         EventManager.Trigger(Consts.Events.Combat.COMBAT_STARTED);
+
+        this.mobData = mobData;
         
         combatNumber = mobData.CombatNumber;
         currentNumberIndex = 0;
@@ -112,7 +115,10 @@ public class CombatSystem : MonoBehaviour
             
             return;
         }
-            
+        
+        EventManager.Trigger(Consts.Events.Combat.COMBAT_WIN, mobData);
+        mobData = null;
+        
         FinishCombat();
     }
 
