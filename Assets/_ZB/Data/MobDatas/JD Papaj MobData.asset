@@ -16,8 +16,7 @@ MonoBehaviour:
   <MobTemplate>k__BackingField: {fileID: 1504424528247521604, guid: fabac1f3d56327c41a73aa3d5785dc26, type: 3}
   <Name>k__BackingField: JD Papaj
   <CombatNumber>k__BackingField: 2137
-  <Damage>k__BackingField: 21
-  <MinAttackCooldown>k__BackingField: 3
-  <MaxAttackCooldown>k__BackingField: 7
+  <DamagePerSecond>k__BackingField: 5
+  <Health>k__BackingField: 2
   <Offset>k__BackingField: {x: 0.5, y: 0.5, z: 0.5}
   <HiddenOffset>k__BackingField: {x: 0, y: 1, z: 0}

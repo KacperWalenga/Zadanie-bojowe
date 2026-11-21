@@ -105,7 +105,7 @@ public class Movement : MonoBehaviour
                 if (cellType == WallType.FLOOR_TRANSITION)
                     moveQueue = null;
 
-                EventManager.Trigger(Consts.Events.Player.PLAYER_MOVED, targetPosition);
+                EventManager.Trigger(Consts.Events.Player.MOVED, targetPosition);
 
                 if (moveQueue != null)
                 {
@@ -116,7 +116,7 @@ public class Movement : MonoBehaviour
             .BindToPosition(player)
             .AddTo(this);
         
-        EventManager.Trigger(Consts.Events.Player.PLAYER_MOVE_STARTED, moveDuration);
+        EventManager.Trigger(Consts.Events.Player.MOVE_STARTED, moveDuration);
         audioSource.PlayOneShot(moveSound);
     }
 
@@ -134,12 +134,12 @@ public class Movement : MonoBehaviour
             .WithEase(Ease.InOutSine)
             .WithOnComplete(() =>
             {
-                EventManager.Trigger(Consts.Events.Player.PLAYER_ROTATED);
+                EventManager.Trigger(Consts.Events.Player.ROTATED);
             })
             .Bind(t => player.rotation = Quaternion.Slerp(start, target, t))
             .AddTo(this);
 
-        EventManager.Trigger(Consts.Events.Player.PLAYER_TURN_STARTED, turnDuration);
+        EventManager.Trigger(Consts.Events.Player.TURN_STARTED, turnDuration);
         
         moveQueue = null;
     }

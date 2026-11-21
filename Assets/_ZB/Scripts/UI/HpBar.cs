@@ -23,15 +23,15 @@ namespace ZB
         private void Awake()
         {
             panelRenderer = GetComponent<PanelRenderer>();
-            EventManager.AddListener<(int Health, int MaxHealth)>(Consts.Events.Player.PLAYER_HEALTH_LOST, OnHealthLost);
+            EventManager.AddListener<(int Health, int MaxHealth)>(Consts.Events.Player.HEALTH_LOST, OnHealthLost);
         }
 
         private void OnEnable()
         {
             panelRenderer.RegisterUIReloadCallback(OnUIReload);
             
-            EventManager.AddListener<float>(Consts.Events.Player.PLAYER_MOVE_STARTED, OnMovementStarted);
-            EventManager.AddListener<float>(Consts.Events.Player.PLAYER_TURN_STARTED, OnTurnStarted);
+            EventManager.AddListener<float>(Consts.Events.Player.MOVE_STARTED, OnMovementStarted);
+            EventManager.AddListener<float>(Consts.Events.Player.TURN_STARTED, OnTurnStarted);
         }
 
         private void OnDisable()
@@ -39,15 +39,15 @@ namespace ZB
             panelRenderer.UnregisterUIReloadCallback(OnUIReload);
             barAnimation.StopMovement();
 
-            EventManager.RemoveListener<float>(Consts.Events.Player.PLAYER_MOVE_STARTED, OnMovementStarted);
-            EventManager.RemoveListener<float>(Consts.Events.Player.PLAYER_TURN_STARTED, OnTurnStarted);
+            EventManager.RemoveListener<float>(Consts.Events.Player.MOVE_STARTED, OnMovementStarted);
+            EventManager.RemoveListener<float>(Consts.Events.Player.TURN_STARTED, OnTurnStarted);
             
             ReleaseBinding();
         }
 
         private void OnDestroy()
         {
-            EventManager.RemoveListener<(int Health, int MaxHealth)>(Consts.Events.Player.PLAYER_HEALTH_LOST, OnHealthLost);
+            EventManager.RemoveListener<(int Health, int MaxHealth)>(Consts.Events.Player.HEALTH_LOST, OnHealthLost);
         }
 
         private void Update()

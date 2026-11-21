@@ -6,12 +6,13 @@ namespace ZB
         {
             public static partial class Game
             {
-                public const string GAME_STARTED = "GAME_STARTED";
+                public const string STARTED = "GAME_STARTED";
+                public const string LOST = "GAME_LOST";
             }
 
             public static partial class Maze
             {
-                public const string MAZE_GENERATED = "MAZE_GENERATED";
+                public const string GENERATED = "MAZE_GENERATED";
                 public const string FLOOR_CHANGED = "FLOOR_CHANGED";
             }
 
@@ -24,11 +25,11 @@ namespace ZB
 
             public static partial class Player
             {
-                public const string PLAYER_MOVED =  "PLAYER_MOVED";
-                public const string PLAYER_ROTATED =  "PLAYER_ROTATED";
-                public const string PLAYER_MOVE_STARTED = "PLAYER_MOVE_STARTED";
-                public const string PLAYER_TURN_STARTED = "PLAYER_TURN_STARTED";
-                public const string PLAYER_HEALTH_LOST = "PLAYER_HEALTH_LOST";
+                public const string MOVED =  "PLAYER_MOVED";
+                public const string ROTATED =  "PLAYER_ROTATED";
+                public const string MOVE_STARTED = "PLAYER_MOVE_STARTED";
+                public const string TURN_STARTED = "PLAYER_TURN_STARTED";
+                public const string HEALTH_LOST = "PLAYER_HEALTH_LOST";
             }
 
             public static partial class Combat

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using LitMotion;
 using LitMotion.Extensions;
@@ -16,23 +15,26 @@ namespace ZB.Mobs
         private MobModel model;
         private MotionHandle motion;
         private CombatSystem combatSystem;
+        private Health health;
         private bool isInCombat;
         private Transform cameraTransform;
         private Coroutine animationCoroutine;
+        private int mobHealth;
 
         private void Awake()
         {
             combatSystem = FindAnyObjectByType<CombatSystem>();
+            health = FindAnyObjectByType<Health>();
         }
 
         private void OnEnable()
         {
-            EventManager.AddListener(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
+            EventManager.AddListener(Consts.Events.Player.MOVED, PlayerMoved);
         }
 
         private void OnDisable()
         {
-            EventManager.RemoveListener(Consts.Events.Player.PLAYER_MOVED, PlayerMoved);
+            EventManager.RemoveListener(Consts.Events.Player.MOVED, PlayerMoved);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -52,11 +54,12 @@ namespace ZB.Mobs
                 return;
             
             ShowMob();
+            health.StartDealingDamage(mobData.DamagePerSecond);
         }
 
         private void CombatEnded()
         {
-            
+            health.StopDealingDamage();
             HideMob();
         }
 
@@ -71,6 +74,8 @@ namespace ZB.Mobs
             model = Instantiate(mobData.Model, transform);
             model.ShowModel1();
             model.transform.localPosition = mobData.HiddenOffset;
+
+            mobHealth = mobData.Health;
         }
 
         private void ShowMob()

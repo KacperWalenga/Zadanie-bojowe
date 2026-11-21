@@ -9,8 +9,10 @@ namespace ZB
     {
         private PanelRenderer panelRenderer;
         private VisualElement combatFieldsRoot;
+        private VisualElement mobHeartsRoot;
 
         private List<TextElement> combatFields = new();
+        private List<VisualElement> mobHearts = new();
         
         private void Awake()
         {
@@ -30,9 +32,32 @@ namespace ZB
         private void OnUIReload(PanelRenderer renderer, VisualElement rootElement, int version)
         {
             combatFieldsRoot = rootElement.Q("combat-fields");
+            mobHeartsRoot = rootElement.Q("mob-hearts");
         }
         
-        public void StartCombat(int count)
+        public void StartCombat(int fieldsCount, int heartsCount)
+        {
+            GenerateCombatFields(fieldsCount);
+            GenerateMobHearts(heartsCount);
+        }
+
+        private void GenerateMobHearts(int heartsCount)
+        {
+            for (var i = 0; i < heartsCount; i++)
+            {
+                var heart = new VisualElement
+                {
+                    name = $"mob-heart-{i}",
+                    
+                };
+                heart.AddToClassList("mob-heart");
+                
+                mobHeartsRoot.Add(heart);
+                mobHearts.Add(heart);
+            }
+        }
+
+        private void GenerateCombatFields(int count)
         {
             for (var i = 0; i < count; i++)
             {
@@ -70,6 +95,11 @@ namespace ZB
                 combatField.RemoveFromHierarchy();
             
             combatFields.Clear();
+            
+            foreach (var mobHeart in mobHearts)
+                mobHeart.RemoveFromHierarchy();
+            
+            mobHearts.Clear();
         }
 
         private async Awaitable AnimateCorrectNumbers()
@@ -99,6 +129,16 @@ namespace ZB
             foreach (var combatField in combatFields)
             {
                 combatField.style.color = color;
+            }
+        }
+
+        public void DamageMob(int currentHearts)
+        {
+            mobHearts[currentHearts].style.unityBackgroundImageTintColor = Color.black;
+            
+            foreach (var combatField in combatFields)
+            {
+                combatField.text = "_";
             }
         }
     }
