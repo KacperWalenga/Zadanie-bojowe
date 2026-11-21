@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc597bb9c24490c8130941de01c79ce, type: 3}
+  m_Name: Leon MobData
+  m_EditorClassIdentifier: Assembly-CSharp::ZB.Mobs.MobData
+  <Model>k__BackingField: {fileID: 2100068212251703073, guid: 02cd74537e9266c48a88d8c5b2ecc95c, type: 3}
+  <MobTemplate>k__BackingField: {fileID: 1504424528247521604, guid: fabac1f3d56327c41a73aa3d5785dc26, type: 3}
+  <Name>k__BackingField: Leon
+  <CombatNumber>k__BackingField: 666
+  <DamagePerSecond>k__BackingField: 6
+  <Health>k__BackingField: 1
+  <Points>k__BackingField: 3
+  <Offset>k__BackingField: {x: 0.5, y: 0.5, z: 0.5}
+  <HiddenOffset>k__BackingField: {x: 0, y: 1, z: 0}

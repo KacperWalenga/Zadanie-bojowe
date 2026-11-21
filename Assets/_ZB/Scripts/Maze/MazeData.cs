@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.Linq;
 using UnityEngine;
 
 namespace ZB.Maze
@@ -61,6 +62,21 @@ namespace ZB.Maze
 
         public Vector2Int GetCellPosition(int index)
         {
+            return new Vector2Int(index % Size, index / Size);
+        }
+
+        public Vector2Int GetBossPosition()
+        {
+            var index = -1;
+            for (int i = 0; i < cells.Length; i++)
+            {
+                if (cells[i] == WallType.EXIT_DOOR)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            
             return new Vector2Int(index % Size, index / Size);
         }
 

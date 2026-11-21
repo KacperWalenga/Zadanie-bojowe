@@ -74,8 +74,6 @@ namespace ZB.Mobs
             model = Instantiate(mobData.Model, transform);
             model.ShowModel1();
             model.transform.localPosition = mobData.HiddenOffset;
-
-            mobHealth = mobData.Health;
         }
 
         private void ShowMob()
