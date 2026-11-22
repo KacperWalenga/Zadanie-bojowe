@@ -6,6 +6,7 @@ namespace ZB
         {
             public static partial class Game
             {
+                public const string WON = "WON";
                 public const string LOST = "GAME_LOST";
             }
 

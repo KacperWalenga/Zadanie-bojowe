@@ -21,10 +21,12 @@ namespace ZB.Mobs
         [field: SerializeField] public Vector3 Offset { get; private set; } = new (-0.5f, 0.5f, 0.5f);
         [field: SerializeField] public Vector3 HiddenOffset { get; private set; } = new (0f, 1f, 0f);
         
-        public void Spawn(Vector2Int position, Transform floorRoot)
+        public Mob Spawn(Vector2Int position, Transform floorRoot)
         {
             var mob = Instantiate(MobTemplate, floorRoot);
             mob.Init(this, position);
+
+            return mob;
         }
     }
 }

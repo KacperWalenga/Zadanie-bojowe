@@ -88,7 +88,7 @@ public class CombatSystem : MonoBehaviour
     {
         EventManager.Trigger(Consts.Events.Combat.COMBAT_STARTED);
 
-        this.mob = mobData;
+        mob = mobData;
         
         combatNumber = mobData.Data.CombatNumber;
         currentNumberIndex = 0;

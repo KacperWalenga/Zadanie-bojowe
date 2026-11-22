@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using LitMotion;
 using LitMotion.Extensions;
@@ -20,6 +21,8 @@ namespace ZB.Mobs
         private Transform cameraTransform;
         private Coroutine animationCoroutine;
         private int mobHealth;
+
+        public Action MobKilled;
 
         private void Awake()
         {
@@ -108,6 +111,7 @@ namespace ZB.Mobs
                     if (animationCoroutine != null)
                         StopCoroutine(animationCoroutine);
 
+                    MobKilled?.Invoke();
                     Destroy(gameObject);
                 })
                 .BindToLocalPosition(model.transform)

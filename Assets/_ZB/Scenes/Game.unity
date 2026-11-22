@@ -896,10 +896,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6050261766989138611, guid: be7ae352c00601146821df9e2d252e72, type: 3}
-      propertyPath: mobDatas.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 9046025618461635612, guid: be7ae352c00601146821df9e2d252e72, type: 3}
       propertyPath: m_Name
       value: MobSpawner
