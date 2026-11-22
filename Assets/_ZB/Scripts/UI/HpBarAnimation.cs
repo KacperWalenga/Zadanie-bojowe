@@ -53,11 +53,12 @@ namespace ZB
 
         public (float Fill, float FillOffset, float Agitation, float BubbleOffset) Evaluate(double now, float deltaTime)
         {
+            StartDamageSway(now);
+
             var movementStrength = GetMovementSway(now) / MaxMovementSway;
             var fill = GetAnimatedHealth(now) * FullFill;
             var fillOffset = GetMovementFillOffset(now, movementStrength);
-            var movementAgitation = Mathf.Lerp(IdleAgitation, PeakAgitation, movementStrength);
-            var agitation = Mathf.Max(movementAgitation, GetDamageAgitation(now));
+            var agitation = Mathf.Lerp(IdleAgitation, PeakAgitation, movementStrength);
 
             UpdateBubbleFlow(agitation, deltaTime);
             
@@ -107,27 +108,16 @@ namespace ZB
             return Mathf.Lerp(healthFraction, damageFillStart, remaining * remaining);
         }
 
-        private float GetDamageAgitation(double now)
+        private void StartDamageSway(double now)
         {
-            const float DamageSwayRise = 0.15f;
-            const float DamageSwayDuration = 2f;
+            const float DamageSwayHoldDuration = 1.2f;
 
-            if (damageStartedAt is not double start)
-                return IdleAgitation;
+            if (damageStartedAt is not double start || now < start + DamageFillDuration)
+                return;
 
-            var swayElapsed = (float)(now - start) - DamageFillDuration;
-
-            if (swayElapsed < 0f)
-                return IdleAgitation;
-
-            var rise = Mathf.SmoothStep(0f, 1f, swayElapsed / DamageSwayRise);
-            var settleProgress = (swayElapsed - DamageSwayRise) / DamageSwayDuration;
-            var damageSway = rise * Mathf.SmoothStep(1f, 0f, settleProgress);
-
-            if (settleProgress >= 1f)
-                damageStartedAt = null;
-
-            return Mathf.Lerp(IdleAgitation, PeakAgitation, damageSway);
+            damageStartedAt = null;
+            AddMovementSway(DamageSwayHoldDuration, MaxMovementSway, start + DamageFillDuration);
+            movementStartSway = MaxMovementSway;
         }
 
         private float GetMovementFillOffset(double now, float movementStrength)

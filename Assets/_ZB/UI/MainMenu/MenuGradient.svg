@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 3840 2160">
+  <defs>
+    <radialGradient id="menu-glow" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1.5"
+                    gradientTransform="matrix(1612.8 0 0 1684.8 2803.2 972)">
+      <stop offset="0" stop-color="#37342f"/>
+      <stop offset="0.11" stop-color="#33312c"/>
+      <stop offset="0.2" stop-color="#2c2a26"/>
+      <stop offset="0.34" stop-color="#1e1d1b"/>
+      <stop offset="0.47" stop-color="#141414"/>
+      <stop offset="0.62" stop-color="#0e0e0f"/>
+      <stop offset="0.78" stop-color="#0b0c0d"/>
+      <stop offset="1" stop-color="#0b0c0d"/>
+    </radialGradient>
+  </defs>
+  <rect width="3840" height="2160" fill="url(#menu-glow)"/>
+</svg>
