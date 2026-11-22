@@ -6,9 +6,11 @@ using ZB;
 public class Health : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int healPercent = 50;
 
     private Coroutine damageCoroutine;
     private int currentHealth;
+    private int healthBeforeFight;
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class Health : MonoBehaviour
 
     public void StartDealingDamage(int damagePerSecond)
     {
+        healthBeforeFight = currentHealth;
         damageCoroutine = StartCoroutine(DealingDamageCoroutine(damagePerSecond));
     }
 
@@ -29,8 +32,19 @@ public class Health : MonoBehaviour
     {
         if (damageCoroutine == null)
             return;
+
+        var heal = (healthBeforeFight - currentHealth) / (100 / healPercent);
+        currentHealth += heal;
         
         StopCoroutine(damageCoroutine);
+    }
+
+    public void DealDamage(int damage)
+    {
+        currentHealth = math.clamp(currentHealth - damage, 0, maxHealth);
+
+        if (currentHealth <= 0)
+            LoseGame();
     }
 
     private IEnumerator DealingDamageCoroutine(int damagePerSecond)

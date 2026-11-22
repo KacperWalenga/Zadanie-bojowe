@@ -15,7 +15,7 @@ public class CombatSystem : MonoBehaviour
     private bool isInputPaused;
     private CombatUI combatUI;
     private int currentHearts;
-    private MobData mobData;
+    private Mob mob;
     
     
     private Action CombatFinished;
@@ -84,19 +84,19 @@ public class CombatSystem : MonoBehaviour
             IncorrectNumberPressed();
     }
 
-    public void StartCombat(MobData mobData, Action combatFinished)
+    public void StartCombat(Mob mobData, Action combatFinished)
     {
         EventManager.Trigger(Consts.Events.Combat.COMBAT_STARTED);
 
-        this.mobData = mobData;
+        this.mob = mobData;
         
-        combatNumber = mobData.CombatNumber;
+        combatNumber = mobData.Data.CombatNumber;
         currentNumberIndex = 0;
         
-        combatUI.StartCombat(combatNumber.Length, mobData.Health);
+        combatUI.StartCombat(combatNumber.Length, mobData.Data.Health);
 
         CombatFinished = combatFinished;
-        currentHearts = mobData.Health;
+        currentHearts = mobData.Data.Health;
     }
 
     private void CorrectNumberPressed()
@@ -116,8 +116,8 @@ public class CombatSystem : MonoBehaviour
             return;
         }
         
-        EventManager.Trigger(Consts.Events.Combat.COMBAT_WIN, mobData);
-        mobData = null;
+        EventManager.Trigger(Consts.Events.Combat.COMBAT_WIN, mob);
+        mob = null;
         
         FinishCombat();
     }
@@ -125,9 +125,9 @@ public class CombatSystem : MonoBehaviour
     private async void IncorrectNumberPressed()
     {
         currentNumberIndex = 0;
-
         isInputPaused = true;
-        
+
+        mob.HitPlayer();
         await combatUI.ResetCombatNumber();
         
         isInputPaused = false;

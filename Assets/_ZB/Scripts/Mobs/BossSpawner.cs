@@ -1,5 +1,4 @@
 using UnityEngine;
-using ZB;
 using ZB.Maze;
 using ZB.Mobs;
 
@@ -9,14 +8,8 @@ public class BossSpawner : MonoBehaviour
     
     private MazeBuilder mazeBuilder;
 
-    private void Awake()
+    private void Start()
     {
-        EventManager.AddListener(Consts.Events.Maze.GENERATED, SpawnBoss);
-    }
-    
-    private void SpawnBoss()
-    {
-        var position = new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.z));
-        bossMobData.Spawn(position, transform);
+        bossMobData.Spawn(Vector2Int.zero, transform);
     }
 }

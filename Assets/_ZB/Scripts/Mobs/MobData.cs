@@ -13,6 +13,7 @@ namespace ZB.Mobs
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string CombatNumber { get; private set; }
         [field: SerializeField] public int DamagePerSecond { get; private set; }
+        [field: SerializeField] public int DamageOnMistake { get; private set; } = 3;
         [field: SerializeField] public int Health { get; private set; }
         [field: SerializeField] public int Points { get; private set; }
         
