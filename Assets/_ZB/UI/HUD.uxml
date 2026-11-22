@@ -5,6 +5,7 @@
     <ui:Template name="StatsPanel" src="project://database/Assets/_ZB/UI/Components/Stats/StatsPanel.uxml" />
     <ui:Template name="BookPanel" src="project://database/Assets/_ZB/UI/Components/Book/BookPanel.uxml" />
     <ui:Template name="MinimapPanel" src="project://database/Assets/_ZB/UI/Components/Minimap/MinimapPanel.uxml" />
+    <ui:Template name="GameOver" src="project://database/Assets/_ZB/UI/Components/GameOver/GameOver.uxml" />
     <Style src="project://database/Assets/_ZB/UI/StoneTheme.uss" />
     <Style src="project://database/Assets/_ZB/UI/Components/Viewport/GameViewport.uss" />
     <Style src="project://database/Assets/_ZB/UI/Components/HealthBar/HealthBar.uss" />
@@ -13,6 +14,7 @@
     <Style src="project://database/Assets/_ZB/UI/Components/Minimap/MinimapPanel.uss" />
     <Style src="project://database/Assets/_ZB/UI/Components/StoneButton.uss" />
     <Style src="project://database/Assets/_ZB/UI/HUD.uss" />
+    <Style src="project://database/Assets/_ZB/UI/Components/GameOver/GameOver.uss" />
 
     <ui:VisualElement class="hud stone stone--surface">
         <ui:Instance template="GameViewport" name="viewport" class="hud__viewport" />
@@ -37,4 +39,6 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
+
+    <ui:Instance template="GameOver" name="game-over" class="game-over-screen game-over--hidden" />
 </ui:UXML>

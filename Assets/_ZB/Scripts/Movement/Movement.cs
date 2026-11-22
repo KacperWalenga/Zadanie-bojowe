@@ -152,7 +152,7 @@ public class Movement : MonoBehaviour
         moveQueue = null;
     }
 
-    private bool CanAct() => maze != null && !motion.IsActive() && canMove;
+    private bool CanAct() => Time.timeScale > 0f && maze != null && !motion.IsActive() && canMove;
 
     private Vector3 GetCellCenter(Vector2Int position)
     {

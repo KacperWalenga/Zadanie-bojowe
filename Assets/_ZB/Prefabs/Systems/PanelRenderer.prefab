@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4571015138151851489}
   - component: {fileID: 1708850667171582493}
   - component: {fileID: 4820593080850989052}
+  - component: {fileID: 7490938222144904711}
   m_Layer: 5
   m_Name: PanelRenderer
   m_TagString: Untagged
@@ -164,3 +165,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a3110f8e99a47e2b57df9031e571bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZB.HpBar
+--- !u!114 &7490938222144904711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8824933734576549335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db152716d9a1dd141837ed87ef9a579c, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::ZB.GameOverUi

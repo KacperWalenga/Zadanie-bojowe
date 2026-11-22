@@ -25,12 +25,13 @@ public class CombatSystem : MonoBehaviour
         numberAction.action.performed += OnNumberPressed;
         combatUI = FindAnyObjectByType<CombatUI>();
         
-        EventManager.AddListener(Consts.Events.Game.LOST, FinishCombat);
+        EventManager.AddListener(Consts.Events.Game.LOST, StopCombatOnLoss);
     }
 
     private void OnDestroy()
     {
         numberAction.action.performed -= OnNumberPressed;
+        EventManager.RemoveListener(Consts.Events.Game.LOST, StopCombatOnLoss);
     }
     
     private int? GetExpectedNumber()
@@ -133,10 +134,19 @@ public class CombatSystem : MonoBehaviour
         isInputPaused = false;
     }
 
+    private void StopCombatOnLoss()
+    {
+        combatNumber = null;
+        CombatFinished = null;
+    }
+
     private async void FinishCombat()
     {
         await combatUI.StopCombat();
-        
+
+        if (!isCombatInProgress)
+            return;
+
         EventManager.Trigger(Consts.Events.Combat.COMBAT_ENDED);
         combatNumber = null;
         

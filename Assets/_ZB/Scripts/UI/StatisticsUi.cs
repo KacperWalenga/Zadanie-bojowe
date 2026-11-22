@@ -63,6 +63,13 @@ namespace ZB
             RefreshStatistics(Time.timeAsDouble);
         }
 
+        public (int Floor, string Time, int Points) GetResults()
+        {
+            var now = Time.timeAsDouble;
+            var gameSeconds = level == 0 ? 0 : (int)(now - gameStartedAt);
+            return (level, FormatTime(gameSeconds), GetTotalPoints(GetLevelSeconds(now)));
+        }
+
         private void OnUIReload(PanelRenderer renderer, VisualElement root, int version)
         {
             levelLabel = root.Q<Label>("level-label");
@@ -116,9 +123,7 @@ namespace ZB
 
                 levelTimeLabel.text = FormatTime(levelSeconds);
 
-                var totalPoints = pointsFromPreviousLevels - CalculateLevelPoints(levelSeconds);
-
-                pointsLabel.text = Math.Max(0, totalPoints).ToString();
+                pointsLabel.text = GetTotalPoints(levelSeconds).ToString();
             }
 
             var gameSeconds = (int)(now - gameStartedAt);
@@ -131,6 +136,9 @@ namespace ZB
         }
 
         private int GetLevelSeconds(double now) => (int)(now - levelStartedAt);
+
+        private int GetTotalPoints(int levelSeconds) =>
+            Math.Max(0, pointsFromPreviousLevels - CalculateLevelPoints(levelSeconds));
 
         private int CalculateLevelPoints(int levelSeconds)
         {

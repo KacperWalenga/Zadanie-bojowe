@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="game-over">
+        <ui:VisualElement class="game-over__art" picking-mode="Ignore" />
+
+        <ui:VisualElement class="game-over__results stone--surface">
+            <ui:VisualElement class="stone--frame">
+                <ui:VisualElement class="game-over__stats stone__recess">
+                    <ui:VisualElement class="game-over__stat">
+                        <ui:Label text="Piętro" class="stone__text" />
+                        <ui:Label name="game-over-floor" class="game-over__value stone__text" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="game-over__stat">
+                        <ui:Label text="Czas w grze" class="stone__text" />
+                        <ui:Label name="game-over-time" class="game-over__value stone__text" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="game-over__stat">
+                        <ui:Label text="Punkty" class="stone__text" />
+                        <ui:Label name="game-over-points" class="game-over__value stone__text" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="game-over__actions">
+                <ui:Button name="game-over-retry" text="Spróbuj ponownie" class="game-over__button stone__text stone-button" />
+                <ui:Button name="game-over-menu" text="Menu główne" class="game-over__button game-over__button--menu stone__text stone-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

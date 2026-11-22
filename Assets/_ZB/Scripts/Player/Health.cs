@@ -22,6 +22,9 @@ public class Health : MonoBehaviour
 
     public void StartDealingDamage(int damagePerSecond)
     {
+        if (currentHealth <= 0 || damageCoroutine != null)
+            return;
+
         damageCoroutine = StartCoroutine(DealingDamageCoroutine(damagePerSecond));
     }
 
@@ -31,6 +34,8 @@ public class Health : MonoBehaviour
             return;
         
         StopCoroutine(damageCoroutine);
+        
+        damageCoroutine = null;
     }
 
     private IEnumerator DealingDamageCoroutine(int damagePerSecond)
@@ -42,8 +47,13 @@ public class Health : MonoBehaviour
             
             UpdateHealthUI();
 
-            if (currentHealth <= 0)
-                LoseGame();
+            if (currentHealth > 0)
+                continue;
+
+            damageCoroutine = null;
+            LoseGame();
+            
+            yield break;
         }
     }
 

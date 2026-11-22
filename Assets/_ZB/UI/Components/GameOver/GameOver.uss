@@ -1,0 +1,73 @@
+.game-over-screen {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.game-over--hidden {
+    display: none;
+}
+
+.game-over {
+    flex-grow: 1;
+    align-items: center;
+    padding: 16px 24px 28px;
+    background-color: #0b0c0d;
+    background-image: url("project://database/Assets/_ZB/UI/MainMenu/MenuGradient.svg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.game-over__art {
+    width: 100%;
+    min-height: 0;
+    flex-grow: 1;
+    flex-basis: 0;
+    background-image: url("GameOver.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.game-over__results {
+    width: 540px;
+    max-width: 100%;
+    flex-shrink: 0;
+    padding: 12px;
+}
+
+.game-over__stats {
+    flex-direction: row;
+    padding: 8px 4px;
+}
+
+.game-over__stat {
+    flex-grow: 1;
+    flex-basis: 0;
+    font-size: 16px;
+    -unity-text-align: middle-center;
+}
+
+.game-over__value {
+    font-size: 26px;
+}
+
+.game-over__actions {
+    flex-direction: row;
+    margin-top: 12px;
+}
+
+.game-over__button {
+    min-width: 0;
+    height: 52px;
+    flex-grow: 1;
+    flex-basis: 0;
+    font-size: 18px;
+    white-space: normal;
+}
+
+.game-over__button--menu {
+    margin-left: 12px;
+}
