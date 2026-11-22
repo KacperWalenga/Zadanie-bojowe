@@ -47,8 +47,10 @@ namespace ZB
 
             hud = root.Q(className: "hud");
             screen = root.Q("game-over");
+            
             retryButton = screen.Q<Button>("game-over-retry");
             menuButton = screen.Q<Button>("game-over-menu");
+            
             retryButton.clicked += Retry;
             menuButton.clicked += ReturnToMenu;
 

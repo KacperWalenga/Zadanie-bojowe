@@ -60,7 +60,7 @@
                     "name": "Crouch",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false,
@@ -70,7 +70,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "f1ba0d36-48eb-4cd5-b651-1c94a6531f70",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false,
@@ -130,6 +130,16 @@
                     "name": "Previus Page",
                     "type": "Button",
                     "id": "8279a3e7-a379-41c9-b595-2f3507d357db",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Switch book/minmap",
+                    "type": "Button",
+                    "id": "9f1b47af-a941-43ad-b7df-03b63d618457",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -575,6 +585,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Previus Page",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15c5fd5f-f9a3-4924-bdec-bcc464c0588a",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Switch book/minmap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

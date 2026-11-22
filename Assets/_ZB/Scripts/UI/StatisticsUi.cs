@@ -1,6 +1,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using ZB.Mobs;
 
@@ -10,6 +11,8 @@ namespace ZB
     public class StatisticsUi : MonoBehaviour
     {
         private const int SecondsPerPointAward = 10;
+
+        [SerializeField] private InputActionReference switchBookMinimap;
 
         private readonly HudTabs tabs = new();
 
@@ -77,7 +80,8 @@ namespace ZB
             totalTimeLabel = root.Q<Label>("total-time");
             pointsLabel = root.Q<Label>("points-value");
 
-            tabs.Bind(root);
+            tabs.Bind(root, switchBookMinimap.action);
+            
             uiLoaded = true;
             displayedGameSeconds = -1;
 
@@ -108,7 +112,7 @@ namespace ZB
 
         private void RefreshLevel(double now)
         {
-            levelLabel.text = $"PIWNICA {level}";
+            levelLabel.text = $"PIWNICA {5 - level}";
             displayedLevelSeconds = -1;
             RefreshStatistics(now);
         }
