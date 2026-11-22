@@ -81,6 +81,10 @@
                         <ui:Label text="Dźwięk chodzenia" class="main-menu__credit-role stone__text" />
                         <ui:Label text="Ziggler_Games" class="main-menu__credit-names stone__text" />
                     </ui:VisualElement>
+                    <ui:VisualElement class="main-menu__credit">
+                        <ui:Label text="Czcionki" class="main-menu__credit-role stone__text" />
+                        <ui:Label text="Figma &amp; Procreate" class="main-menu__credit-names stone__text" />
+                    </ui:VisualElement>
                 </ui:ScrollView>
 
                 <ui:Button name="close-credits" text="Wróć" class="stone__text stone-button main-menu__button main-menu__button--last" />
