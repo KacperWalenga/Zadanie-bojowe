@@ -143,3 +143,37 @@
 .main-menu__button--last {
     margin-bottom: 0;
 }
+
+.main-menu__credits {
+    width: 620px;
+    max-height: 94%;
+}
+
+.main-menu__credits-list {
+    flex-shrink: 1;
+    min-height: 0;
+    padding: 6px 12px;
+}
+
+.main-menu__credit {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 7px 0;
+}
+
+.main-menu__credit-role {
+    width: 33%;
+    flex-shrink: 0;
+    margin-right: 10px;
+    color: #dedad2;
+    font-size: 15px;
+    white-space: normal;
+}
+
+.main-menu__credit-names {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    font-size: 17px;
+    white-space: normal;
+}

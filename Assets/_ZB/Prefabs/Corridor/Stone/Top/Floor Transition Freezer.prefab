@@ -294,12 +294,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7658412274402830948, guid: 50c4ca3f326cbe44aaed1afe0176e1e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.291
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658412274402830948, guid: 50c4ca3f326cbe44aaed1afe0176e1e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.597
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658412274402830948, guid: 50c4ca3f326cbe44aaed1afe0176e1e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.085
+      objectReference: {fileID: 0}
     - target: {fileID: 7977457757159932218, guid: 50c4ca3f326cbe44aaed1afe0176e1e4, type: 3}
       propertyPath: m_Name
       value: Beer Crate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 345575887448161877, guid: 50c4ca3f326cbe44aaed1afe0176e1e4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50c4ca3f326cbe44aaed1afe0176e1e4, type: 3}

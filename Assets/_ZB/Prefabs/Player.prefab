@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3347682802644526596}
   - component: {fileID: 9168961390635040569}
   - component: {fileID: 335552946183628223}
+  - component: {fileID: 7214809710043277101}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -622,3 +623,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 300
+--- !u!114 &7214809710043277101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078451780122493318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3996f16d0bb9c5343a1a3005321b8f81, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::ZB.GameMusic
+  music: {fileID: 335552946183628223}
+  bossTrack: {fileID: 8300000, guid: a9d208f24d0370a4c9025f351604d96e, type: 3}
+  gameOverTrack: {fileID: 8300000, guid: 87f53265908d28d41952683715ac4ade, type: 3}

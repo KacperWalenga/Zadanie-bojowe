@@ -87,7 +87,7 @@ public class CombatSystem : MonoBehaviour
 
     public void StartCombat(Mob mobData, Action combatFinished)
     {
-        EventManager.Trigger(Consts.Events.Combat.COMBAT_STARTED);
+        EventManager.Trigger(Consts.Events.Combat.COMBAT_STARTED, mobData);
 
         mob = mobData;
         

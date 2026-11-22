@@ -16,6 +16,7 @@
             <ui:VisualElement name="menu-actions">
                 <ui:Button name="new-game" text="Nowa gra" class="stone__text stone-button main-menu__button" />
                 <ui:Button name="open-options" text="Opcje" class="stone__text stone-button main-menu__button" />
+                <ui:Button name="open-credits" text="Autorzy" class="stone__text stone-button main-menu__button" />
                 <ui:Button name="quit-game" text="Wyjdź z gry" class="stone__text stone-button main-menu__button main-menu__button--last" />
             </ui:VisualElement>
         </ui:VisualElement>
@@ -51,6 +52,38 @@
                 </ui:VisualElement>
 
                 <ui:Button name="close-options" text="Wróć" class="stone__text stone-button main-menu__button main-menu__button--last" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="credits" class="main-menu__overlay main-menu__overlay--hidden">
+            <ui:VisualElement class="main-menu__options main-menu__credits stone--surface">
+                <ui:VisualElement class="main-menu__options-section stone--frame">
+                    <ui:Label text="AUTORZY" class="main-menu__heading stone__recess stone__text" />
+                </ui:VisualElement>
+
+                <ui:ScrollView class="main-menu__credits-list main-menu__options-section stone__recess" horizontal-scroller-visibility="Hidden">
+                    <ui:VisualElement class="main-menu__credit">
+                        <ui:Label text="2D Art" class="main-menu__credit-role stone__text" />
+                        <ui:Label text="Kacper&#160;Siwek, Mika&#160;Selmaj, Karo&#160;Górny, Weronika&#160;Jankowiak" class="main-menu__credit-names stone__text" />
+                    </ui:VisualElement>
+                    
+                    <ui:VisualElement class="main-menu__credit">
+                        <ui:Label text="Programowanie" class="main-menu__credit-role stone__text" />
+                        <ui:Label text="Kacper&#160;Walenga, Dominik&#160;Purgał" class="main-menu__credit-names stone__text" />
+                    </ui:VisualElement>
+                 
+                    <ui:VisualElement class="main-menu__credit">
+                        <ui:Label text="Muzyka" class="main-menu__credit-role stone__text" />
+                        <ui:Label text="Mika&#160;Selmaj" class="main-menu__credit-names stone__text" />
+                    </ui:VisualElement>
+                    
+                    <ui:VisualElement class="main-menu__credit">
+                        <ui:Label text="Dźwięk chodzenia" class="main-menu__credit-role stone__text" />
+                        <ui:Label text="Ziggler_Games" class="main-menu__credit-names stone__text" />
+                    </ui:VisualElement>
+                </ui:ScrollView>
+
+                <ui:Button name="close-credits" text="Wróć" class="stone__text stone-button main-menu__button main-menu__button--last" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

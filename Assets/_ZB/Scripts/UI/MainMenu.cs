@@ -19,6 +19,9 @@ namespace ZB
         private VisualElement options;
         private Button optionsButton;
         private SliderInt musicSlider;
+        private VisualElement credits;
+        private Button creditsButton;
+        private Button closeCreditsButton;
 
         private VisualElement beerSurface;
         private Material beerMaterial;
@@ -33,11 +36,16 @@ namespace ZB
             options = root.Q("audio-options");
             optionsButton = root.Q<Button>("open-options");
             musicSlider = root.Q<SliderInt>("music-volume");
+            credits = root.Q("credits");
+            creditsButton = root.Q<Button>("open-credits");
+            closeCreditsButton = root.Q<Button>("close-credits");
 
             optionsButton.clicked += OpenOptions;
             root.Q<Button>("new-game").clicked += StartGame;
             root.Q<Button>("quit-game").clicked += () => Application.Quit();
             root.Q<Button>("close-options").clicked += CloseOptions;
+            creditsButton.clicked += OpenCredits;
+            closeCreditsButton.clicked += CloseCredits;
             root.RegisterCallback<KeyDownEvent>(HandleKeyDown);
 
             BindVolume(musicSlider, root.Q<Label>("music-value"), "MusicVolume", -25f);
@@ -128,12 +136,32 @@ namespace ZB
             PlayerPrefs.Save();
         }
 
+        private void OpenCredits()
+        {
+            actions.SetEnabled(false);
+            credits.RemoveFromClassList("main-menu__overlay--hidden");
+            closeCreditsButton.Focus();
+        }
+
+        private void CloseCredits()
+        {
+            credits.AddToClassList("main-menu__overlay--hidden");
+            actions.SetEnabled(true);
+            creditsButton.Focus();
+        }
+
         private void HandleKeyDown(KeyDownEvent evt)
         {
-            if (evt.keyCode != KeyCode.Escape || options.ClassListContains("main-menu__overlay--hidden"))
+            if (evt.keyCode != KeyCode.Escape)
                 return;
 
-            CloseOptions();
+            if (!options.ClassListContains("main-menu__overlay--hidden"))
+                CloseOptions();
+            else if (!credits.ClassListContains("main-menu__overlay--hidden"))
+                CloseCredits();
+            else
+                return;
+
             evt.StopPropagation();
         }
 
