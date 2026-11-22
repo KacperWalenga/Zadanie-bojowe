@@ -9,9 +9,11 @@ namespace ZB
         private const float MaxMovementSway = 3f;
         private const float DamageFillDuration = 0.5f;
 
-        private float healthFraction = 1f;
-        private float damageFillStart = 1f;
+        private float healthFraction;
+        private float damageFillStart;
         private double? damageStartedAt;
+        private float refillFillStart;
+        private double? refillStartedAt;
         private double movementStartedAt;
         private float movementDuration;
         private float movementPeakSway;
@@ -19,7 +21,7 @@ namespace ZB
         private float bubbleTimeOffset;
 
         public float IdleAgitation { private get; set; }
-        public bool IsPlaying => movementDuration > 0f || damageStartedAt.HasValue;
+        public bool IsPlaying => movementDuration > 0f || damageStartedAt.HasValue || refillStartedAt.HasValue;
 
         public void Step(float duration, double now)
         {
@@ -41,14 +43,21 @@ namespace ZB
             if (nextHealth == healthFraction)
                 return false;
 
-            if (nextHealth > healthFraction)
+            var currentFill = GetAnimatedHealth(now);
+            var adjustingRefill = refillStartedAt.HasValue && currentFill < nextHealth;
+
+            if (nextHealth > healthFraction || adjustingRefill)
             {
+                refillFillStart = currentFill;
+                refillStartedAt = now;
                 healthFraction = nextHealth;
                 damageStartedAt = null;
+                
                 return true;
             }
 
-            var currentFill = GetAnimatedHealth(now);
+            refillStartedAt = null;
+            
             var instantDrop = (healthFraction - nextHealth) * InstantDamageFraction;
 
             damageFillStart = Mathf.Max(nextHealth, currentFill - instantDrop);
@@ -107,6 +116,18 @@ namespace ZB
 
         private float GetAnimatedHealth(double now)
         {
+            const float RefillDuration = 1.2f;
+
+            if (refillStartedAt is double refillStart)
+            {
+                var progress = (float)((now - refillStart) / RefillDuration);
+
+                if (progress < 1f)
+                    return Mathf.SmoothStep(refillFillStart, healthFraction, progress);
+
+                refillStartedAt = null;
+            }
+
             if (damageStartedAt is not double start)
                 return healthFraction;
 

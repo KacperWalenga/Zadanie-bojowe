@@ -11,14 +11,33 @@ public class Health : MonoBehaviour
     private Coroutine damageCoroutine;
     private int currentHealth;
     private int healthBeforeFight;
+    private bool refilledFromFridge;
 
     private void Awake()
     {
-        currentHealth = maxHealth;
+        EventManager.AddListener<int>(Consts.Events.Maze.FLOOR_CHANGED, RefillFromFridge);
     }
 
     private void Start()
     {
+        UpdateHealthUI();
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.RemoveListener<int>(Consts.Events.Maze.FLOOR_CHANGED, RefillFromFridge);
+    }
+
+    private void RefillFromFridge(int floorNumber)
+    {
+        const int FloorAfterFridge = 2;
+
+        if (floorNumber != FloorAfterFridge || refilledFromFridge)
+            return;
+
+        refilledFromFridge = true;
+        currentHealth = maxHealth;
+        
         UpdateHealthUI();
     }
 

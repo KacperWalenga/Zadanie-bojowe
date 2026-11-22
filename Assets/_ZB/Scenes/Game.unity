@@ -957,9 +957,9 @@ PrefabInstance:
       propertyPath: gridOrigin
       value: 
       objectReference: {fileID: 664091922}
-    - target: {fileID: 3217799112227054688, guid: bb0516af665e4c048a69d4e84fff88f4, type: 3}
-      propertyPath: m_SpotAngle
-      value: 50
+    - target: {fileID: 8199951986993138665, guid: bb0516af665e4c048a69d4e84fff88f4, type: 3}
+      propertyPath: maxHealth
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8314540447902630414, guid: bb0516af665e4c048a69d4e84fff88f4, type: 3}
       propertyPath: m_Name
