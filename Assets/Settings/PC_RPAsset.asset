@@ -143,7 +143,7 @@ MonoBehaviour:
   m_PrefilterPointSamplingUpsampling: 1
   m_PrefilterExposure: 1
   m_PrefilterVolumetricFog: 1
-  m_PrefilterLightFalloffQuadratic: 1
+  m_PrefilterLightFalloffQuadratic: 0
   m_Light2DPrefilteringMode: 0
   m_Light2DKeptVariantCombos: []
   m_ShaderVariantLogLevel: 0
