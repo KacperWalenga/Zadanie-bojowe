@@ -117,7 +117,7 @@ public class CombatSystem : MonoBehaviour
             return;
         }
         
-        EventManager.Trigger(Consts.Events.Combat.COMBAT_WIN, mob);
+        EventManager.Trigger(Consts.Events.Combat.COMBAT_WIN, mob.Data);
         mob = null;
         
         FinishCombat();

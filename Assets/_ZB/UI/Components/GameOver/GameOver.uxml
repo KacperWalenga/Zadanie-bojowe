@@ -3,6 +3,12 @@
     <ui:VisualElement class="game-over">
         <ui:VisualElement class="game-over__art" picking-mode="Ignore" />
 
+        <ui:VisualElement class="game-over__victory stone--surface">
+            <ui:VisualElement class="stone--frame">
+                <ui:Label text="WYGRANA" class="game-over__victory-title stone__text stone__recess" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
         <ui:VisualElement class="game-over__results stone--surface">
             <ui:VisualElement class="stone--frame">
                 <ui:VisualElement class="game-over__stats stone__recess">

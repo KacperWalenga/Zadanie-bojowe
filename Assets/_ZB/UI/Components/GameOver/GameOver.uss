@@ -31,6 +31,33 @@
     background-position: center;
 }
 
+.game-over__victory {
+    display: none;
+    width: 540px;
+    max-width: 100%;
+    flex-shrink: 0;
+    margin-bottom: 12px;
+    padding: 12px;
+}
+
+.game-over__victory-title {
+    padding: 8px;
+    font-size: 48px;
+    -unity-text-align: middle-center;
+}
+
+.game-over--won .game-over {
+    justify-content: center;
+}
+
+.game-over--won .game-over__art {
+    display: none;
+}
+
+.game-over--won .game-over__victory {
+    display: flex;
+}
+
 .game-over__results {
     width: 540px;
     max-width: 100%;

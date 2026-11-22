@@ -30,6 +30,8 @@ namespace ZB
         private int displayedGameSeconds = -1;
         private bool uiLoaded;
 
+        private int FloorNumber => level == 0 ? 0 : 5 - level;
+
         private static string FormatTime(int seconds) => $"{seconds / 60:00}:{seconds % 60:00}";
 
         private void Awake()
@@ -70,7 +72,7 @@ namespace ZB
         {
             var now = Time.timeAsDouble;
             var gameSeconds = level == 0 ? 0 : (int)(now - gameStartedAt);
-            return (level, FormatTime(gameSeconds), GetTotalPoints(GetLevelSeconds(now)));
+            return (FloorNumber, FormatTime(gameSeconds), GetTotalPoints(GetLevelSeconds(now)));
         }
 
         private void OnUIReload(PanelRenderer renderer, VisualElement root, int version)
@@ -108,11 +110,14 @@ namespace ZB
         private void FightEnded(MobData mob)
         {
             pointsFromPreviousLevels += mob.Points;
+
+            if (uiLoaded && level > 0)
+                RefreshPoints(GetLevelSeconds(Time.timeAsDouble));
         }
 
         private void RefreshLevel(double now)
         {
-            levelLabel.text = $"PIWNICA {5 - level}";
+            levelLabel.text = $"PIWNICA {FloorNumber}";
             displayedLevelSeconds = -1;
             RefreshStatistics(now);
         }
@@ -127,7 +132,7 @@ namespace ZB
 
                 levelTimeLabel.text = FormatTime(levelSeconds);
 
-                pointsLabel.text = GetTotalPoints(levelSeconds).ToString();
+                RefreshPoints(levelSeconds);
             }
 
             var gameSeconds = (int)(now - gameStartedAt);
@@ -138,6 +143,9 @@ namespace ZB
             displayedGameSeconds = gameSeconds;
             totalTimeLabel.text = FormatTime(gameSeconds);
         }
+
+        private void RefreshPoints(int levelSeconds) =>
+            pointsLabel.text = GetTotalPoints(levelSeconds).ToString();
 
         private int GetLevelSeconds(double now) => (int)(now - levelStartedAt);
 

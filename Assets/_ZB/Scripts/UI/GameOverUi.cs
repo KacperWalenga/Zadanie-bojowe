@@ -15,6 +15,7 @@ namespace ZB
         private Button menuButton;
         private (int Floor, string Time, int Points)? results;
         private float previousTimeScale;
+        private bool won;
 
         private void Awake()
         {
@@ -24,13 +25,15 @@ namespace ZB
 
         private void OnEnable()
         {
-            EventManager.AddListener(Consts.Events.Game.LOST, ShowGameOver);
+            EventManager.AddListener(Consts.Events.Game.LOST, ShowDefeat);
+            EventManager.AddListener(Consts.Events.Game.WON, ShowVictory);
             panelRenderer.RegisterUIReloadCallback(OnUIReload);
         }
 
         private void OnDisable()
         {
-            EventManager.RemoveListener(Consts.Events.Game.LOST, ShowGameOver);
+            EventManager.RemoveListener(Consts.Events.Game.LOST, ShowDefeat);
+            EventManager.RemoveListener(Consts.Events.Game.WON, ShowVictory);
             panelRenderer.UnregisterUIReloadCallback(OnUIReload);
             UnbindButtons();
         }
@@ -58,13 +61,18 @@ namespace ZB
                 ShowResults(snapshot);
         }
 
-        private void ShowGameOver()
+        private void ShowDefeat() => ShowGameOver(false);
+
+        private void ShowVictory() => ShowGameOver(true);
+
+        private void ShowGameOver(bool victory)
         {
             if (results.HasValue)
                 return;
 
             var snapshot = statistics.GetResults();
             
+            won = victory;
             results = snapshot;
             previousTimeScale = Time.timeScale;
             Time.timeScale = 0f;
@@ -80,6 +88,8 @@ namespace ZB
             screen.Q<Label>("game-over-floor").text = snapshot.Floor.ToString();
             screen.Q<Label>("game-over-time").text = snapshot.Time;
             screen.Q<Label>("game-over-points").text = snapshot.Points.ToString();
+            screen.EnableInClassList("game-over--won", won);
+            retryButton.text = won ? "Zagraj ponownie" : "Spróbuj ponownie";
             screen.RemoveFromClassList("game-over--hidden");
             
             retryButton.Focus();
