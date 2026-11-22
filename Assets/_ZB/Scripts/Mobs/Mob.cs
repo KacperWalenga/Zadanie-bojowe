@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using LitMotion;
 using LitMotion.Extensions;
@@ -11,20 +12,22 @@ namespace ZB.Mobs
         [SerializeField] private float showAnimationDuration = 0.2f;
         private const string PLAYER_TAG = "Player";
         
-        private MobData mobData;
+        public MobData Data { get; private set; }
         private MobModel model;
         private MotionHandle motion;
         private CombatSystem combatSystem;
-        private Health health;
+        private Health playerHealth;
         private bool isInCombat;
         private Transform cameraTransform;
         private Coroutine animationCoroutine;
         private int mobHealth;
 
+        public Action MobKilled;
+
         private void Awake()
         {
             combatSystem = FindAnyObjectByType<CombatSystem>();
-            health = FindAnyObjectByType<Health>();
+            playerHealth = FindAnyObjectByType<Health>();
         }
 
         private void OnEnable()
@@ -42,7 +45,7 @@ namespace ZB.Mobs
             if (!other.CompareTag(PLAYER_TAG))
                 return;
             
-            combatSystem.StartCombat(mobData, CombatEnded);
+            combatSystem.StartCombat(this, CombatEnded);
             isInCombat = true;
             
             cameraTransform = other.transform.GetComponentInChildren<Camera>().transform;
@@ -54,12 +57,12 @@ namespace ZB.Mobs
                 return;
             
             ShowMob();
-            health.StartDealingDamage(mobData.DamagePerSecond);
+            playerHealth.StartDealingDamage(Data.DamagePerSecond);
         }
 
         private void CombatEnded()
         {
-            health.StopDealingDamage();
+            playerHealth.StopDealingDamage();
             HideMob();
         }
 
@@ -67,20 +70,20 @@ namespace ZB.Mobs
         {
             motion.TryCancel();
             
-            mobData = data;
-            var newPosition = mobData.Offset + new Vector3(position.x, 0, position.y);
+            Data = data;
+            var newPosition = Data.Offset + new Vector3(position.x, 0, position.y);
             transform.localPosition = newPosition;
 
-            model = Instantiate(mobData.Model, transform);
+            model = Instantiate(Data.Model, transform);
             model.ShowModel1();
-            model.transform.localPosition = mobData.HiddenOffset;
+            model.transform.localPosition = Data.HiddenOffset;
         }
 
         private void ShowMob()
         {
             var targetPosition = cameraTransform.TransformPoint(new Vector3(0f, 0f, 0.3f));
             
-            var startPosition = targetPosition + new Vector3(0f, mobData.HiddenOffset.y, 0f);
+            var startPosition = targetPosition + new Vector3(0f, Data.HiddenOffset.y, 0f);
             
             model.transform.position = startPosition;
             model.transform.LookAt(cameraTransform);
@@ -101,13 +104,14 @@ namespace ZB.Mobs
             if(applyColor)
                 model.SetColor(Color.red);
             
-            motion = LMotion.Create(model.transform.localPosition, mobData.HiddenOffset, showAnimationDuration)
+            motion = LMotion.Create(model.transform.localPosition, Data.HiddenOffset, showAnimationDuration)
                 .WithEase(Ease.InOutSine)
                 .WithOnComplete(() =>
                 {
                     if (animationCoroutine != null)
                         StopCoroutine(animationCoroutine);
 
+                    MobKilled?.Invoke();
                     Destroy(gameObject);
                 })
                 .BindToLocalPosition(model.transform)
@@ -126,6 +130,11 @@ namespace ZB.Mobs
                 
                 yield return new WaitForSeconds(0.3f);
             }
+        }
+
+        public void HitPlayer()
+        {
+            playerHealth.DealDamage(Data.DamageOnMistake);
         }
     }
 }

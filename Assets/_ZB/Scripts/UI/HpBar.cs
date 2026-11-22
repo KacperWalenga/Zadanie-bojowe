@@ -61,7 +61,7 @@ namespace ZB
         private void OnHealthLost((int Health, int MaxHealth) health)
         {
             var now = Time.timeAsDouble;
-            var healthChanged = barAnimation.LoseHealth(health.Health, health.MaxHealth, now);
+            var healthChanged = barAnimation.SetHealth(health.Health, health.MaxHealth, now);
 
             if (healthChanged && runtimeMaterial != null)
                 ApplyAnimation(now);

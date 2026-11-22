@@ -32,14 +32,21 @@ namespace ZB
 
         public void StopMovement() => movementDuration = 0f;
 
-        public bool LoseHealth(int health, int maxHealth, double now)
+        public bool SetHealth(int health, int maxHealth, double now)
         {
             const float InstantDamageFraction = 0.35f;
 
             var nextHealth = Mathf.Clamp01((float)health / Mathf.Max(1, maxHealth));
 
-            if (nextHealth >= healthFraction)
+            if (nextHealth == healthFraction)
                 return false;
+
+            if (nextHealth > healthFraction)
+            {
+                healthFraction = nextHealth;
+                damageStartedAt = null;
+                return true;
+            }
 
             var currentFill = GetAnimatedHealth(now);
             var instantDrop = (healthFraction - nextHealth) * InstantDamageFraction;
