@@ -1,0 +1,29 @@
+.stone-button {
+    min-height: 42px;
+    margin: 0;
+    padding: 4px 8px;
+    border-radius: 0;
+    border-width: 4px;
+    border-bottom-width: 6px;
+}
+
+.stone-button,
+.stone-button:focus {
+    border-color: #a3a3a3 #505050 #363636 #777777;
+    background-color: #5f5f5f;
+    background-image: url("project://database/Assets/_ZB/UI/Textures/StoneInset2.png");
+    -unity-slice-left: 7;
+    -unity-slice-right: 7;
+    -unity-slice-top: 7;
+    -unity-slice-bottom: 7;
+    color: #ffffff;
+    -unity-text-align: middle-center;
+}
+
+.stone-button:active,
+.stone-button--selected,
+.stone-button--selected:focus {
+    border-color: #404040 #767676 #989898 #535353;
+    background-color: #474747;
+    -unity-background-image-tint-color: #bcbcbc;
+}

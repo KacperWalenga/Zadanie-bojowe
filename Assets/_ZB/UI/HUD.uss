@@ -64,43 +64,12 @@
 }
 
 .hud__tab {
-    background-image: none;
     flex-grow: 1;
     flex-basis: 0;
     min-width: 0;
-    min-height: 42px;
     font-size: 17px;
-    -unity-text-align: middle-center;
-    background-color: #514e48;
-    transition-property: color;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-out;
-    border-width: 0;
-    border-radius: 0;
-    padding: 6px 4px;
 }
 
 .hud__tab--journal {
     margin-left: 12px;
-}
-
-.hud__tab-frame {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: url("project://database/Assets/_ZB/UI/Textures/StoneInset2.png");
-    opacity: 1;
-    transition-property: opacity;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-out;
-}
-
-.hud__tab--active {
-    color: rgba(255, 255, 255, 0.1);
-}
-
-.hud__tab--active > .hud__tab-frame {
-    opacity: 0.1;
 }

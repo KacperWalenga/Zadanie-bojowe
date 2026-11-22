@@ -1,0 +1,145 @@
+.main-menu {
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 7%;
+    background-color: #0b0c0d;
+    background-image: url("MenuGradient.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.main-menu__content {
+    width: 47%;
+    max-width: 480px;
+    min-width: 0;
+    flex-shrink: 1;
+    padding: 18px;
+    border-width: 5px;
+    border-color: #9a9790 #4c4944 #383631 #77746e;
+}
+
+.main-menu__title {
+    margin-bottom: 16px;
+}
+
+.main-menu__subtitle {
+    margin-top: 14px;
+    -unity-text-align: middle-center;
+    color: #f0e5d3;
+    font-size: 19px;
+    white-space: normal;
+}
+
+.main-menu__button {
+    height: 65px;
+    margin-bottom: 11px;
+    font-size: 24px;
+}
+
+.main-menu__character {
+    width: 34%;
+    max-width: 380px;
+    height: 73%;
+    max-height: 500px;
+    margin-left: 54px;
+}
+
+.main-menu__father {
+    flex-grow: 1;
+    min-height: 0;
+    background-image: url("Stary.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.main-menu__overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.99);
+}
+
+.main-menu__overlay--hidden {
+    display: none;
+}
+
+.main-menu__options {
+    width: 420px;
+    max-width: 90%;
+    padding: 12px;
+}
+
+.main-menu__options-section {
+    margin-bottom: 12px;
+}
+
+.main-menu__heading {
+    font-size: 40px;
+    -unity-text-align: middle-center;
+    padding: 2px 8px;
+    white-space: normal;
+}
+
+.main-menu__beer-panel {
+    overflow: hidden;
+}
+
+.main-menu__beer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    -unity-material: url("MenuBeer.mat");
+}
+
+.main-menu__title .main-menu__heading {
+    padding: 8px 10px;
+    color: #ffffff;
+}
+
+.main-menu__volume {
+    padding: 8px 12px 2px;
+}
+
+.main-menu__volume-heading {
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+.main-menu__volume-value {
+    color: #dedede;
+}
+
+.main-menu__slider {
+    min-height: 34px;
+    margin: 0;
+}
+
+.main-menu__slider .unity-base-slider__tracker {
+    height: 6px;
+    background-color: #242424;
+    border-color: #686868;
+}
+
+.main-menu__slider .unity-base-slider__dragger {
+    background-color: #a3a3a3;
+    border-color: #686868;
+}
+
+.main-menu__slider .unity-base-slider__dragger-border {
+    opacity: 0;
+}
+
+.main-menu__button--last {
+    margin-bottom: 0;
+}

@@ -5,7 +5,7 @@ namespace ZB
     class HudTabs
     {
         private const string HiddenPanelClass = "hud__panel--hidden";
-        private const string ActiveTabClass = "hud__tab--active";
+        private const string ActiveTabClass = "stone-button--selected";
 
         private Button journalTab;
         private Button minimapTab;

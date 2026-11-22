@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="project://database/Assets/_ZB/UI/StoneTheme.uss" />
+    <Style src="project://database/Assets/_ZB/UI/Components/StoneButton.uss" />
+    <Style src="project://database/Assets/_ZB/UI/MainMenu/MainMenu.uss" />
+
+    <ui:VisualElement class="main-menu">
+        <ui:VisualElement class="main-menu__content stone--surface">
+            <ui:VisualElement class="main-menu__title stone--frame">
+                <ui:VisualElement class="main-menu__beer-panel stone__recess">
+                    <ui:VisualElement class="main-menu__beer" picking-mode="Ignore" />
+                    <ui:Label text="BOJOWE ZADANIE" class="main-menu__heading stone__text" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="menu-actions">
+                <ui:Button name="new-game" text="Nowa gra" class="stone__text stone-button main-menu__button" />
+                <ui:Button name="open-options" text="Opcje" class="stone__text stone-button main-menu__button" />
+                <ui:Button name="quit-game" text="Wyjdź z gry" class="stone__text stone-button main-menu__button main-menu__button--last" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement class="main-menu__character" picking-mode="Ignore">
+            <ui:VisualElement class="main-menu__father" picking-mode="Ignore" />
+            <ui:Label text="Stary wysłał cię po piwo." class="main-menu__subtitle stone__text" picking-mode="Ignore" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="audio-options" class="main-menu__overlay main-menu__overlay--hidden">
+            <ui:VisualElement class="main-menu__options stone--surface">
+                <ui:VisualElement class="main-menu__options-section stone--frame">
+                    <ui:Label text="OPCJE" class="main-menu__heading stone__recess stone__text" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="main-menu__options-section stone--frame">
+                    <ui:VisualElement class="main-menu__volume stone__recess">
+                        <ui:VisualElement class="main-menu__volume-heading">
+                            <ui:Label text="Muzyka" class="stone__text" />
+                            <ui:Label name="music-value" text="100%" class="main-menu__volume-value stone__text" />
+                        </ui:VisualElement>
+                        <ui:SliderInt name="music-volume" low-value="0" high-value="100" value="100" class="main-menu__slider" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement class="main-menu__options-section stone--frame">
+                    <ui:VisualElement class="main-menu__volume stone__recess">
+                        <ui:VisualElement class="main-menu__volume-heading">
+                            <ui:Label text="Efekty dźwiękowe" class="stone__text" />
+                            <ui:Label name="sfx-value" text="100%" class="main-menu__volume-value stone__text" />
+                        </ui:VisualElement>
+                        <ui:SliderInt name="sfx-volume" low-value="0" high-value="100" value="100" class="main-menu__slider" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:Button name="close-options" text="Wróć" class="stone__text stone-button main-menu__button main-menu__button--last" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

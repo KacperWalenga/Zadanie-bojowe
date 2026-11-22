@@ -11,6 +11,7 @@
     <Style src="project://database/Assets/_ZB/UI/Components/Stats/StatsPanel.uss" />
     <Style src="project://database/Assets/_ZB/UI/Components/Book/BookPanel.uss" />
     <Style src="project://database/Assets/_ZB/UI/Components/Minimap/MinimapPanel.uss" />
+    <Style src="project://database/Assets/_ZB/UI/Components/StoneButton.uss" />
     <Style src="project://database/Assets/_ZB/UI/HUD.uss" />
 
     <ui:VisualElement class="hud stone stone--surface">
@@ -30,12 +31,8 @@
                 <ui:Instance template="MinimapPanel" name="minimap-panel" class="hud__panel hud__panel--hidden" />
 
                 <ui:VisualElement class="hud__tabs">
-                    <ui:Button name="minimap-tab" text="MINIMAPA" class="hud__tab stone__text">
-                        <ui:VisualElement class="hud__tab-frame stone stone--frame" picking-mode="Ignore" />
-                    </ui:Button>
-                    <ui:Button name="journal-tab" text="DZIENNIK" class="hud__tab hud__tab--journal hud__tab--active stone__text">
-                        <ui:VisualElement class="hud__tab-frame stone stone--frame" picking-mode="Ignore" />
-                    </ui:Button>
+                    <ui:Button name="minimap-tab" text="MINIMAPA" class="hud__tab stone__text stone-button" />
+                    <ui:Button name="journal-tab" text="DZIENNIK" class="hud__tab hud__tab--journal stone__text stone-button stone-button--selected" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
